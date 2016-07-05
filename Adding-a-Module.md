@@ -17,7 +17,7 @@ To start writing a module, create a new file in the `lib/modules` folder and nam
 ####Rules for 'rules'
 Modules are populated with Rules, which are function calls that turn a block argument into a method called on every time step. In addition, the other arguments provide information to Graphviz that show the relationships between various attributes, conditions, and rules. Rules should be called as follows:
 
-	rule :rule_name, [:input1, :input2, ...], [:output1, :output2, ...] do |time, entity|
+	rule :rule_name, [:input1, ...], [:output1, ...] do |time, entity|
 		*Your code here*
 	end
 
