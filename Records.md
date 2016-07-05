@@ -7,7 +7,7 @@ The class for the Synthea record can be found in `lib/records/record.rb`. All in
 * `@patient_info` - an attributes hash that contains keys `:deathdate` and `:expired` to track if the patient is dead and the time of death
 * `@present` - a hash that references a resource hash in one of the below arrays. For example, `@present[:diabetes]` yields the hash corresponding to diabetes in `@conditions`. This hash allows for easy lookup to determine if a patient has a certain condition, as well as modification of the condition. Procedures and conditions are being tracked by this hash.
 
-The following are arrays of hashes with each hash containing information on a single instance of the resource
+The following are arrays of hashes where each hash contains information on a single instance of the resource
 * `@encounters` - Each hash is an encounter
 * `@observations` - Each hash is an observation or diagnostic report
 * `@conditions` - Each hash is a condition
