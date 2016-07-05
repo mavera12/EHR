@@ -48,7 +48,7 @@ Below is an example of a record function from the cardiovascular disease module:
 
 To ensure that the record function is called during an encounter, go to `lib/modules/encounters.rb` and add a call to it in the `rule :encounter`
 
-For more information on records, check out the Records wiki page.
+For more information on records, check out the [Records Wiki page](https://github.com/synthetichealth/synthea/wiki/Records).
 
 ####Final Note
 Additional methods, hashes, and other data structures that will be used by the rules and record functions can also be added. It is strongly recommended to adhere to these guidelines, but slight deviations are acceptable as well.
