@@ -66,3 +66,5 @@ For more information on records, check out the [Records Wiki page](https://githu
 
 ####Final Note
 Additional methods, hashes, and other data structures that will be used by the rules and record functions can also be added. It is strongly recommended to adhere to these guidelines, but slight deviations are acceptable as well.
+
+Writing unit tests for new modules is also strongly encouraged.
