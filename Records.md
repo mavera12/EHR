@@ -13,6 +13,8 @@ The following are arrays of hashes where each hash contains information on a sin
 * `@conditions` - Each hash is a condition
 * `@procedures` - Each hash is a procedure
 * `@immunizations` - Each hash is an immunization
+* `@careplans` - Each hash is a care plan
+* `@medications` - Each hash is a medication order (aka prescription)
 
 The resources appended to these arrays should be appended throughout the patient generation process, such that the array contents are always sorted in chronological order.
 
