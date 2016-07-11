@@ -18,11 +18,11 @@ The following are arrays of hashes where each hash contains information on a sin
 
 The resources appended to these arrays should be appended throughout the patient generation process, such that the array contents are always sorted in chronological order.
 
-The functions in this class are called in the modules wherever it is appropriate to write to a patient's record. Refer to these functions when writing calls to them and passing in the appropriate arguments. The fhir_method and ccda_method parameters determine the method in `lib/results/fhir.rb` or `lib/results/ccda.rb` that will be called respectively when processing the resource. A symbol that is the name of the fhir/ccda method should be passed in as the arguments for these parameters.
+The functions in this class are called in the modules wherever it is appropriate to write to a patient's record. Refer to these functions when writing calls to them and passing in the appropriate arguments. The `fhir_method` and `ccda_method` parameters determine the method in `lib/results/fhir.rb` or `lib/results/ccda.rb` that will be called respectively when processing the resource. A symbol that is the name of the fhir/ccda method should be passed in as the arguments for these parameters.
 
 ###FHIR Record
 
-The FHIR Record uses the [FHIR Client](https://github.com/fhir-crucible/fhir_client) gem from Crucible to generate a FHIR Record object in Ruby which is exported to JSON format afterwards.
+The FHIR Record uses the [fhir_models](https://github.com/fhir-crucible/fhir_models) gem from Crucible to generate a FHIR Bundle in Ruby which is exported to JSON format afterwards.
 
 `self.convert_to_fhir (entity)` can be called to generate the FHIR record for a patient. This function creates a new FHIR Bundle object, creates the FHIR Patient object, and then loops through the arrays in the Synthea record. Encounters are processed to the FHIR record one at a time. When an encounter is processed, all the other unprocessed events/resource in procedures, conditions, observations, and immunizations that occur before the encounter are written to the FHIR record. This simulates the diagnoses and recording that takes place during medical encounters. 
 
