@@ -36,10 +36,10 @@ Every patient also has an event list object from `event_list.rb`.  This event li
 
 When writing module rules and determining when to track an attribute with the event list or the attribute hash, follow these guidelines:
 
-*Always include the presence/absence/measurement of a condition in the attributes hash when it is acquired or the status of it changes
-*If a new attribute is being added, be careful that the name does not clash with the name of another attribute being tracked to avoid unintentional overwriting
-*If the time something occurs is important, use the event list to record it, such as with the scheduling of [encounters](https://github.com/synthetichealth/synthea/blob/master/lib/modules/encounters.rb)
-*There can be other uses for the event list as well, so feel free to deviate from these guidelines 
+* Always include the presence/absence/measurement of a condition in the attributes hash when it is acquired or the status of it changes
+* If a new attribute is being added, be careful that the name does not clash with the name of another attribute being tracked to avoid unintentional overwriting
+* If the time something occurs is important, use the event list to record it, such as with the scheduling of [encounters](https://github.com/synthetichealth/synthea/blob/master/lib/modules/encounters.rb)
+* There can be other uses for the event list as well, so feel free to deviate from these guidelines 
 
 ####Record functions
 
