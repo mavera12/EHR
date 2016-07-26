@@ -40,3 +40,5 @@ The Guard state and Conditional transition use conditional (boolean) logic.  The
 * And
 * Or
 * Not
+* True
+* False
