@@ -26,9 +26,6 @@ The generic module framework currently supports the following transitions:
 
 * Direct
 * Distributed
-
-The following transitions are also planned for future implementation:
-
 * Conditional
 
 # Logic
