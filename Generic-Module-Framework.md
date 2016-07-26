@@ -12,6 +12,7 @@ The generic module framework currently supports the following states:
 * ConditionOnset
 * MedicationOrder
 * Procedure
+* Death
 
 The following states are also planned for future implementation:
 
