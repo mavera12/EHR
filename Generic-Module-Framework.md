@@ -2,23 +2,9 @@ Synthea contains a framework for defining modules using JSON.  A JSON module con
 
 # States
 
-The generic module framework currently supports the following states:
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [Procedure](#procedure), and [Death](#death).
 
-* Initial
-* Terminal
-* Guard
-* Delay
-* Encounter
-* ConditionOnset
-* MedicationOrder
-* Procedure
-* Death
-
-The following states are also planned for future implementation:
-
-* Lab
-* ConditionEnd
-* MedicationEnd
+The following states are also planned for future implementation: Lab, ConditionEnd, and MedicationEnd.
 
 ## Initial
 
@@ -56,9 +42,9 @@ The `Terminal` state type indicates the end of the module progression.  Once a T
 
 ## Guard
 
-The `Guard` state type indicates a point in the module through which a patient can only pass if they meet certain logical conditions.  For example, a Guard may block a workflow until the patient reaches a certain age, after which the Guard allows the module to continue to progress.  Depending on the condition, a patient may be blocked by a Guard until they die -- in which case they never reach a `Terminal` state.  The Guard state's `allow` property provides the logical condition which must be met to allow the module to continue to the next state.  Please see the _Logic_ section for more information about creating logical conditions.
+The `Guard` state type indicates a point in the module through which a patient can only pass if they meet certain logical conditions.  For example, a Guard may block a workflow until the patient reaches a certain age, after which the Guard allows the module to continue to progress.  Depending on the condition, a patient may be blocked by a Guard until they die -- in which case they never reach a `Terminal` state.  The Guard state's `allow` property provides the logical condition which must be met to allow the module to continue to the next state.  Please see the [Logic](#logic) section for more information about creating logical conditions.
 
-Guard states are similar to conditional transitions in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time cycle until the condition passes, at which point it progresses to the next state.
+Guard states are similar to [conditional transitions](#conditional) in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time cycle until the condition passes, at which point it progresses to the next state.
 
 **Supported Properties**
 
@@ -138,7 +124,7 @@ The following is an example of a Delay state that delays at least 5 days and at 
 
 ## Encounter
 
-The `Encounter` state type indicates a point in the module where an encounter should take place.  Encounters are important in Synthea because they are generally the mechanism through which the actual patient record is updated (a disease is diagnosed, a medication is prescribed, etc).  The generic module framework supports integration with scheduled wellness encounters from Synthea's _Encounters_ module, as well as creation of new stand-alone encounters.
+The `Encounter` state type indicates a point in the module where an encounter should take place.  Encounters are important in Synthea because they are generally the mechanism through which the actual patient record is updated (a disease is diagnosed, a medication is prescribed, etc).  The generic module framework supports integration with scheduled wellness encounters from Synthea's [Encounters](https://github.com/synthetichealth/synthea/blob/master/lib/modules/encounters.rb) module, as well as creation of new stand-alone encounters.
 
 **Scheduled Wellness Encounters vs. Standalone Encounters**
 
@@ -324,11 +310,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 
 # Transitions
 
-The generic module framework currently supports the following transitions:
-
-* Direct
-* Distributed
-* Conditional
+The generic module framework currently supports the following transitions: [Direct](#direct), [Distributed](#distributed), and [Conditional](#conditional).
 
 ## Direct
 
@@ -383,7 +365,7 @@ The following example demonstrates a state that should transition to the "Foo" s
 
 `Conditional` transitions will transition to one of several possible states based on conditional logic.  A `conditional_transition` consists of an array of `condition`/`transition` pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition to its corresponding `transition` state.  The last element in the `condition_transition` array may contain only a `transition` (with no `condition`) to indicate a fallback transition when all other conditions are `false`.
 
-Please see the _Logic_ section for more information about creating logical conditions.
+Please see the [Logic](#logic) section for more information about creating logical conditions.
 
 **Example**
 
@@ -416,15 +398,7 @@ The following example demonstrates a state that should transition to the "Foo" s
 
 # Logic
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported:
-
-* Gender
-* Age
-* And
-* Or
-* Not
-* True
-* False
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
@@ -597,7 +571,7 @@ The following False condition always returns `false`.
 }
 ```
 
-# Graphing a Modules Workflow
+# Complete Module Example: Examplitis
 
 The [synthea_graphviz](https://github.com/synthetichealth/synthea_graphviz) tool will generate diagrams for all generic modules found in _lib/generic/modules/_.  The following is an example diagram representing a complete module for a made up disease: Examplitis.
 
@@ -747,6 +721,52 @@ The above diagram was generated based on the following JSON module file:
         }
     }
 }
+```
+
+# Logging
+
+The generic module framework supports simple logging to show how patients progress through modules.  When enabled, a table will be printed to standard out when each patient reaches a `Terminal` state in the workflow.  _(Note that if a patient never reaches a `Terminal` state, then that patients table will not be generated)._
+
+Logging is disabled by default.  To enable logging, turn it on in the _config/synthea.yml_ file:
+```yaml
+  generic:
+    log: true
+```
+
+**Examples From the Examplitis Module**
+
+The following example shows the log of a patient who was female, so she went from "Initial" directly to "Terminal".
+
+```
+/===============================================================================
+| Examplitis Log
+|===============================================================================
+| Entered                   | Exited                    | State
+|---------------------------|---------------------------|-----------------------
+| 1980-02-02T19:59:42-05:00 | 1980-02-02T19:59:42-05:00 | Initial
+| 1980-02-02T19:59:42-05:00 |                           | Terminal
+\===============================================================================
+```
+
+As opposed the the previous example, this example shows the log of a patient who acquired Examplitis and ultimately needed surgery.  Since he went from "Examplotomy" to "Terminal", however, we know he did not _die_ of Examplitis.
+
+```
+/===============================================================================
+| Examplitis Log
+|===============================================================================
+| Entered                   | Exited                    | State
+|---------------------------|---------------------------|-----------------------
+| 1957-06-28T18:44:14-04:00 | 1957-06-28T18:44:14-04:00 | Initial
+| 1957-06-28T18:44:14-04:00 | 1998-06-26T18:44:14-04:00 | Age_Guard
+| 1998-06-26T18:44:14-04:00 | 2005-06-26T18:44:14-04:00 | Pre_Examplitis
+| 2005-06-26T18:44:14-04:00 | 2005-06-26T18:44:14-04:00 | Examplitis
+| 2005-06-26T18:44:14-04:00 | 2005-08-30T00:54:57-04:00 | Wellness_Encounter
+| 2005-08-30T00:54:57-04:00 | 2005-08-30T00:54:57-04:00 | Examplitol
+| 2005-08-30T00:54:57-04:00 | 2008-07-30T00:54:57-04:00 | Pre_Examplotomy
+| 2008-07-30T00:54:57-04:00 | 2008-07-30T00:54:57-04:00 | Examplotomy_Encounter
+| 2008-07-30T00:54:57-04:00 | 2008-07-30T00:54:57-04:00 | Examplotomy
+| 2008-07-30T00:54:57-04:00 |                           | Terminal
+\===============================================================================
 ```
 
 # Relevant Files and Paths
