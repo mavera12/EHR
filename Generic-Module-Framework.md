@@ -426,6 +426,12 @@ The Guard state and Conditional transition use conditional (boolean) logic.  The
 * True
 * False
 
+The following condition types should be considered for future versions:
+
+* Attribute: check if a patient attribute is present or compare it against a value
+* PriorEvent: check if a patient event occurred
+* PriorState: check if a specific state is in the module's state history
+
 ## Gender
 
 The `Gender` condition type tests the patient's gender.
