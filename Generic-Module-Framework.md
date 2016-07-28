@@ -148,13 +148,11 @@ An Encounter state without the `wellness` property set will be processed and rec
 
 **Encounters and Related Events**
 
-Encounters are typically the mechanism through which a patient's record will be updated.  This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter.  When an Encounter state is successfully processed, it will look through the previously processed states for un-recorded ConditionOnset, MedicationOrder, and Procedure instances that indicate it (by name) as the `target_encounter`.  It will then add the appropriate diagnosis, prescription, and/or procedure to the patient's record.  This is the mechanism through which _previously_ processed states can be added to the patient's record.
+Encounters are typically the mechanism through which a patient's record will be updated.  This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter.  When an Encounter state is successfully processed, it will look through the previously processed states for un-recorded ConditionOnset instances that indicate it (by name) as the `target_encounter`.  If it finds any, it will record the corresponding diagnosis in the patient's record at the time of the encounter.
 
-As soon as the Encounter state is processed, Synthea will continue to progress through the module.  If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., a procedure).
+As soon as the Encounter state is processed, Synthea will continue to progress through the module.  If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., MedicationOrders, Procedures, and Encounter-caused ConditionOnsets).
 
 **Future Implementation Considerations**
-
-It may not be appropriate for previously occurring MedicationOrders or Procedures to be recorded in an encounter.  This is currently implemented for consistency, but should be reconsidered.
 
 Future implementations should also consider a more robust mechanism for defining the length of an encounter and the activities that happen during it.  Currently, encounter activities must start at the same exact time as the encounter start in order to be recorded.  This, however, is unrealistic for multi-day inpatient encounters.
 
@@ -231,6 +229,41 @@ The following is an example of a ConditionOnset that should be diagnosed at the 
 ```
 
 ## MedicationOrder
+
+The `MedicationOrder` state type indicates a point in the module where a medication should be prescribed.  The MedicationOrder state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+
+The `MedicationOrder` also supports identifying a previous `ConditionOnset` as the `reason` for the prescription.
+
+**Future Implementation Considerations**
+
+Currently, the generic module framework does not provide a way to end medications.  There are two ways this could potentially be implemented in the future: (1) by introducing a `MedicationEnd` state, or (2) by introducing a property in `MedicationOrder` to indicate its intended duration.
+
+**Supported Properties**
+
+* **type**: must be "MedicationOrder" _(required)_
+* **target_encounter**: the name of the Encounter state at which this medication should be prescribed.  This Encounter must come before MedicationOrder in the module, but must have the same start time as the MedicationOrder. _(required)_
+* **codes[]**: a list of codes indicating the medication _(at least one required)_
+  * **system**: the code system.  Currently, only `RxNorm` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **reason**: the name of the ConditionOnset state which represents the reason for which the medication is prescribed.  This ConditionOnset must come _before_ the MedicationOrder in the module. _(optional)_
+
+**Example**
+
+The following is an example of a MedicationOrder that should be prescribed at the "Annual_Checkup" Encounter and cite the "Diabetes" ConditionOnset as the reason.
+
+```json
+{
+  "type": "MedicationOrder",
+  "target_encounter": "Annual_Checkup",
+  "codes": [{
+    "system": "RxNorm",
+    "code": "860975",
+    "display": "24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet"
+  }],
+  "reason": "Diabetes"
+}
+```
 
 ## Procedure
 
