@@ -148,7 +148,7 @@ An Encounter state without the `wellness` property set will be processed and rec
 
 **Encounters and Related Events**
 
-Encounters are typically the mechanism through which a patient's record will be updated.  This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter.  When an Encounter state is successfully processed, it will look through the previously processed states for un-recorded ConditionOnset instances that indicate it (by name) as the `target_encounter`.  If it finds any, it will record the corresponding diagnosis in the patient's record at the time of the encounter.
+Encounters are typically the mechanism through which a patient's record will be updated.  This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter.  When an Encounter state is successfully processed, it will look through the previously processed states for un-recorded ConditionOnset instances that indicate it (by name) as the `target_encounter`.  If it finds any, it will record the corresponding diagnosis in the patient's record at the time of the encounter. This is the mechanism for onsetting a disease _before_ it is discovered and diagnosed.
 
 As soon as the Encounter state is processed, Synthea will continue to progress through the module.  If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., MedicationOrders, Procedures, and Encounter-caused ConditionOnsets).
 
@@ -241,7 +241,7 @@ Currently, the generic module framework does not provide a way to end medication
 **Supported Properties**
 
 * **type**: must be "MedicationOrder" _(required)_
-* **target_encounter**: the name of the Encounter state at which this medication should be prescribed.  This Encounter must come before MedicationOrder in the module, but must have the same start time as the MedicationOrder. _(required)_
+* **target_encounter**: the name of the Encounter state at which this medication should be prescribed.  This Encounter must come before the MedicationOrder in the module, but must have the same start time as the MedicationOrder. _(required)_
 * **codes[]**: a list of codes indicating the medication _(at least one required)_
   * **system**: the code system.  Currently, only `RxNorm` is allowed. _(required)_
   * **code**: the code _(required)_
@@ -267,7 +267,60 @@ The following is an example of a MedicationOrder that should be prescribed at th
 
 ## Procedure
 
+The `Procedure` state type indicates a point in the module where a procedure should be performed.  The Procedure state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+
+The `Procedure` also supports identifying a previous `ConditionOnset` as the `reason` for the procedure.
+
+**Future Implementation Considerations**
+
+Currently, the generic module framework does not provide a way to indicate the duration of a procedure.  This would probably be best implemented by simply introducing a property in `Procedure` to indicate its intended duration.
+
+**Supported Properties**
+
+* **type**: must be "Procedure" _(required)_
+* **target_encounter**: the name of the Encounter state at which this procedure should be performed.  This Encounter must come before the Procedure in the module, but must have the same start time as the Procedure. _(required)_
+* **codes[]**: a list of codes indicating the procedure _(at least one required)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **reason**: the name of the ConditionOnset state which represents the reason for procedure.  This ConditionOnset must come _before_ the Procedure in the module. _(optional)_
+
+**Example**
+
+The following is an example of a Procedure that should be performed at the "Inpatient_Encounter" Encounter and cite the "Appendicitis" ConditionOnset as the reason.
+
+```json
+{
+  "type": "Procedure",
+  "target_encounter": "Inpatient_Encounter",
+  "codes": [{
+    "system": "SNOMED-CT",
+    "code": "6025007",
+    "display": "Laparoscopic appendectomy"
+  }],
+  "reason": "Appendicitis"
+}
+```
+
 ## Death
+
+The `Death` state type indicates a point in the module at which the patient dies.  When the Death state is processed, the patient's death is immediately recorded and the patient's `:is_alive` attribute is set to `false`.  The module will continue to progress to the next state(s) for the current cycle, but will not progress any further in future cycles.  Typically, the Death state should transition to a `Terminal` state.
+
+**Implementation Warning**
+
+If a `Death` state is processed after a `Delay`, it may cause inconsistencies in the record.  This is because the `Delay` implementation must _rewind_ time to correctly honor the requested delay duration.  If it rewinds time, and then the patient dies at the rewinded time, then any modules that were processed before the generic module may have created events and records with a timestamp _after_ the patient's death.
+
+**Supported Properties**
+
+* **type**: must be "Death" _(required)_
+
+**Example**
+
+```json
+{
+  "type": "Death"
+}
+```
 
 # Transitions
 
