@@ -596,3 +596,15 @@ The following False condition always returns `false`.
   "condition_type": "False"
 }
 ```
+
+# Relevant Files and Paths
+
+Within the _synthea_ repository, the following files and paths are relevant to the generic module framework:
+
+* **lib/generic/modules/**: the path containing the JSON module files that Synthea should process
+* **lib/generic/context.rb**: the `Context` class definition; responsible for maintaining a modules state definition, state history, and current state for each patient.  The `Context` class also processes states and transitions.
+* **lib/generic/logic.rb**: the `Logic` module implements the methods corresponding to the support logical condition types
+* **lib/generic/states.rb**: the `States` module implements the support state types
+* **modules/generic.rb**: the `Generic` module defines the Synthea `rule` that is executed on every cycle.  It loops through the modules in _lib/generic/modules/_, setting up and running the context for each module.
+* **test/fixtures/generic/*.json**: the test fixtures for all of the generic module framework unit tests
+* **test/generic_*_test.rb**: the unit tests for the generic module framework's context, logic, and state implementations
