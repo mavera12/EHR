@@ -138,6 +138,61 @@ The following is an example of a Delay state that delays at least 5 days and at 
 
 ## Encounter
 
+The `Encounter` state type indicates a point in the module where an encounter should take place.  Encounters are important in Synthea because they are generally the mechanism through which the actual patient record is updated (a disease is diagnosed, a medication is prescribed, etc).  The generic module framework supports integration with scheduled wellness encounters from Synthea's _Encounters_ module, as well as creation of new stand-alone encounters.
+
+**Scheduled Wellness Encounters vs. Standalone Encounters**
+
+An Encounter state with the `wellness` property set to `true` will block until the next scheduled wellness encounter occurs.  Scheduled wellness encounters are managed by the _Encounters_ module in Synthea and, depending on the patient's age, typically occur every 1 - 3 years.  When a scheduled wellness encounter finally does occur, Synthea will search the generic modules for currently blocked Encounter states and will immediately process them (and their subsequent states).  An example where this might be used is for a condition that onsets between encounters, but isn't found and diagnosed until the next regularly scheduled wellness encounter.
+
+An Encounter state without the `wellness` property set will be processed and recorded in the patient record immediately.  Since this creates an encounter, the encounter class and at least one code must be specified in the state configuration.  This is how generic modules can introduce encounters that are not already scheduled by other modules.
+
+**Encounters and Related Events**
+
+Encounters are typically the mechanism through which a patient's record will be updated.  This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter.  When an Encounter state is successfully processed, it will look through the previously processed states for un-recorded ConditionOnset, MedicationOrder, and Procedure instances that indicate it (by name) as the `target_encounter`.  It will then add the appropriate diagnosis, prescription, and/or procedure to the patient's record.  This is the mechanism through which _previously_ processed states can be added to the patient's record.
+
+As soon as the Encounter state is processed, Synthea will continue to progress through the module.  If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., a procedure).
+
+**Future Implementation Considerations**
+
+It may not be appropriate for previously occurring MedicationOrders or Procedures to be recorded in an encounter.  This is currently implemented for consistency, but should be reconsidered.
+
+Future implementations should also consider a more robust mechanism for defining the length of an encounter and the activities that happen during it.  Currently, encounter activities must start at the same exact time as the encounter start in order to be recorded.  This, however, is unrealistic for multi-day inpatient encounters.
+
+**Supported Properties**
+
+* **type**: must be "Encounter"
+* **wellness**: if `true`, indicates that this state should block until a regularly scheduled wellness encounter occurs
+* **class**: indicates the class of the encounter, as defined in the [EncounterClass](http://hl7.org/fhir/DSTU2/valueset-encounter-class.html) value set
+* **codes[]**: a list of codes indicating the encounter type
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed.
+  * **code**: the code
+  * **display**: the human-readable code description
+
+**Examples**
+
+The following is an example of an Encounter state that blocks until a regularly scheduled encounter.
+
+```json
+{
+  "type": "Encounter",
+  "wellness": true
+}
+```
+
+The following is an example of an Encounter state indicating an ED visit.
+
+```json
+{
+  "type": "Encounter",
+  "class": "emergency",
+  "codes": [{
+    "system": "SNOMED-CT",
+    "code": "50849002",
+    "display": "Emergency Room Admission"
+  }]
+}
+```
+
 ## ConditionOnset
 
 ## MedicationOrder
