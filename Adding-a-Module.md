@@ -10,18 +10,22 @@ Modules implement the core functionality of Synthea. Each module models a specif
 
 See the existing modules for more in-depth examples beyond what is provided on this page.
 
-To start writing a module, create a new file in the `lib/modules` folder and namespace it as follows:
+To start writing a module, create a new Ruby `.rb` file in the `lib/modules` folder and namespace it as follows:
 
+```ruby
 	Module Synthea
 		Module Modules
 			Class YourModuleName < Synthea::Rules
+```
 
 ####Rules for 'rules'
 Modules are populated with Rules, which are function calls that turn a block argument into a method called on every time step. In addition, the other arguments provide information to Graphviz that show the relationships between various attributes, conditions, and rules. Rules should be called as follows:
 
+```ruby
 	rule :rule_name, [:input1, ...], [:output1, ...] do |time, entity|
-		*Your code here*
+		# Your code goes here
 	end
+```
 
 * The first three arguments actually have no effect on the rule method itself, they are only used as metadata for creating a flow diagram in GraphViz.
 * The first argument is a symbol with the name of the rule.
@@ -52,6 +56,7 @@ Most modules will produce attributes/conditions that will be recorded in a patie
 
 Below is an example of a record function from the cardiovascular disease module:
 
+```ruby
 	def self.perform_encounter(entity, time)
 	  [:coronary_heart_disease, :atrial_fibrillation].each do |diagnosis|
 	    if entity[diagnosis] && !entity.record_synthea.present[diagnosis]
@@ -59,7 +64,7 @@ Below is an example of a record function from the cardiovascular disease module:
 	    end
 	  end
 	end
-
+```
 To ensure that the record function is called during an encounter, go to `lib/modules/encounters.rb` and add a call to it in the `rule :encounter`
 
 For more information on records, check out the [Records Wiki page](https://github.com/synthetichealth/synthea/wiki/Records).
