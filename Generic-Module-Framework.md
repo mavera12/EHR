@@ -26,7 +26,7 @@ The `Initial` state type is the first state that is processed in a generic modul
 
 **Supported Properties**
 
-* **type**: must be "Initial"
+* **type**: must be "Initial" _(required)_
 
 **Example**
 
@@ -44,7 +44,7 @@ The `Terminal` state type indicates the end of the module progression.  Once a T
 
 **Supported Properties**
 
-* **type**: must be "Terminal"
+* **type**: must be "Terminal" _(required)_
 
 **Example**
 
@@ -62,8 +62,8 @@ Guard states are similar to conditional transitions in some ways, but also have 
 
 **Supported Properties**
 
-* **type**: must be "Guard"
-* **allow**: the condition under which the Guard allows the module to progress to the next state; otherwise the module remains at the Guard state.
+* **type**: must be "Guard" _(required)_
+* **allow**: the condition under which the Guard allows the module to progress to the next state; otherwise the module remains at the Guard state _(required)_
 
 **Example**
 
@@ -100,14 +100,14 @@ Synthea generation occurs in time cycles; currently 7-day cycles.  This means th
 
 **Supported Properties**
 
-* **type**: must be "Delay"
-* **exact**: an exact amount of time to delay
-  * **quantity**: the number of _units_ to delay (e.g., 4)
-  * **unit**: the unit of time pertaining to the _quantity_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`.
-* **range**: a range indicating the allowable amounts of delay.  The actual delay time will be chosen randomly from the range.
-  * **low**: the lowest number (inclusive) of _units_ to delay (e.g., 5)
-  * **high**: the highest number (inclusive) of _units_ to delay (e.g., 7)
-  * **unit**: the unit of time pertaining to the _range_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`.
+* **type**: must be "Delay" _(required)_
+* **exact**: an exact amount of time to delay _(required if `range` is not set)_
+  * **quantity**: the number of _units_ to delay (e.g., 4) _(required)_
+  * **unit**: the unit of time pertaining to the _quantity_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`. _(required)_
+* **range**: a range indicating the allowable amounts of delay.  The actual delay time will be chosen randomly from the range. _(required if `exact` is not set)_
+  * **low**: the lowest number (inclusive) of _units_ to delay (e.g., 5) _(required)_
+  * **high**: the highest number (inclusive) of _units_ to delay (e.g., 7) _(required)_
+  * **unit**: the unit of time pertaining to the _range_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`. _(required)_
 
 **Examples**
 
@@ -160,13 +160,13 @@ Future implementations should also consider a more robust mechanism for defining
 
 **Supported Properties**
 
-* **type**: must be "Encounter"
-* **wellness**: if `true`, indicates that this state should block until a regularly scheduled wellness encounter occurs
-* **class**: indicates the class of the encounter, as defined in the [EncounterClass](http://hl7.org/fhir/DSTU2/valueset-encounter-class.html) value set
-* **codes[]**: a list of codes indicating the encounter type
-  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed.
-  * **code**: the code
-  * **display**: the human-readable code description
+* **type**: must be "Encounter" _(required)_
+* **wellness**: if `true`, indicates that this state should block until a regularly scheduled wellness encounter occurs _(required if `class` and `codes` are not set)_
+* **class**: indicates the class of the encounter, as defined in the [EncounterClass](http://hl7.org/fhir/DSTU2/valueset-encounter-class.html) value set _(required if `wellness` is not set)_
+* **codes[]**: a list of codes indicating the encounter type _(at least one required if `wellness` is not set)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
 
 **Examples**
 
@@ -194,6 +194,41 @@ The following is an example of an Encounter state indicating an ED visit.
 ```
 
 ## ConditionOnset
+
+The `ConditionOnset` state type indicates a point in the module where the patient acquires a condition.  This is _not_ necessarily the same as when the condition is diagnosed and recorded in the patient's record.  In fact, it is possible for a condition to onset but never be discovered.
+
+If the ConditionOnset state's `target_encounter` is set to the name of a future encounter, then the condition will be diagnosed when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the condition will only be diagnosed if the ConditionOnset start time is the same as the encounter's start time.  See the Encounter section above for more details.
+
+**Future Implementation Considerations**
+
+Although the generic module framework supports a distinction between a condition's onset date and diagnosis date, currently only the diagnosis date is recorded.  In the future, the `Synthea::Output::Record::condition` method should be updated to support an onset date.
+
+Currently, the generic module framework does not provide a way to resolve (or abate) conditions.  There are two ways this could potentially be implemented in the future: (1) by introducing a `ConditionEnd` state (recommended), or (2) by introducing a property in `ConditionOnset` to indicate its intended duration.
+
+**Supported Properties**
+
+* **type**: must be "ConditionOnset" _(required)_
+* **target_encounter**: the name of the Encounter state at which this condition should be diagnosed and recorded _(optional)_
+* **codes[]**: a list of codes indicating the condition _(at least one required)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+
+**Example**
+
+The following is an example of a ConditionOnset that should be diagnosed at the "ED_Visit" Encounter.
+
+```json
+{
+  "type": "ConditionOnset",
+  "target_encounter": "ED_Visit",
+  "codes": [{
+    "system": "SNOMED-CT",
+    "code": "47693006",
+    "display": "Rupture of appendix"
+  }]
+}
+```
 
 ## MedicationOrder
 
