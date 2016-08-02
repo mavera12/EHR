@@ -290,7 +290,7 @@ The following is an example of a Procedure that should be performed at the "Inpa
 
 ## Death
 
-The `Death` state type indicates a point in the module at which the patient dies.  When the Death state is processed, the patient's death is immediately recorded and the patient's `:is_alive` attribute is set to `false`.  The module will continue to progress to the next state(s) for the current cycle, but will not progress any further in future cycles.  Typically, the Death state should transition to a `Terminal` state.
+The `Death` state type indicates a point in the module at which the patient dies.  When the Death state is processed, the patient's death is immediately recorded and the patient's `:is_alive` attribute is set to `false`.  The module will continue to progress to the next state(s) for the current time-step, but will not progress any further in future time-steps.  Typically, the Death state should transition to a `Terminal` state.
 
 **Implementation Warning**
 
@@ -779,6 +779,6 @@ Within the _synthea_ repository, the following files and paths are relevant to t
 * **lib/generic/context.rb**: the `Context` class definition; responsible for maintaining a modules state definition, state history, and current state for each patient.  The `Context` class also processes states and transitions.
 * **lib/generic/logic.rb**: the `Logic` module implements the methods corresponding to the support logical condition types
 * **lib/generic/states.rb**: the `States` module implements the support state types
-* **modules/generic.rb**: the `Generic` module defines the Synthea `rule` that is executed on every cycle.  It loops through the modules in _lib/generic/modules/_, setting up and running the context for each module.
+* **modules/generic.rb**: the `Generic` module defines the Synthea `rule` that is executed on every time-step.  It loops through the modules in _lib/generic/modules/_, setting up and running the context for each module.
 * **test/fixtures/generic/*.json**: the test fixtures for all of the generic module framework unit tests
 * **test/generic_*_test.rb**: the unit tests for the generic module framework's context, logic, and state implementations
