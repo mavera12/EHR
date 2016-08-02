@@ -1,4 +1,4 @@
-Synthea contains a framework for defining modules using JSON.  A JSON module configuration describes a progression of states and the transitions between them.  On each Synthea generation "cycle", the generic framework processes states one at a time to trigger conditions, encounter, medications, and other clinical events.
+Synthea contains a framework for defining modules using JSON.  A JSON module configuration describes a progression of states and the transitions between them.  On each Synthea generation time-step, the generic framework processes states one at a time to trigger conditions, encounter, medications, and other clinical events.
 
 # States
 
@@ -44,7 +44,7 @@ The `Terminal` state type indicates the end of the module progression.  Once a T
 
 The `Guard` state type indicates a point in the module through which a patient can only pass if they meet certain logical conditions.  For example, a Guard may block a workflow until the patient reaches a certain age, after which the Guard allows the module to continue to progress.  Depending on the condition, a patient may be blocked by a Guard until they die -- in which case they never reach a `Terminal` state.  The Guard state's `allow` property provides the logical condition which must be met to allow the module to continue to the next state.  Please see the [Logic](#logic) section for more information about creating logical conditions.
 
-Guard states are similar to [conditional transitions](#conditional) in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time cycle until the condition passes, at which point it progresses to the next state.
+Guard states are similar to [conditional transitions](#conditional) in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time-step until the condition passes, at which point it progresses to the next state.
 
 **Supported Properties**
 
@@ -82,7 +82,7 @@ The `Delay` state type introduces a pre-configured temporal delay in the module'
 
 **Implementation Detail**
 
-Synthea generation occurs in time cycles; currently 7-day cycles.  This means that if a module is processed on a given date, the next time it is processed will be exactly 7 days later.  If a delay expiration falls between cycles (e.g., day 3 of a 7-day cycle), then the first cycle _after_ the delay expiration will effectively _rewind_ the clock to the delay expiration time and process states using that time.  Once it reaches a state that it can't pass through, it will process it once more using the original (7-day cycle) time.
+Synthea generation occurs in time-steps; currently defaults in the configuration to 7-days.  This means that if a module is processed on a given date, the next time it is processed will be exactly 7 days later.  If a delay expiration falls between time-steps (e.g., day 3 of a 7-day time-step), then the first time-step _after_ the delay expiration will effectively _rewind_ the clock to the delay expiration time and process states using that time.  Once it reaches a state that it can't pass through, it will process it once more using the original (7-day time-step) time.
 
 **Supported Properties**
 
