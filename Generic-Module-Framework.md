@@ -577,7 +577,7 @@ The following False condition always returns `false`.
 
 The [synthea_graphviz](https://github.com/synthetichealth/synthea_graphviz) tool will generate diagrams for all generic modules found in _lib/generic/modules/_.  The following is an example diagram representing a complete module for an artificial 'example' disease: Examplitis.
 
-![Examplitis Diagram](https://github.com/synthetichealth/synthea/raw/generic_modules/test/fixtures/generic/example_module_diagram.png)
+![Examplitis Diagram](https://github.com/synthetichealth/synthea/raw/master/test/fixtures/generic/example_module_diagram.png)
 
 The above diagram was generated based on the following JSON module file:
 
