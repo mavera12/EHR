@@ -2,7 +2,7 @@ Synthea contains a framework for defining modules using JSON.  A JSON module con
 
 # States
 
-The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [Procedure](#procedure), and [Death](#death).
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [Procedure](#procedure), and [Death](#death).
 
 The following states are also planned for future implementation: Lab, ConditionEnd, and MedicationEnd.
 
@@ -37,6 +37,22 @@ The `Terminal` state type indicates the end of the module progression.  Once a T
 ```json
 {
   "type": "Terminal"
+}
+```
+
+## Simple
+
+The `Simple` state type indicates a state that performs no additional actions, adds no additional information to the patient entity, and just transitions to the next state.  As an example, this state may be used to chain conditional or distributed transitions, in order to represent complex logic.
+
+**Supported Properties**
+
+* **type**: must be "Simple" _(required)_
+
+**Example**
+
+```json
+{
+  "type": "Simple"
 }
 ```
 
