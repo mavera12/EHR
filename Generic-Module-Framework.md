@@ -326,7 +326,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 
 # Transitions
 
-The generic module framework currently supports the following transitions: [Direct](#direct), [Distributed](#distributed), and [Conditional](#conditional).
+The generic module framework currently supports the following transitions: [Direct](#direct), [Distributed](#distributed), [Conditional](#conditional), and [Complex](#complex).
 
 ## Direct
 
@@ -414,9 +414,62 @@ The following example demonstrates a state that should transition to the "Foo" s
 }
 ```
 
+
+## Complex
+
+`Complex` transitions are a combination of distributed and conditional transitions.  A `complex_transition` consists of an array of `condition`/`distributions` pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition based on its corresponding `distributions`.  The module will then transition to one of the transitions defined in `distributions` according to the same rules as the `distributed_transition`. See [Distributed](#distributed) for more detail. The last element in the `complex_transition` array may contain only a `distributions` (with no `condition`) to indicate a fallback transition when all other conditions are `false`.
+
+If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to a default `Terminal` state.
+
+Please see the [Logic](#logic) section for more information about creating logical conditions.
+
+**Example**
+
+The following example demonstrates a state that for male patients should transition to the "Foo" state with 15% probability and the "Bar" state with 85% probability, and for female patients should transition to the "Baz" state with 75% probability and the "Qux" state with 25% probability.
+
+```json
+{
+    "type": "Initial",
+    "complex_transition": [
+        {
+            "condition": {
+                "condition_type": "Gender",
+                "gender": "M" 
+            },
+            "distributions" : [
+                {
+                    "distribution": 0.15,
+                    "transition": "Foo"
+                },
+                {
+                    "distribution": 0.85,
+                    "transition": "Bar"
+                }
+            ]
+        },
+        {
+            "condition": {
+                "condition_type": "Gender",
+                "gender": "F" 
+            },
+            "distributions" : [
+                {
+                    "distribution": 0.75,
+                    "transition": "Baz"
+                },
+                {
+                    "distribution": 0.25,
+                    "transition": "Qux"
+                }
+            ]
+        }
+    ]
+}
+```
+
 # Logic
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Socioeconomic Status](#socioeconomic-status),  [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
@@ -467,6 +520,28 @@ The following Age condition will return `true` if the patient is 40 years old or
   "unit": "years"
 }
 ```
+
+
+## Socioeconomic Status
+
+The `Socioeconomic Status` condition type tests the patient's socioeconomic status. Socioeconomic status is based on income, education, and occupation, and is categorized in Synthea as "High", "Medium", or "Low".
+
+**Supported Properties**
+
+* **condition_type**: must be "Socioeconomic Status" _(required)_
+* **category**: the gender to test for.  Synthea currently defines the following categories: `High`, `Middle`, or `Low`. _(required)_
+
+**Example**
+
+The following Socioeconomic Status condition will return `true` if the patient is "Middle" Socioeconomic Status; `false` otherwise.
+
+```json
+{
+  "condition_type" : "Socioeconomic Status",
+  "category" : "Middle"
+}
+```
+
 
 ## And
 
