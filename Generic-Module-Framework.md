@@ -1,6 +1,6 @@
 Synthea contains a framework for defining modules using JSON.  A JSON module configuration describes a progression of states and the transitions between them.  On each Synthea generation time-step, the generic framework processes states one at a time to trigger conditions, encounter, medications, and other clinical events.
 
-![ear infection](https://cloud.githubusercontent.com/assets/13512036/18751706/fb86bb9c-80ad-11e6-91b1-1b3366778d0d.png)
+![ear infection](https://cloud.githubusercontent.com/assets/13512036/18751952/e054e258-80ae-11e6-9b09-2350ed77b56c.png)
 This simplified example of childhood ear infections shows the flow of a generic module. In this instance, children get ear infections at different rates based on their age, are then diagnosed at an encounter, and then are prescribed either an antibiotic or a painkiller. 
 
 Future plans for the generic module framework include a web interface to allow clinicians or other healthcare professionals to design Synthea modules with no programming experience required.
