@@ -56,7 +56,7 @@ The following example demonstrates a state that should transition to the "Foo" s
 
 If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to a default `Terminal` state.
 
-Please see the [Logic](#logic) section for more information about creating logical conditions.
+Please see the [[Logic|Generic Module Framework: Logic]] section for more information about creating logical conditions.
 
 **Example**
 
@@ -94,7 +94,7 @@ The following example demonstrates a state that should transition to the "Foo" s
 
 If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to a default `Terminal` state.
 
-Please see the [Logic](#logic) section for more information about creating logical conditions.
+Please see the [[Logic|Generic Module Framework: Logic]] section for more information about creating logical conditions.
 
 **Example**
 
