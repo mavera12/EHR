@@ -54,9 +54,9 @@ The `Simple` state type indicates a state that performs no additional actions, a
 
 ## Guard
 
-The `Guard` state type indicates a point in the module through which a patient can only pass if they meet certain logical conditions.  For example, a Guard may block a workflow until the patient reaches a certain age, after which the Guard allows the module to continue to progress.  Depending on the condition, a patient may be blocked by a Guard until they die -- in which case they never reach a `Terminal` state.  The Guard state's `allow` property provides the logical condition which must be met to allow the module to continue to the next state.  Please see the [Logic](#logic) section for more information about creating logical conditions.
+The `Guard` state type indicates a point in the module through which a patient can only pass if they meet certain logical conditions.  For example, a Guard may block a workflow until the patient reaches a certain age, after which the Guard allows the module to continue to progress.  Depending on the condition, a patient may be blocked by a Guard until they die -- in which case they never reach a `Terminal` state.  The Guard state's `allow` property provides the logical condition which must be met to allow the module to continue to the next state.  Please see the [[Logic|Generic Module Framework: Logic]] section for more information about creating logical conditions.
 
-Guard states are similar to [conditional transitions](#conditional) in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time-step until the condition passes, at which point it progresses to the next state.
+Guard states are similar to [[conditional transitions|Generic Module Framework: Transitions#conditional]] in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state.  A Guard state will test the same condition on every time-step until the condition passes, at which point it progresses to the next state.
 
 **Supported Properties**
 
