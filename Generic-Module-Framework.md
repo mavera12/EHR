@@ -2,9 +2,9 @@ Synthea contains a framework for defining modules using JSON.  A JSON module con
 
 # States
 
-The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [Procedure](#procedure), and [Death](#death).
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [SetAttribute](#setattribute), and [Death](#death).
 
-The following states are also planned for future implementation: Lab, ConditionEnd, and MedicationEnd.
+The following states are also planned for future implementation: Lab, ConditionEnd, Symptom.
 
 ## Initial
 
@@ -213,6 +213,7 @@ Currently, the generic module framework does not provide a way to resolve (or ab
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
+* **assign_to_attribute**: The name of the attribute this condition should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
 
@@ -236,10 +237,6 @@ The `MedicationOrder` state type indicates a point in the module where a medicat
 
 The `MedicationOrder` also supports identifying a previous `ConditionOnset` as the `reason` for the prescription.
 
-**Future Implementation Considerations**
-
-Currently, the generic module framework does not provide a way to end medications.  There are two ways this could potentially be implemented in the future: (1) by introducing a `MedicationEnd` state, or (2) by introducing a property in `MedicationOrder` to indicate its intended duration.
-
 **Supported Properties**
 
 * **type**: must be "MedicationOrder" _(required)_
@@ -249,6 +246,7 @@ Currently, the generic module framework does not provide a way to end medication
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **reason**: the name of the ConditionOnset state which represents the reason for which the medication is prescribed.  This ConditionOnset must come _before_ the MedicationOrder in the module. _(optional)_
+* **assign_to_attribute**: The name of the attribute this medication should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
 
@@ -266,6 +264,57 @@ The following is an example of a MedicationOrder that should be prescribed at th
   "reason": "Diabetes"
 }
 ```
+
+
+## MedicationEnd
+
+The `MedicationEnd` state type indicates a point in the module where a currently prescribed medication should be ended. The `MedicationEnd` state supports three ways of specifying the medication to end:
+1. By `codes[]`, specifying the code system, code, and display name of the medication to end, or
+2. By `medication_order`, specifying the name of the `MedicationOrder` state in which the medication was prescribed, or
+3. By `referenced_by_attribute`, specifying the name of the Attribute in which a previous `MedicationOrder` state assigned a medication.
+
+**Supported Properties**
+
+* **type**: must be "MedicationEnd" _(required)_
+* **codes[]**: a list of codes indicating the medication _(optional, required if neither `medication_order` nor `referenced_by_attribute` is set)_
+  * **system**: the code system.  Currently, only `RxNorm` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **medication_order**: the name of the `MedicationOrder` state in which the medication was prescribed _(optional, required if neither `codes[]` nor `referenced_by_attribute` is set)_
+* **referenced_by_attribute**: the name of the Attribute in which a previous `MedicationOrder` state assigned a medication _(optional, required if neither `medication_order` nor `codes[]` is set)_
+* **reason**:  text reason for why the medication is ended. If not provided, defaults to "prescription expired" _(optional)_
+
+**Example**
+
+The following is an example of a MedicationEnd that ends a prescription for Metformin, specified by code:
+
+```json
+{
+  "type": "MedicationEnd",
+  "codes": [{
+    "system": "RxNorm",
+    "code": "860975",
+    "display": "24 HR Metformin hydrochloride 500 MG Extended Release Oral Tablet"
+  }]
+}
+```
+
+The following is an example of a MedicationEnd that ends a prescription for a medication, specified by the name of an attribute where a previous state assigned a value:
+```json
+{
+  "type": "MedicationEnd",
+  "referenced_by_attribute" : "InsulinMed1"
+},
+```
+
+The following is an example of a MedicationEnd that ends a prescription for a medication, specified by the name of the `MedicationOrder` state where the medication was prescribed:
+```json
+{
+  "type": "MedicationEnd",
+  "medication_order" : "Bromocriptine_Start"
+},
+```
+
 
 ## Procedure
 
@@ -286,6 +335,7 @@ Currently, the generic module framework does not provide a way to indicate the d
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **reason**: the name of the ConditionOnset state which represents the reason for procedure.  This ConditionOnset must come _before_ the Procedure in the module. _(optional)_
+* **assign_to_attribute**: The name of the attribute this procedure should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
 
@@ -303,6 +353,39 @@ The following is an example of a Procedure that should be performed at the "Inpa
   "reason": "Appendicitis"
 }
 ```
+
+## SetAttribute
+
+The `SetAttribute` state type indicates a point in the module that sets a specified value on the patient entity. In addition to the `assign_to_attribute` property on `MedicationOrder`/`ConditionOnset`/etc states, this state allows for arbitrary text or values to be set on an Attribute, or for the Attribute to be reset.
+
+**Supported Properties**
+
+* **type**: must be "SetAttribute" _(required)_
+* **attribute**: the name of the Attribute to set the _value_ for. _(required)_
+* **value**: the text or other value to set for this _attribute_. If not provided, the _value_ is set to nil. _(optional)_
+
+**Example**
+
+The following is an example of a SetAttribute that sets the value of Attribute 'Opioid Prescription' to 'Vicodin':
+
+```json
+{
+  "type": "SetAttribute",
+  "attribute": "Opioid Prescription",
+  "value": "Vicodin"
+}
+```
+
+The following is an example of a SetAttribute that sets the value of Attribute 'Opioid Prescription' to nil, or no value:
+
+```json
+{
+  "type": "SetAttribute",
+  "attribute": "Opioid Prescription"
+}
+```
+
+
 
 ## Death
 
@@ -469,11 +552,10 @@ The following example demonstrates a state that for male patients should transit
 
 # Logic
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Socioeconomic Status](#socioeconomic-status),  [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Attribute](#attribute) [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
-* Attribute: check if a patient attribute is present or compare it against a value
 * PriorEvent: check if a patient event occurred
 * PriorState: check if a specific state is in the module's state history
 
@@ -522,6 +604,29 @@ The following Age condition will return `true` if the patient is 40 years old or
 ```
 
 
+## Date
+
+The `Date` condition type tests the current year being simulated.  For example, this may be used to drive different logic depending on the suggested medications or procedures of different time periods, or model different frequency of conditions.
+
+**Supported Properties**
+
+* **condition_type**: must be "Date" _(required)_
+* **operator**: indicates how to compare the current year of simulation against the _year_.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, and `!=`. _(required)_
+* **year**: the year to test the current year of simulation againt against _(required)_
+
+**Example**
+
+The following Date condition will return `true` if the year is 1990 or later.
+
+```json
+{
+  "condition_type": "Year",
+  "operator": ">=",
+  "year": 1990
+}
+```
+
+
 ## Socioeconomic Status
 
 The `Socioeconomic Status` condition type tests the patient's socioeconomic status. Socioeconomic status is based on income, education, and occupation, and is categorized in Synthea as "High", "Medium", or "Low".
@@ -541,6 +646,41 @@ The following Socioeconomic Status condition will return `true` if the patient i
   "category" : "Middle"
 }
 ```
+
+## Attribute
+
+The `Attribute` condition type tests a named attribute on the patient entity.
+
+**Supported Properties**
+
+* **condition_type**: must be "Attribute" _(required)_
+* **attribute**: the name of the attribute to test against _(required)_
+* **operator**: indicates how to compare the actual attribute value against the value.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, `!=`, `is nil`, and `is not nil`. _(required)_
+* **value**: the value to test the _attribute_ value against _(required, unless `operator` is `is nil` or `is not nil`)_
+
+**Example**
+
+The following Attribute condition will return `true` if attribute 'Opioid Prescription' on the patient is set to 'Vicodin'.
+
+```json
+{
+  "condition_type": "Attribute",
+  "attribute": "Opioid Prescription",
+  "operator": "==",
+  "value": "Vicodin"
+}
+```
+
+The following Attribute condition will return `true` if attribute 'Opioid Prescription' on the patient has any value that is not nil.
+
+```json
+{
+  "condition_type": "Attribute",
+  "attribute": "Opioid Prescription",
+  "operator": "is not nil"
+}
+```
+
 
 
 ## And
