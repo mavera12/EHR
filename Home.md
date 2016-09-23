@@ -17,7 +17,7 @@ If you are new to open source, please check out [github's guide to contributing]
   3. Alzheimer Disease
   4. COPD
   5. Cerebrovascular Disease
-  6. Road Injuries (**in progress**)
+  6. Injuries ([done](https://github.com/synthetichealth/synthea/blob/master/lib/generic/modules/injuries.json))
   7. Self-harm
   8. Diabetes ([done](https://github.com/synthetichealth/synthea/blob/master/lib/modules/metabolic_syndrome.rb))
   9. Colorectal Cancer
