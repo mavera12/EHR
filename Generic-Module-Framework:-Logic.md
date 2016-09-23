@@ -59,7 +59,7 @@ The `Date` condition type tests the current year being simulated.  For example, 
 
 * **condition_type**: must be "Date" _(required)_
 * **operator**: indicates how to compare the current year of simulation against the _year_.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, and `!=`. _(required)_
-* **year**: the year to test the current year of simulation againt against _(required)_
+* **year**: the year to test the current year of simulation against _(required)_
 
 **Example**
 
