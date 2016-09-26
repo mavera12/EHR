@@ -1,4 +1,4 @@
-The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [SetAttribute](#setattribute), and [Death](#death).
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
 
 The following states are also planned for future implementation: Lab, ConditionEnd, Symptom.
 
@@ -347,6 +347,50 @@ The following is an example of a Procedure that should be performed at the "Inpa
     "display": "Laparoscopic appendectomy"
   }],
   "reason": "Appendicitis"
+}
+```
+
+## Symptom
+
+The `Symptom` state type adds or updates a patient's symptom. Synthea tracks symptoms in order to drive a patient's encounters, on a scale of 1-100. A symptom may be tracked for multiple conditions, in these cases only the highest value is considered. See also the Symptom logic.
+
+
+**Supported Properties**
+
+* **type**: must be "Symptom" _(required)_
+* **symptom**: the name of the symptom being tracked _(required)_
+* **cause**: the underlying cause of the symptom. Defaults to the name of the module if not set. _(optional)_
+* **exact**: an exact value to score this symptom _(required if `range` is not set)_
+  * **quantity**: the score to set (e.g., 4) _(required)_
+* **range**: a range indicating the allowable symptom values.  The actual value will be chosen randomly from the range. _(required if `exact` is not set)_
+  * **low**: the lowest number (inclusive) allowed (e.g., 5) _(required)_
+  * **high**: the highest number (inclusive) allowed (e.g., 7) _(required)_
+
+**Examples**
+
+The following is an example of a Symptom state that sets the symptom value for Chest Pain to be exactly 27.
+
+```json
+{
+  "type": "Symptom",
+  "symptom" : "Chest Pain",
+  "cause" : "Asthma",
+  "exact": {
+    "quantity": 27
+  }
+}
+```
+
+The following is an example of a Symptom state that sets the symptom value for Chest Pain to be between 90 and 100.
+```json
+{
+  "type": "Symptom",
+  "symptom" : "Chest Pain",
+  "cause" : "Heart Attack",
+  "range": {
+    "low": 90,
+    "high": 100
+  }
 }
 ```
 
