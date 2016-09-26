@@ -1,10 +1,9 @@
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Attribute](#attribute) [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
 * PriorEvent: check if a patient event occurred
-* PriorState: check if a specific state is in the module's state history
 
 ## Gender
 
@@ -93,6 +92,51 @@ The following Socioeconomic Status condition will return `true` if the patient i
   "category" : "Middle"
 }
 ```
+
+## Symptom
+
+The `Symptom` condition type tests a patient's current symptoms. Synthea tracks symptoms in order to drive a patient's encounters, on a scale of 1-100. A symptom may be tracked for multiple conditions, in these cases only the highest value is considered. See also the [[Symptom|Generic Module Framework: States#symptom]] state.
+
+**Supported Properties**
+
+* **condition_type**: must be "Symptom" _(required)_
+* **symptom**: the name of the symptom to test against. _(required)_
+* **operator**: indicates how to compare the current symptom score against the _value_.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, and `!=`. _(required)_
+* **value**: the value to test the current symptom score against _(required)_
+
+**Example**
+
+The following Symptom condition will return `true` if the patient's symptom score for "Chest Pain" is greater than or equal to 50
+
+```json
+{
+  "condition_type": "Symptom",
+  "symptom" : "Chest Pain",
+  "operator": ">=",
+  "value": 50
+}
+```
+
+## PriorState
+
+The `PriorState` condition type tests the progression of the patient through the module, and checks if a specific state has already been processed (in other words, the state is in the module's state history). 
+
+**Supported Properties**
+
+* **condition_type**: must be "PriorState" _(required)_
+* **name**: the name of the state to check for in the module's history. _(required)_
+
+**Example**
+
+The following PriorState condition will return `true` if the patient has already passed through a state called 'EmergencyEncounter', false otherwise.
+
+```json
+{
+  "condition_type" : "PriorState",
+  "name" : "EmergencyEncounter"
+}
+```
+
 
 ## Attribute
 
