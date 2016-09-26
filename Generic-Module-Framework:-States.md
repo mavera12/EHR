@@ -1,6 +1,6 @@
 The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
 
-The following states are also planned for future implementation: Lab, ConditionEnd, Symptom.
+The following states are also planned for future implementation: Lab, ConditionEnd.
 
 ## Initial
 
