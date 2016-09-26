@@ -12,7 +12,7 @@ The `Initial` state type is the first state that is processed in a generic modul
 
 **Example**
 
-_Please note that, for simplicity, state examples in this document will not include any transition properties.  See the Transitions section for information about transitions._
+_Please note that, for simplicity, state examples in this document will not include any transition properties.  See the [[Transitions|Generic Module Framework: Transitions]] section for information about transitions._
 
 ```json
 {
