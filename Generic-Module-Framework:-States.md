@@ -1,6 +1,6 @@
-The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Observation](#observation), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
 
-The following states are also planned for future implementation: Lab, ConditionEnd.
+The following states are also planned for future implementation: ConditionEnd.
 
 ## Initial
 
@@ -349,6 +349,50 @@ The following is an example of a Procedure that should be performed at the "Inpa
   "reason": "Appendicitis"
 }
 ```
+
+## Observation
+
+The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc.
+
+If the Observation state's `target_encounter` is set to the name of a future encounter, then the observation will be recorded when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the observation will only be recorded if the Observation start time is the same as the encounter's start time.  See the [Encounter](#encounter) section above for more details.
+
+**Supported Properties**
+
+* **type**: must be "Observation" _(required)_
+* **target_encounter**: the name of the Encounter state at which this observation should be recorded _(required)_
+* **codes[]**: a list of codes indicating the observation_(at least one required)_
+  * **system**: the code system.  Currently, only `LOINC` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **unit**: the name of the unit of measure in which the observation is recorded _(required)_
+* **exact**: an exact value to record for this observation_(required if `range` is not set)_
+  * **quantity**: the score to set (e.g., 4) _(required)_
+* **range**: a range indicating the allowable observation values.  The actual value will be chosen randomly from the range. _(required if `exact` is not set)_
+  * **low**: the lowest number (inclusive) allowed (e.g., 5) _(required)_
+  * **high**: the highest number (inclusive) allowed (e.g., 7) _(required)_
+
+
+**Example**
+
+The following is an example of an Observation that should be taken at the "Checkup" Encounter, that will result in an observation of body height between 40 and 60 cm.
+
+```json
+{
+  "type": "Observation",
+  "target_encounter": "Checkup",
+  "codes": [{
+    "system": "LOINC",
+    "code": "8302-2",
+    "display": "Body Height"
+  }],
+  "unit" : "cm",
+  "range" : {
+    "low" : 40,
+    "high" : 60
+  }
+}
+```
+
 
 ## Symptom
 
