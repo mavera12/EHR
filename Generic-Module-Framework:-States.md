@@ -469,11 +469,9 @@ The following is an example of a SetAttribute that sets the value of Attribute '
 }
 ```
 
-
-
 ## Death
 
-The `Death` state type indicates a point in the module at which the patient dies.  When the Death state is processed, the patient's death is immediately recorded and the patient's `:is_alive` attribute is set to `false`.  The module will continue to progress to the next state(s) for the current time-step, but will not progress any further in future time-steps.  Typically, the Death state should transition to a `Terminal` state.
+The `Death` state type indicates a point in the module at which the patient dies or the patient is given a terminal diagnosis (e.g. "you have 3 months to live").  When the Death state is processed, the patient's death is immediately recorded (e.g. the `alive?` method will return `false`) unless `range` or `exact` attributes are specified, in which case the patient will die sometime in the future.  In either case the module will continue to progress to the next state(s) for the current time-step.  Typically, the Death state should transition to a `Terminal` state.
 
 **Implementation Warning**
 
@@ -482,11 +480,33 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 **Supported Properties**
 
 * **type**: must be "Death" _(required)_
+* **exact**: an exact amount of time left to live _(optional)_
+  * **quantity**: the number of _units_ left to live (e.g., 4) _(required)_
+  * **unit**: the unit of time pertaining to the _quantity_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`. _(required)_
+* **range**: a range indicating the allowable amounts of remaining life.  The actual time will be chosen randomly from the range. _(optional)_
+  * **low**: the lowest number (inclusive) of _units_ to live (e.g., 5) _(required)_
+  * **high**: the highest number (inclusive) of _units_ to live (e.g., 7) _(required)_
+  * **unit**: the unit of time pertaining to the _range_ (e.g., "days").  Valid _unit_ values are: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, and `seconds`. _(required)_
 
 **Example**
+
+The following example is an immediate death.
 
 ```json
 {
   "type": "Death"
+}
+```
+
+This example gives the patient 3 - 5 months to live.
+
+```json
+{
+    "type": "Death",
+    "range": {
+        "low": 3,
+        "high": 5,
+        "unit": "months"
+    }
 }
 ```
