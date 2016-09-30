@@ -1,6 +1,4 @@
-The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Observation](#observation), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
-
-The following states are also planned for future implementation: ConditionEnd.
+The generic module framework currently supports the following states: [Initial](#initial), [Terminal](#terminal), [Guard](#guard), [Simple](#simple), [Delay](#delay), [Encounter](#encounter), [ConditionOnset](#conditiononset), [ConditionEnd](#conditionend), [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend), [Procedure](#procedure), [Observation](#observation), [Symptom](#symptom), [SetAttribute](#setattribute), and [Death](#death).
 
 ## Initial
 
@@ -199,8 +197,6 @@ If the ConditionOnset state's `target_encounter` is set to the name of a future 
 
 Although the generic module framework supports a distinction between a condition's onset date and diagnosis date, currently only the diagnosis date is recorded.  In the future, the `Synthea::Output::Record::condition` method should be updated to support an onset date.
 
-Currently, the generic module framework does not provide a way to resolve (or abate) conditions.  There are two ways this could potentially be implemented in the future: (1) by introducing a `ConditionEnd` state (recommended), or (2) by introducing a property in `ConditionOnset` to indicate its intended duration.
-
 **Supported Properties**
 
 * **type**: must be "ConditionOnset" _(required)_
@@ -226,6 +222,56 @@ The following is an example of a ConditionOnset that should be diagnosed at the 
   }]
 }
 ```
+
+
+## ConditionEnd
+
+The `ConditionEnd` state type indicates a point in the module where a currently active condition should be ended. (ex., if the patient has been cured of a disease) The `ConditionEnd` state supports three ways of specifying the condition to end:
+1. By `codes[]`, specifying the code system, code, and display name of the condition to end, or
+2. By `condition_onset`, specifying the name of the `ConditionOnset` state in which the condition was onset, or
+3. By `referenced_by_attribute`, specifying the name of the Attribute in which a previous `ConditionOnset` state assigned a condition.
+
+**Supported Properties**
+
+* **type**: must be "ConditionEnd" _(required)_
+* **codes[]**: a list of codes indicating the condition_(optional, required if neither `condition_onset` nor `referenced_by_attribute` is set)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **condition_onset**: the name of the `ConditionOnset` state in which the condition was acquired_(optional, required if neither `codes[]` nor `referenced_by_attribute` is set)_
+* **referenced_by_attribute**: the name of the Attribute in which a previous `ConditionOnset` state assigned a medication _(optional, required if neither `condition_onset` nor `codes[]` is set)_
+
+**Example**
+
+The following is an example of a ConditionEnd that ends the condition Influenza,  specified by code:
+
+```json
+{
+  "type": "ConditionEnd",
+  "codes": [{
+      "system" : "SNOMED-CT",
+      "code" : "6142004",
+      "display" : "Influenza"
+  }]
+}
+```
+
+The following is an example of a ConditionEnd that ends a condition, specified by the name of an attribute where a previous state assigned a value:
+```json
+{
+  "type": "ConditionEnd",
+  "referenced_by_attribute" : "Diagnosis3"
+},
+```
+
+The following is an example of a ConditionEnd that ends a condition, specified by the name of the `ConditionOnset` state where the condition was acquired:
+```json
+{
+  "type": "ConditionEnd",
+  "condition_onset" : "Pre_Diabetes"
+},
+```
+
 
 ## MedicationOrder
 
