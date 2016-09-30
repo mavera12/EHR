@@ -13,7 +13,7 @@ If you are new to open source, please check out [github's guide to contributing]
 - Contributing disease modules. In particular we are targeting the [Global Burden of Disease (GBD) Top 10 Leading Causes of Years of Life Lost (YLL) for the United States](http://www.healthdata.org/united-states) (listed below), but are interested in any diseases. We prefer that new contributions come in the form of [generic modules](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework).
 
   1. Ischemic Heart Disease ([done](https://github.com/synthetichealth/synthea/blob/master/lib/modules/cardiovascular_disease.rb))
-  2. Lung Cancer (**in progress**)
+  2. Lung Cancer ([done](https://github.com/synthetichealth/synthea/blob/master/lib/generic/modules/lung_cancer.json))
   3. Alzheimer Disease ([done](https://github.com/synthetichealth/synthea/blob/master/lib/generic/modules/dementia.json))
   4. COPD
   5. Cerebrovascular Disease
