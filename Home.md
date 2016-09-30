@@ -14,7 +14,7 @@ If you are new to open source, please check out [github's guide to contributing]
 
   1. Ischemic Heart Disease ([done](https://github.com/synthetichealth/synthea/blob/master/lib/modules/cardiovascular_disease.rb))
   2. Lung Cancer (**in progress**)
-  3. Alzheimer Disease
+  3. Alzheimer Disease ([done](https://github.com/synthetichealth/synthea/blob/master/lib/generic/modules/dementia.json))
   4. COPD
   5. Cerebrovascular Disease
   6. Injuries ([done](https://github.com/synthetichealth/synthea/blob/master/lib/generic/modules/injuries.json))
@@ -26,4 +26,3 @@ If you are new to open source, please check out [github's guide to contributing]
 # Guide to Synthea Projects
 
 - [Synthea](https://github.com/synthethichealth/synthea): the synthetic health record generator.
-- [Synthea Graphviz](https://github.com/synthethichealth/synthea_graphviz): tool to visualize synthea modules as graphs.
