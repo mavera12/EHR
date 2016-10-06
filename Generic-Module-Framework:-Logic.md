@@ -1,5 +1,5 @@
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#activecondition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
@@ -116,6 +116,100 @@ The following Symptom condition will return `true` if the patient's symptom scor
   "value": 50
 }
 ```
+
+
+## Observation
+
+The `Observation` condition type tests the most recent observation of a given type against a given value. 
+
+**Implementation Warnings**
+
+* Synthea does not support conversion between arbitrary units, so all observations of a given type are expected to be made in the same units. 
+* The given observation must have been recorded prior to performing this logical check, unless the `operator` is `is nil` or `is not nil`. Otherwise, the GMF will raise an exception that the observation value cannot be compared as there has been no observation made.
+
+**Supported Properties**
+
+* **condition_type**: must be "Observation" _(required)_
+* **codes[]**: a list of codes indicating the observation(optional, required if `referenced_by_attribute` is not set)_
+  * **system**: the code system.  Currently, only `LOINC` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **referenced_by_attribute**: the name of the Attribute in which a previous `Observation` state recorded an observation _(optional, required if `codes[]` is not set)_
+* **operator**: indicates how to compare the actual attribute value against the value.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, `!=`, `is nil`, and `is not nil`. _(required)_
+* **value**: the value to test the most recent observation value against _(required, unless `operator` is `is nil` or `is not nil`)_
+
+**Example**
+
+The following Observation condition will return `true` if the most recent Observation for LOINC '72107-6' [Mini Mental State Examination] on the patient has a value greater than 22.
+
+```json
+{
+    "condition_type" : "Observation",
+    "codes" : [{
+      "system" : "LOINC",
+      "code" : "72107-6",
+      "display" : "Mini Mental State Examination"
+    }],
+    "operator" : ">",
+    "value" : 22
+}
+```
+
+The following Observation condition will return `true` if the most recent Observation referenced by the attribute 'Diabetes Test Performed' on the patient has any value that is not nil. In other words, if any observation has been made and stored in attribute 'Diabetes Test Performed', this condition will return `true`.
+
+```json
+{
+    "condition_type" : "Observation",
+    "referenced_by_attribute" : "Diabetes Test Performed",
+    "operator" : "is not nil"
+}
+```
+
+
+
+## Active Condition
+
+The `Active Condition` condition type tests whether a given condition is currently diagnosed and active on the patient. 
+
+
+**Future Implementation Considerations**
+
+Currently to check if a condition has been added but not diagnosed, it is possible to use the [PriorState](#priorstate) condition to check if the state has been processed. In the future it may be preferable to add a distinct "Present Condition" logical condition to clearly specify the intent of looking for a present but not diagnosed condition.
+
+**Supported Properties**
+
+* **condition_type**: must be "Active Condition" _(required)_
+* **codes[]**: a list of codes indicating the condition (optional, required if `referenced_by_attribute` is not set)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **referenced_by_attribute**: the name of the Attribute in which a previous `ConditionOnset` state added a condition _(optional, required if `codes[]` is not set)_
+
+
+**Example**
+
+The following Active Condition condition will return `true` if the patient currently has an active diagnosis of SNOMED-CT 73211009 [Diabetes mellitus].
+
+```json
+{
+    "condition_type" : "Active Condition",
+    "codes": [{
+        "system": "SNOMED-CT",
+        "code": "73211009",
+        "display": "Diabetes mellitus"
+    }]
+}
+```
+
+The following Active Conditon condition will return `true` if the condition referenced by the attribute "Alzheimer's Variant" on the patient is currently active. In other words, if any condition has onset and is stored in attribute "Alzheimer's Variant", this condition will return `true`.
+
+```json
+{
+    "condition_type" : "Active Condition",
+    "referenced_by_attribute" : "Alzheimer's Variant"
+}
+```
+
 
 ## PriorState
 
