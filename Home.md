@@ -25,4 +25,4 @@ If you are new to open source, please check out [github's guide to contributing]
 
 # Guide to Synthea Projects
 
-- [Synthea](https://github.com/synthethichealth/synthea): the synthetic health record generator.
+- [Synthea](https://github.com/synthetichealth/synthea): the synthetic health record generator.
