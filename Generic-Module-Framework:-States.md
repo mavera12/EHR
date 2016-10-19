@@ -205,7 +205,7 @@ Although the generic module framework supports a distinction between a condition
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
-* **assign_to_attribute**: The name of the attribute this condition should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
+* **assign\_to\_attribute**: The name of the attribute this condition should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
 
@@ -227,6 +227,7 @@ The following is an example of a ConditionOnset that should be diagnosed at the 
 ## ConditionEnd
 
 The `ConditionEnd` state type indicates a point in the module where a currently active condition should be ended. (ex., if the patient has been cured of a disease) The `ConditionEnd` state supports three ways of specifying the condition to end:
+
 1. By `codes[]`, specifying the code system, code, and display name of the condition to end, or
 2. By `condition_onset`, specifying the name of the `ConditionOnset` state in which the condition was onset, or
 3. By `referenced_by_attribute`, specifying the name of the Attribute in which a previous `ConditionOnset` state assigned a condition.
@@ -239,7 +240,7 @@ The `ConditionEnd` state type indicates a point in the module where a currently 
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **condition_onset**: the name of the `ConditionOnset` state in which the condition was acquired_(optional, required if neither `codes[]` nor `referenced_by_attribute` is set)_
-* **referenced_by_attribute**: the name of the Attribute in which a previous `ConditionOnset` state assigned a medication _(optional, required if neither `condition_onset` nor `codes[]` is set)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `ConditionOnset` state assigned a medication _(optional, required if neither `condition_onset` nor `codes[]` is set)_
 
 **Example**
 
@@ -257,6 +258,7 @@ The following is an example of a ConditionEnd that ends the condition Influenza,
 ```
 
 The following is an example of a ConditionEnd that ends a condition, specified by the name of an attribute where a previous state assigned a value:
+
 ```json
 {
   "type": "ConditionEnd",
@@ -265,6 +267,7 @@ The following is an example of a ConditionEnd that ends a condition, specified b
 ```
 
 The following is an example of a ConditionEnd that ends a condition, specified by the name of the `ConditionOnset` state where the condition was acquired:
+
 ```json
 {
   "type": "ConditionEnd",
@@ -288,7 +291,7 @@ The `MedicationOrder` also supports identifying a previous `ConditionOnset` as t
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **reason**: the name of the ConditionOnset state which represents the reason for which the medication is prescribed.  This ConditionOnset must come _before_ the MedicationOrder in the module. _(optional)_
-* **assign_to_attribute**: The name of the attribute this medication should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
+* **assign\_to\_attribute**: The name of the attribute this medication should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as arbitrary strings.
 
 **Example**
 
@@ -311,6 +314,7 @@ The following is an example of a MedicationOrder that should be prescribed at th
 ## MedicationEnd
 
 The `MedicationEnd` state type indicates a point in the module where a currently prescribed medication should be ended. The `MedicationEnd` state supports three ways of specifying the medication to end:
+
 1. By `codes[]`, specifying the code system, code, and display name of the medication to end, or
 2. By `medication_order`, specifying the name of the `MedicationOrder` state in which the medication was prescribed, or
 3. By `referenced_by_attribute`, specifying the name of the Attribute in which a previous `MedicationOrder` state assigned a medication.
@@ -323,7 +327,7 @@ The `MedicationEnd` state type indicates a point in the module where a currently
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **medication_order**: the name of the `MedicationOrder` state in which the medication was prescribed _(optional, required if neither `codes[]` nor `referenced_by_attribute` is set)_
-* **referenced_by_attribute**: the name of the Attribute in which a previous `MedicationOrder` state assigned a medication _(optional, required if neither `medication_order` nor `codes[]` is set)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `MedicationOrder` state assigned a medication _(optional, required if neither `medication_order` nor `codes[]` is set)_
 * **reason**:  text reason for why the medication is ended. If not provided, defaults to "prescription expired" _(optional)_
 
 **Example**
@@ -342,6 +346,7 @@ The following is an example of a MedicationEnd that ends a prescription for Metf
 ```
 
 The following is an example of a MedicationEnd that ends a prescription for a medication, specified by the name of an attribute where a previous state assigned a value:
+
 ```json
 {
   "type": "MedicationEnd",
@@ -350,6 +355,7 @@ The following is an example of a MedicationEnd that ends a prescription for a me
 ```
 
 The following is an example of a MedicationEnd that ends a prescription for a medication, specified by the name of the `MedicationOrder` state where the medication was prescribed:
+
 ```json
 {
   "type": "MedicationEnd",
@@ -357,6 +363,95 @@ The following is an example of a MedicationEnd that ends a prescription for a me
 },
 ```
 
+## CarePlanStart
+
+The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after a `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details.
+
+The `CarePlanStart` aslo supports identifying a previous `ConditionOnset` as the `reason` for the care plan prescription.
+
+**Supported Properties**
+
+* **type**: must be "CarePlanStart" _(required)_
+* **target_encounter**: the name of the Encounter state at which this care plan should be prescribed.  This Encounter must come before the CarePlanStart in the module, but must have the same start time as the CarePlanStart. _(required)_
+* **codes[]**: a list of codes indicating the care plan _(at least one required)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **activities[]**: a list of activities that the care plan requires _(optional, but recommended)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_ 
+* **reason**: the name of the ConditionOnset state which represents the reason for which the care plan is prescribed.  This ConditionOnset must come _before_ the CarePlanStart in the module. _(optional)_
+* **assign\_to\_attribute**: The name of the attribute this care plan should be referred to by. Attributes allow modules to store, reference, and share care plans, medications, conditions, procedures, etc, as well as arbitrary strings. _(optional)_
+
+**Example**
+
+The following is an example of a CarePlanStart that should be prescribed at the "Annual_Checkup" Encounter and cite the "Diabetes" ConditionOnset as the reason.
+
+```json
+{
+  "type": "CarePlanStart",
+  "target_encounter": "Annual_Checkup",
+  "codes": [{
+    "system": "SNOMED-CT",
+    "code": "698360004",
+    "display": "Diabetes self management plan"
+  }],
+  "reason": "Diabetes"
+}
+```
+
+## CarePlanEnd
+
+The `CarePlanEnd` state type indicates a point in the module where a currently prescribed care plan should be ended. The `CarePlanEnd` state supports three ways of specifying the care plan to end:
+
+1. By `codes[]`, specifying the code system, code, and display name of the care plan to end, or
+2. By `careplan`, specifying the name of the `CarePlanStart` state in which the care plan was prescribed, or
+3. By `referenced_by_attribute`, specifying the name of the Attribute in which a previous `CarePlanStart` state assigned a care plan.
+
+**Supported Properties**
+
+* **type**: must be "CarePlanEnd" _(required)_
+* **codes[]**: a list of codes indicating the medication _(optional, required if neither `careplan` nor `referenced_by_attribute` is set)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **careplan**: the name of the `CarePlanStart` state in which the care plan was prescribed _(optional, required if neither `codes[]` nor `referenced_by_attribute` is set)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `CarePlanStart` state assigned a medication _(optional, required if neither `careplan` nor `codes[]` is set)_
+* **reason**:  text reason for why the care plan is ended. If not provided, defaults to "careplan ended" _(optional)_
+
+**Example**
+
+The following is an example of a CarePlanEnd that ends a prescription for Diabetes self management, specified by code:
+
+```json
+{
+  "type": "CarePlanEnd",
+  "codes": [{
+    "system": "SNOMED-CT",
+    "code": "698360004",
+    "display": "Diabetes self management plan"
+  }]
+}
+```
+
+The following is an example of a CarePlanEnd that ends a prescription for a care plan, specified by the name of an attribute where a previous state assigned a value:
+
+```json
+{
+  "type": "CarePlanEnd",
+  "referenced_by_attribute" : "Diabetes_CarePlan"
+},
+```
+
+The following is an example of a CarePlanEnd that ends a prescription for a care plan, specified by the name of the `CarePlanStart` state where the care plan was prescribed:
+
+```json
+{
+  "type": "CarePlanEnd",
+  "careplan" : "Diabetes_Self_Management"
+},
+```
 
 ## Procedure
 
@@ -377,7 +472,7 @@ Currently, the generic module framework does not provide a way to indicate the d
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
 * **reason**: the name of the ConditionOnset state which represents the reason for procedure.  This ConditionOnset must come _before_ the Procedure in the module. _(optional)_
-* **assign_to_attribute**: The name of the attribute this procedure should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
+* **assign\_to\_attribute**: The name of the attribute this procedure should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
 

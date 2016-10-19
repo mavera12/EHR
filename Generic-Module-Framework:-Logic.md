@@ -134,7 +134,7 @@ The `Observation` condition type tests the most recent observation of a given ty
   * **system**: the code system.  Currently, only `LOINC` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
-* **referenced_by_attribute**: the name of the Attribute in which a previous `Observation` state recorded an observation _(optional, required if `codes[]` is not set)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `Observation` state recorded an observation _(optional, required if `codes[]` is not set)_
 * **operator**: indicates how to compare the actual attribute value against the value.  Valid _operator_ values are: `<`, `<=`, `==`, `>=`, `>`, `!=`, `is nil`, and `is not nil`. _(required)_
 * **value**: the value to test the most recent observation value against _(required, unless `operator` is `is nil` or `is not nil`)_
 
@@ -179,11 +179,11 @@ Currently to check if a condition has been added but not diagnosed, it is possib
 **Supported Properties**
 
 * **condition_type**: must be "Active Condition" _(required)_
-* **codes[]**: a list of codes indicating the condition (optional, required if `referenced_by_attribute` is not set)_
+* **codes[]**: a list of codes indicating the condition _(optional, required if `referenced_by_attribute` is not set)_
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
-* **referenced_by_attribute**: the name of the Attribute in which a previous `ConditionOnset` state added a condition _(optional, required if `codes[]` is not set)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `ConditionOnset` state added a condition _(optional, required if `codes[]` is not set)_
 
 
 **Example**
@@ -201,7 +201,7 @@ The following Active Condition condition will return `true` if the patient curre
 }
 ```
 
-The following Active Conditon condition will return `true` if the condition referenced by the attribute "Alzheimer's Variant" on the patient is currently active. In other words, if any condition has onset and is stored in attribute "Alzheimer's Variant", this condition will return `true`.
+The following Active Condition condition will return `true` if the condition referenced by the attribute "Alzheimer's Variant" on the patient is currently active. In other words, if any condition has onset and is stored in attribute "Alzheimer's Variant", this condition will return `true`.
 
 ```json
 {
@@ -209,6 +209,45 @@ The following Active Conditon condition will return `true` if the condition refe
     "referenced_by_attribute" : "Alzheimer's Variant"
 }
 ```
+
+## Active CarePlan
+
+The `Active CarePlan` condition type tests whether a given care plan is currently prescribed and active for the patient. 
+
+**Supported Properties**
+
+* **condition_type**: must be "Active CarePlan" _(required)_
+* **codes[]**: a list of codes indicating the condition _(optional, required if `referenced_by_attribute` is not set)_
+  * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
+  * **code**: the code _(required)_
+  * **display**: the human-readable code description _(required)_
+* **referenced\_by\_attribute**: the name of the Attribute in which a previous `CarePlanStart` state added a care plan _(optional, required if `codes[]` is not set)_
+
+
+**Example**
+
+The following Active CarePlan condition will return `true` if the patient currently has an active care plan of SNOMED-CT 698360004 [Diabetes self management plan].
+
+```json
+{
+    "condition_type" : "Active CarePlan",
+    "codes": [{
+        "system": "SNOMED-CT",
+        "code": "698360004",
+        "display": "Diabetes self management plan"
+    }]
+}
+```
+
+The following Active CarePlan condition will return `true` if the care plan referenced by the attribute "Diabetes_CarePlan" on the patient is currently active. In other words, if any care plan has started and is stored in attribute "Diabetes_CarePlan", this condition will return `true`.
+
+```json
+{
+    "condition_type" : "Active CarePlan",
+    "referenced_by_attribute" : "Diabetes_CarePlan"
+}
+```
+
 
 
 ## PriorState
