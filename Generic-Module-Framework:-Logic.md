@@ -1,5 +1,5 @@
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#activecondition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#active-condition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
