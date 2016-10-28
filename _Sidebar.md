@@ -1,4 +1,5 @@
 - [[Home]]
+- [[Architecture]]
 - [[Adding a Module]]
 - [[Generic Module Framework]]
   - [[States|Generic Module Framework: States]]
