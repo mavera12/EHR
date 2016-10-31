@@ -1,6 +1,8 @@
-##Welcome to the Synthea Wiki!
+#Welcome to the Synthea Wiki!
 
-Synthea is a synthetic patient generator that models the medical history of synthetic patients. Some attributes that are currently modeled include cardiovascular diseases, diabetes and associated symptoms, food allergies, immunizations, and others. The objective is to create a collection of fake, but realistic, electronic health records outputted in a variety of formats. Currently supported formats are C-CDA and FHIR STU3.
+##Mission Statement
+
+Synthea is a synthetic patient generator that models the medical history of synthetic patients. Our mission is to output high-quality synthetic, realistic but not real, patient data and associated health records covering every aspect of healthcare. The resulting data is free from cost, privacy, and security restrictions. It can be used without restriction for a variety of secondary uses in academia, research, industry, and government (although a citation would be appreciated).
 
 For a quick start guide, see the [README](https://github.com/synthetichealth/synthea/blob/master/README.md).
 
