@@ -7,9 +7,9 @@ For a quick start guide, see the [README](https://github.com/synthetichealth/syn
 ## We are actively looking for project contributors and maintainers! 
 
 If you are new to open source, please check out [github's guide to contributing](https://guides.github.com/activities/contributing-to-open-source/), otherwise please start contributing by:
-- Creating Issues
+- [Creating Issues](https://github.com/synthetichealth/synthea/issues/new)
 - Forking our repos and issuing pull requests
-- Picking cards off of our [Trello board](https://trello.com/b/SrUZ2IPS/synthea-1-0)
+- Picking up Issues or items from our [Project Board](https://github.com/synthetichealth/synthea/projects/1)
 - Editing our Wiki
 - Contributing disease modules. In particular we are targeting the [Global Burden of Disease (GBD) Top 10 Leading Causes of Years of Life Lost (YLL) for the United States](http://www.healthdata.org/united-states) (listed below), but are interested in any diseases. We prefer that new contributions come in the form of [generic modules](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework).
 
