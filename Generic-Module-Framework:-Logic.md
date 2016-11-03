@@ -374,7 +374,7 @@ The following Or condition will return `true` if the patient is male _or_ the pa
 The `At Least` condition type tests that a minimum number of conditions from set of sub-conditions are true.  If the _minimum_ number or more sub-conditions are true, it will return `true`, but if less than the minimum are true, it will return `false`. (If the _minimum_ is the same as the number of sub-conditions provided, this is equivalent to the `And` condition. If _minimum_ is 1, this is equivalent to the `Or` condition.)
 
 **Supported Properties**
-- **condition_type**: must be "And" _(required)_
+- **condition_type**: must be "At Least"_(required)_
 - **minimum**: the minimum number of sub-conditions that must return true _(required)_
 - **conditions[]**: an array of sub-conditions to test _(required)_
 
@@ -413,6 +413,11 @@ The following "At Least" condition will return `true` if 2 or more of the follow
 ## At Most
 
 The `At Most` condition type tests that a maximum number of conditions from set of sub-conditions are true.  If the _maximum_ number or fewer sub-conditions are true, it will return `true`, but if more than the maximum are true, it will return `false`. 
+
+**Supported Properties**
+- **condition_type**: must be "At Most"_(required)_
+- **maximum**: the maximum number of sub-conditions that may return true _(required)_
+- **conditions[]**: an array of sub-conditions to test _(required)_
 
 **Example**
 
