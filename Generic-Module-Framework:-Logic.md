@@ -1,5 +1,5 @@
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#active-condition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#active-condition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [At Least](#at-least), [At Most](#at-most), [Not](#not), [True](#true), and [False](#false).
 
 The following condition types should be considered for future versions:
 
@@ -364,6 +364,82 @@ The following Or condition will return `true` if the patient is male _or_ the pa
       "operator": ">=",
       "quantity": 40,
       "unit": "years"
+    }
+  ]
+}
+```
+
+## At Least
+
+The `At Least` condition type tests that a minimum number of conditions from set of sub-conditions are true.  If the _minimum_ number or more sub-conditions are true, it will return `true`, but if less than the minimum are true, it will return `false`. (If the _minimum_ is the same as the number of sub-conditions provided, this is equivalent to the `And` condition. If _minimum_ is 1, this is equivalent to the `Or` condition.)
+
+**Supported Properties**
+- **condition_type**: must be "And" _(required)_
+- **minimum**: the minimum number of sub-conditions that must return true _(required)_
+- **conditions[]**: an array of sub-conditions to test _(required)_
+
+**Example**
+
+The following "At Least" condition will return `true` if 2 or more of the following 3 conditions are met: 1) the patient is male, 2) the patient is at least 40 years old, 3) the patient has an active Diabetes self management plan; `false` otherwise. For example, if the patient is Male, age 46, and does not have a Diabetes self management plan, this condition will return true. If the patient is Female, age 67, and does not have a Diabetes self management plan, this condition will return false.
+
+``` json
+{
+  "condition_type": "At Least",
+  "minimum" : 2,
+  "conditions": [
+    {
+      "condition_type": "Gender",
+      "gender": "M" 
+    },
+    {
+      "condition_type": "Age",
+      "operator": ">=",
+      "quantity": 40,
+      "unit": "years"
+    },
+    {
+      "condition_type" : "Active CarePlan",
+      "codes": [{
+        "system": "SNOMED-CT",
+        "code": "698360004",
+        "display": "Diabetes self management plan"
+      }]
+    }
+  ]
+}
+```
+
+
+## At Most
+
+The `At Most` condition type tests that a maximum number of conditions from set of sub-conditions are true.  If the _maximum_ number or fewer sub-conditions are true, it will return `true`, but if more than the maximum are true, it will return `false`. 
+
+**Example**
+
+The following "At Most" condition will return `true` if 2 or fewer of the following 3 conditions are met: 1) the patient is male, 2) the patient is at least 40 years old, 3) the patient has an active Diabetes self management plan; `false` otherwise. For example, if the patient is Male, age 46, and does not have a Diabetes self management plan, this condition will return true. If the patient is Female, age 67, and does not have a Diabetes self management plan, this condition will return true. If the patient is Male, age 41, and has a Diabetes self management plan, this condition will return false.
+
+``` json
+{
+  "condition_type": "At Most",
+  "maximum" : 2,
+  "conditions": [
+    {
+      "condition_type": "Gender",
+      "gender": "M" 
+    },
+    {
+      "condition_type": "Age",
+      "operator": ">=",
+      "quantity": 40,
+      "unit": "years"
+    },
+    {
+      "condition_type" : "Active CarePlan",
+      "codes": [{
+        "system": "SNOMED-CT",
+        "code": "698360004",
+        "display": "Diabetes self management plan"
+      }]
     }
   ]
 }
