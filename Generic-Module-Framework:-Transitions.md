@@ -90,7 +90,7 @@ The following example demonstrates a state that should transition to the "Foo" s
 
 ## Complex
 
-`Complex` transitions are a combination of distributed and conditional transitions.  A `complex_transition` consists of an array of `condition`/`distributions` pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition based on its corresponding `distributions`.  The module will then transition to one of the transitions defined in `distributions` according to the same rules as the `distributed_transition`. See [Distributed](#distributed) for more detail. The last element in the `complex_transition` array may contain only a `distributions` (with no `condition`) to indicate a fallback transition when all other conditions are `false`.
+`Complex` transitions are a combination of direct, distributed, and conditional transitions.  A `complex_transition` consists of an array of condition/transition pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition based on its corresponding `transition` or `distributions`.  If the module defines a `transition`, it will transition directly to that named state. If the module defines `distributions`, it will then transition to one of these according to the same rules as the `distributed_transition`. See [Distributed](#distributed) for more detail. The last element in the `complex_transition` array may omit the `condition` to indicate a fallback transition when all other conditions are `false`.
 
 If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to a default `Terminal` state.
 
@@ -98,9 +98,9 @@ Please see the [[Logic|Generic Module Framework: Logic]] section for more inform
 
 **Example**
 
-The following example demonstrates a state that for male patients should transition to the "Foo" state with 15% probability and the "Bar" state with 85% probability, and for female patients should transition to the "Baz" state with 75% probability and the "Qux" state with 25% probability.
+The following example demonstrates a state that for male patients should transition to the "Foo" state with 15% probability and the "Bar" state with 85% probability, and for female patients should transition directly to the "Baz" state.
 
-```json
+``` json
 {
     "type": "Initial",
     "complex_transition": [
@@ -125,16 +125,7 @@ The following example demonstrates a state that for male patients should transit
                 "condition_type": "Gender",
                 "gender": "F" 
             },
-            "distributions" : [
-                {
-                    "distribution": 0.75,
-                    "transition": "Baz"
-                },
-                {
-                    "distribution": 0.25,
-                    "transition": "Qux"
-                }
-            ]
+            "transition" : "Baz"
         }
     ]
 }
