@@ -1,5 +1,13 @@
 
-The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported: [Gender](#gender), [Age](#age), [Date](#date), [Socioeconomic Status](#socioeconomic-status), [Symptom](#symptom), [PriorState](#priorstate), [Active Condition](#active-condition), [Observation](#observation), [Attribute](#attribute), [And](#and), [Or](#or), [At Least](#at-least), [At Most](#at-most), [Not](#not), [True](#true), and [False](#false).
+The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported:
+
+* [Gender](#gender), [Socioeconomic Status](#socioeconomic-status)
+* [Age](#age), [Date](#date)
+* [Symptom](#symptom), [Active Condition](#active-condition), [Observation](#observation)
+* [Attribute](#attribute), [PriorState](#priorstate)
+* [And](#and), [Or](#or), [Not](#not)
+* [At Least](#at-least), [At Most](#at-most)
+* [True](#true), [False](#false)
 
 The following condition types should be considered for future versions:
 
@@ -66,7 +74,7 @@ The following Date condition will return `true` if the year is 1990 or later.
 
 ```json
 {
-  "condition_type": "Year",
+  "condition_type": "Date",
   "operator": ">=",
   "year": 1990
 }
