@@ -26,9 +26,11 @@ The functions in this class are called in the modules wherever it is appropriate
 
 The FHIR Record uses the [fhir_models](https://github.com/fhir-crucible/fhir_models) gem from Crucible to generate a FHIR Bundle in Ruby which is exported to JSON format afterwards.
 
-`self.convert_to_fhir (entity)` can be called to generate the FHIR record for a patient. This function creates a new FHIR Bundle object, creates the FHIR Patient object, and then loops through the arrays in the Synthea record. Encounters are processed to the FHIR record one at a time. When an encounter is processed, all the other unprocessed events/resource in procedures, conditions, observations, and immunizations that occur before the encounter are written to the FHIR record. This simulates the diagnoses and recording that takes place during medical encounters. 
+`self.convert_to_fhir (entity, end_time = Time.now)` can be called to generate the FHIR record for a patient. This function creates a new FHIR Bundle object, creates the FHIR Patient object, and then loops through the arrays in the Synthea record. The `end_time` argument is a hard stop that determines which entities end up in the patient record. Any conditions, medication orders, or encounters that occur in the future (after the `end_time`) are not exported as part of the record.
+
+Encounters are processed to the FHIR record one at a time. When an encounter is processed, all the other unprocessed events/resource in procedures, conditions, observations, and immunizations that occur before the encounter are written to the FHIR record. This simulates the diagnoses and recording that takes place during medical encounters. 
 
 ###CCDA Record
 The CCDA Record uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) gem to generate a CCDA Record object in Ruby. The record is exported into both a XML and HTML format afterwards.
 
-`self.convert_to_ccda(entity)` can be called to generate the CCDA record for a patient. The function works exactly the same as `self.convert_to_fhir(entity)` described above.
+`self.convert_to_ccda(entity, end_time = Time.now)` can be called to generate the CCDA record for a patient. The function works exactly the same as `self.convert_to_fhir()` described above.
