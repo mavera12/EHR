@@ -169,7 +169,7 @@ Future implementations should also consider a more robust mechanism for defining
 
 * **type**: must be "Encounter" _(required)_
 * **wellness**: if `true`, indicates that this state should block until a regularly scheduled wellness encounter occurs _(required if `class` and `codes` are not set)_
-* **class**: indicates the class of the encounter, as defined in the [EncounterClass](http://hl7.org/fhir/DSTU2/valueset-encounter-class.html) value set _(required if `wellness` is not set)_
+* **encounter_class**: indicates the class of the encounter, as defined in the [EncounterClass](http://hl7.org/fhir/DSTU2/valueset-encounter-class.html) value set _(required if `wellness` is not set)_
 * **codes[]**: a list of codes indicating the encounter type _(at least one required if `wellness` is not set)_
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
@@ -191,7 +191,7 @@ The following is an example of an Encounter state indicating an ED visit.
 ```json
 {
   "type": "Encounter",
-  "class": "emergency",
+  "encounter_class": "emergency",
   "codes": [{
     "system": "SNOMED-CT",
     "code": "50849002",
