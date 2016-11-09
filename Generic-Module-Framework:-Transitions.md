@@ -1,5 +1,10 @@
 
-The generic module framework currently supports the following transitions: [Direct](#direct), [Distributed](#distributed), [Conditional](#conditional), and [Complex](#complex).
+The generic module framework currently supports the following transitions:
+
+* [Direct](#direct)
+* [Distributed](#distributed)
+* [Conditional](#conditional)
+* [Complex](#complex)
 
 ## Direct
 
