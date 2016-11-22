@@ -1,7 +1,7 @@
 
 The Guard state and Conditional transition use conditional (boolean) logic.  The following condition types are currently supported:
 
-* [Gender](#gender), [Socioeconomic Status](#socioeconomic-status)
+* [Gender](#gender), [Socioeconomic Status](#socioeconomic-status), Race (#race)
 * [Age](#age), [Date](#date)
 * [Symptom](#symptom), [Active Condition](#active-condition), [Observation](#observation)
 * [Attribute](#attribute), [PriorState](#priorstate)
@@ -98,6 +98,28 @@ The following Socioeconomic Status condition will return `true` if the patient i
 {
   "condition_type" : "Socioeconomic Status",
   "category" : "Middle"
+}
+```
+
+## Race
+
+The 'Race' condition type tests a patient's race. Synthea supports the following races:
+
+`White`, `Native` (Native American), `Hispanic`, `Black`, `Asian`, and `Other`.
+
+**Supported Properties**
+
+* **condition_type**: must be "Race" _(required)_
+* **race**: the race to test for, see above _(required)_
+
+**Example**
+
+The following Race condition will return `true` if the patient is "Hispanic"; `false` otherwise.
+
+```json
+{
+  "condition_type" : "Race",
+  "race" : "Hispanic"
 }
 ```
 
