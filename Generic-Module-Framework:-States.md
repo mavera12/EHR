@@ -213,7 +213,7 @@ Although the generic module framework supports a distinction between a condition
 **Supported Properties**
 
 * **type**: must be "ConditionOnset" _(required)_
-* **target_encounter**: the name of the Encounter state at which this condition should be diagnosed and recorded _(optional)_
+* **target_encounter**: the name of the Encounter state at which this condition should be diagnosed and recorded _(required)_
 * **codes[]**: a list of codes indicating the condition _(at least one required)_
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
