@@ -103,7 +103,7 @@ The following Socioeconomic Status condition will return `true` if the patient i
 
 ## Race
 
-The 'Race' condition type tests a patient's race. Synthea supports the following races:
+The `Race` condition type tests a patient's race. Synthea supports the following races:
 
 `White`, `Native` (Native American), `Hispanic`, `Black`, `Asian`, and `Other`.
 
