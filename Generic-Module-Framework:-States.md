@@ -174,6 +174,7 @@ Future implementations should also consider a more robust mechanism for defining
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
+* **reason**: either 1) the name of the ConditionOnset state which represents the reason for which the encounter occurred.  This ConditionOnset must come _before_ the Encounter in the module. Or 2) the name of an attribute to which a ConditionOnset was previously assigned _(optional)_
 
 **Examples**
 
@@ -293,7 +294,7 @@ The following is an example of a ConditionEnd that ends a condition, specified b
 
 The `MedicationOrder` state type indicates a point in the module where a medication should be prescribed.  The MedicationOrder state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
 
-The `MedicationOrder` also supports identifying a previous `ConditionOnset` as the `reason` for the prescription.
+The `MedicationOrder` also supports identifying a previous `ConditionOnset` or the name of an attribute as the `reason` for the prescription.
 
 **Supported Properties**
 
@@ -303,7 +304,7 @@ The `MedicationOrder` also supports identifying a previous `ConditionOnset` as t
   * **system**: the code system.  Currently, only `RxNorm` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
-* **reason**: the name of the ConditionOnset state which represents the reason for which the medication is prescribed.  This ConditionOnset must come _before_ the MedicationOrder in the module. _(optional)_
+* **reason**: either: 1) the name of the ConditionOnset state which represents the reason for which the medication is prescribed.  This ConditionOnset must come _before_ the MedicationOrder in the module. Or 2) the name of an attribute to which a ConditionOnset was previously assigned _(optional)_
 * **assign\_to\_attribute**: The name of the attribute this medication should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as arbitrary strings.
 
 **Example**
@@ -380,7 +381,7 @@ The following is an example of a MedicationEnd that ends a prescription for a me
 
 The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after a `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details.
 
-The `CarePlanStart` aslo supports identifying a previous `ConditionOnset` as the `reason` for the care plan prescription.
+The `CarePlanStart` aslo supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the care plan prescription.
 
 **Supported Properties**
 
@@ -394,7 +395,7 @@ The `CarePlanStart` aslo supports identifying a previous `ConditionOnset` as the
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_ 
-* **reason**: the name of the ConditionOnset state which represents the reason for which the care plan is prescribed.  This ConditionOnset must come _before_ the CarePlanStart in the module. _(optional)_
+* **reason**: either 1) the name of the ConditionOnset state which represents the reason for which the care plan is prescribed.  This ConditionOnset must come _before_ the CarePlanStart in the module. Or 2) the name of an attribute to which a ConditionOnset was previously assigned _(optional)_
 * **assign\_to\_attribute**: The name of the attribute this care plan should be referred to by. Attributes allow modules to store, reference, and share care plans, medications, conditions, procedures, etc, as well as arbitrary strings. _(optional)_
 
 **Example**
@@ -470,7 +471,7 @@ The following is an example of a CarePlanEnd that ends a prescription for a care
 
 The `Procedure` state type indicates a point in the module where a procedure should be performed.  The Procedure state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
 
-The `Procedure` also supports identifying a previous `ConditionOnset` as the `reason` for the procedure.
+The `Procedure` also supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the procedure.
 
 **Future Implementation Considerations**
 
@@ -484,7 +485,7 @@ Currently, the generic module framework does not provide a way to indicate the d
   * **system**: the code system.  Currently, only `SNOMED-CT` is allowed. _(required)_
   * **code**: the code _(required)_
   * **display**: the human-readable code description _(required)_
-* **reason**: the name of the ConditionOnset state which represents the reason for procedure.  This ConditionOnset must come _before_ the Procedure in the module. _(optional)_
+* **reason**: either 1) the name of the ConditionOnset state which represents the reason for procedure.  This ConditionOnset must come _before_ the Procedure in the module. Or 2) the name of an attribute to which a ConditionOnset was previously assigned _(optional)_
 * **assign\_to\_attribute**: The name of the attribute this procedure should be referred to by. Attributes allow modules to store, reference, and share medications, conditions, procedures, etc, as well as as arbitrary strings.
 
 **Example**
