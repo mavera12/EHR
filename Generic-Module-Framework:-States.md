@@ -10,7 +10,7 @@ The generic module framework currently supports the following states:
 * [Procedure](#procedure)
 * [Observation](#observation)
 * [Symptom](#symptom)
-* [SetAttribute](#setattribute)
+* [SetAttribute](#setattribute), [Counter](#counter)
 * [Death](#death)
 
 ## Initial
@@ -623,6 +623,40 @@ The following is an example of a SetAttribute that sets the value of Attribute '
   "attribute": "Opioid Prescription"
 }
 ```
+
+## Counter
+
+The `Counter` state type indicates a point in the module that increments or decrements a specified value on the patient entity. In essence, this state counts the number of times it is processed. Note: The attribute is initialized with a default value of 0 if not previously set.
+
+**Supported Properties**
+
+* **type**: must be "Counter" _(required)_
+* **action**: whether this counter will _increment_ or _decrement_ the attribute's value _(required)_
+* **attribute**: the name of the Attribute for which the value will be incremented or decremented. _(required)_
+
+**Example**
+
+The following is an example of a Counter that decreases the value in attribute 'loop_index' by 1 every time it is hit:
+
+```json
+{
+  "type": "Counter",
+  "attribute": "loop_index",
+  "action": "decrement"
+}
+```
+
+The following is an example of a Counter that increases the value of Attribute 'bronchitis_occurrences' by 1 every time it is hit:
+
+```json
+{
+  "type": "Counter",
+  "attribute": "bronchitis_occurrences",
+  "action": "increment"
+}
+```
+
+
 
 ## Death
 
