@@ -15,6 +15,17 @@ If you are new to open source, please check out [github's guide to contributing]
 - Editing our Wiki
 - Contributing disease modules. We prefer that new contributions come in the form of [generic modules](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework).
 
-# Guide to Synthea Projects
+## Currently supported diseases
 
-- [Synthea](https://github.com/synthetichealth/synthea): the synthetic health record generator.
+Top 10 Reasons Patients Visit PCP | Top 10 Years of Life Lost
+----------------------------------|--------------------------
+Routine infant/child health check | Ischemic Heart Disease
+Essential Hypertension | Lung Cancer
+Diabetes Mellitus | Alzheimer’s Disease
+Normal Pregnancy | COPD
+Respiratory Infections (Pharyngitis, Bronchitis, Sinusitis) | Cerebrovascular Disease
+General Adult Medical Examination | Road Injuries
+Disorders of Lipoid Metabolism | Self-Harm
+Ear Infections (Otitis Media) | Diabetes Mellitus
+Asthma | Colorectal Cancer
+Urinary Tract Infections | Drug Use Disorders (limited to Opioids)
