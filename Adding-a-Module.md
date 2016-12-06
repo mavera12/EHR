@@ -1,4 +1,6 @@
-###Guide to adding a new module
+##Guide to Adding a New Module
+
+**NOTE: We strongly encourage new modules be developed using the [Generic Module Framework](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework). Ruby modules should be used only when the GMF does not support your specific use case.**
 
 Modules implement the core functionality of Synthea. Each module models a specific aspect of a patient's medical history. Some examples of modules currently implemented include:
 * [Lifecycle](https://github.com/synthetichealth/synthea/blob/master/lib/modules/lifecycle.rb) - birth, death, height, and weight
