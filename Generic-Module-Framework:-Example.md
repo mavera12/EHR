@@ -71,6 +71,7 @@ The above diagram was generated based on the following JSON module file:
       ],
       "direct_transition": "Wellness_Encounter"
     },
+    
     "Wellness_Encounter": {
       "type": "Encounter",
       "wellness": true,
