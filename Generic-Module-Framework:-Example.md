@@ -7,7 +7,7 @@ The above diagram was generated based on the following JSON module file:
 ```json
 {
   "name": "Examplitis",
-  "remars": [
+  "remarks": [
     "Examplitis is a painful condition that affects only males. Most patients ",
     "can be cured with Examplitol or an Examplotomy but some never recover."
   ],
