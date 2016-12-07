@@ -42,7 +42,7 @@ Bad:
 
 ### Units of Time
 
-Valid units of time are: `"years"`, `"months"`, `"weeks"`, `"days"`, `"hours"`, `"minutes"`, and `"seconds"`.
+Valid units of time are `"years"`, `"months"`, `"weeks"`, `"days"`, `"hours"`, `"minutes"`, and `"seconds"`.
 
 #### Example
 
@@ -50,6 +50,19 @@ Valid units of time are: `"years"`, `"months"`, `"weeks"`, `"days"`, `"hours"`, 
 {
   "quantity": 4,
   "unit": "hours"
+}
+```
+
+### Units of Age
+
+Valid units of age are `"years"`, `"months"`, `"weeks"`, `"days"`, `"hours"`, `"minutes"`, and `"seconds"`.
+
+#### Example
+
+```json
+{
+  "quantity": 40,
+  "unit": "years"
 }
 ```
 
