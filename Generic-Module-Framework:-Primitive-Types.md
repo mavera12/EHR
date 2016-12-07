@@ -63,11 +63,12 @@ Any string is a valid unit of measurement. Metric units are typically used.
 }
 ```
 
-## SNOMED Codes
+## Codes
+### SNOMED Codes
 
 [SNOMED Clinical Terms](https://en.wikipedia.org/wiki/Systematized_Nomenclature_of_Medicine) (SNOMED-CT) describe clinical findings, symptoms, diagnoses, procedures, body structures, organisms and other etiologies, substances, pharmaceuticals, devices and specimens. In the Generic Module Framework these codes are used to describe `Encounter`, `Procedure`, `ConditionOnset`, and `CarePlanStart` states.
 
-For a searchable directory of valid SNOMED codes see the U.K. National Pathology Exhange [SNOMED CT Browser](http://www.snomedbrowser.com/).
+For a searchable directory of valid SNOMED codes see the [IHTSDO SNOMED CT Browser](http://browser.ihtsdotools.org/?).
 
 #### Example
 
@@ -79,7 +80,7 @@ For a searchable directory of valid SNOMED codes see the U.K. National Pathology
 }
 ```
 
-## RxNorm Codes
+### RxNorm Codes
 
 [RxNorm](https://en.wikipedia.org/wiki/RxNorm) codes describe prescriptions of medication. They include dosage information and common Brands. In the Generic Module Framework these codes are used only for `MedicationOrder` states.
 
@@ -95,7 +96,7 @@ For a searchable directory of RxNorm codes see the U.S. National Library of Medi
 }
 ```
 
-## LOINC Codes
+### LOINC Codes
 
 [LOINC]() codes describe tests, measurements, and observations. In the Generic Module Framework these codes are used only for `Observation` states.
 
@@ -155,6 +156,5 @@ Remarks are comments added GMF module files. All `remarks` sections are ignored 
   ]
 }
 ```
-
 
 
