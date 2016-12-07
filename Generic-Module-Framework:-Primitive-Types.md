@@ -126,7 +126,7 @@ A new module must minimally have a `name`, and a set of `states` that comprise t
   "states": {
     
     "Initial": {
-      "type": Initial,
+      "type": "Initial",
       "remarks": [
         "Every module needs an initial state. Most ",
         "modules should also have a Terminal state."
