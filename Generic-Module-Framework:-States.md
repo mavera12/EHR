@@ -609,7 +609,7 @@ The following is an example of an Observation that should be taken at the `"Chec
   "range": {
     "low": 40,
     "high": 60
-  }
+  },
   "codes": [
     {
       "system": "LOINC",
