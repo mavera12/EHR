@@ -1,8 +1,6 @@
-## Generic Modules
-
 ## States
 
-States are the core of a Generic Module Framework. Modules typically have many states. Common states includes `Encounter`, `ConditionOnset`, `Procedure`, and `MedicationOrder`. While `states` can have any string as a name, the best practice is to use `Upper_Snake_Case` for state names. **State names must be unique within the same module** but may conflict across modules.
+[States](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-States) are the core of a Generic Module Framework. Modules typically have many states. Common states includes `Encounter`, `ConditionOnset`, `Procedure`, and `MedicationOrder`. While `states` can have any string as a name, the best practice is to use `Upper_Snake_Case` for state names. **State names must be unique within the same module** but may conflict across modules.
 
 All states must minimally have a `type` identifying the type of state.
 
@@ -78,11 +76,12 @@ Any string is a valid unit of measurement. Metric units are typically used.
 }
 ```
 
-## SNOMED Codes
+## Codes
+### SNOMED Codes
 
 [SNOMED Clinical Terms](https://en.wikipedia.org/wiki/Systematized_Nomenclature_of_Medicine) (SNOMED-CT) describe clinical findings, symptoms, diagnoses, procedures, body structures, organisms and other etiologies, substances, pharmaceuticals, devices and specimens. In the Generic Module Framework these codes are used to describe `Encounter`, `Procedure`, `ConditionOnset`, and `CarePlanStart` states.
 
-For a searchable directory of valid SNOMED codes see the U.K. National Pathology Exhange [SNOMED CT Browser](http://www.snomedbrowser.com/).
+For a searchable directory of valid SNOMED codes see the [IHTSDO SNOMED CT Browser](http://browser.ihtsdotools.org/?).
 
 #### Example
 
@@ -94,7 +93,7 @@ For a searchable directory of valid SNOMED codes see the U.K. National Pathology
 }
 ```
 
-## RxNorm Codes
+### RxNorm Codes
 
 [RxNorm](https://en.wikipedia.org/wiki/RxNorm) codes describe prescriptions of medication. They include dosage information and common Brands. In the Generic Module Framework these codes are used only for `MedicationOrder` states.
 
@@ -110,7 +109,7 @@ For a searchable directory of RxNorm codes see the U.S. National Library of Medi
 }
 ```
 
-## LOINC Codes
+### LOINC Codes
 
 [LOINC]() codes describe tests, measurements, and observations. In the Generic Module Framework these codes are used only for `Observation` states.
 
@@ -141,7 +140,7 @@ A new module must minimally have a `name`, and a set of `states` that comprise t
   "states": {
     
     "Initial": {
-      "type": Initial,
+      "type": "Initial",
       "remarks": [
         "Every module needs an initial state. Most ",
         "modules should also have a Terminal state."
@@ -170,6 +169,5 @@ Remarks are comments added GMF module files. All `remarks` sections are ignored 
   ]
 }
 ```
-
 
 
