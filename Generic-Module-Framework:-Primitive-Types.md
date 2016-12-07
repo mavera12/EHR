@@ -1,6 +1,6 @@
 ## States
 
-States are the core of a Generic Module Framework. Modules typically have many states. Common states includes `Encounter`, `ConditionOnset`, `Procedure`, and `MedicationOrder`. While `states` can have any string as a name, the best practice is to use `Upper_Snake_Case` for state names. **State names must be unique within the same module** but may conflict across modules.
+[States](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-States) are the core of a Generic Module Framework. Modules typically have many states. Common states includes `Encounter`, `ConditionOnset`, `Procedure`, and `MedicationOrder`. While `states` can have any string as a name, the best practice is to use `Upper_Snake_Case` for state names. **State names must be unique within the same module** but may conflict across modules.
 
 All states must minimally have a `type` identifying the type of state.
 
