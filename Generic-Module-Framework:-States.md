@@ -39,13 +39,13 @@ _Please note that, for simplicity, state examples in this document will not incl
 
 The `Terminal` state type indicates the end of the module progression.  Once a Terminal state is reached, no further progress will be made. As such, Terminal states cannot have any transition properties. If desired, there may be multiple Terminal states with different names to indicate different ending points; however, this has no actual effect on the records that are produced.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Terminal"`. |
 
-#### Example
+### Example
 
 ```json
 "Terminal": {
@@ -57,13 +57,13 @@ The `Terminal` state type indicates the end of the module progression.  Once a T
 
 The `Simple` state type indicates a state that performs no additional actions, adds no additional information to the patient entity, and just transitions to the next state.  As an example, this state may be used to chain conditional or distributed transitions, in order to represent complex logic.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Simple"`. |
 
-#### Example
+### Example
 
 ```json
 "Simple_State": {
@@ -79,7 +79,7 @@ The `Guard` state type indicates a point in the module through which a patient c
 
 Guard states are similar to [[conditional transitions|Generic Module Framework: Transitions#conditional]] in some ways, but also have an important difference.  A conditional transition tests conditions once and uses the result to immediately choose the next state. A Guard state will test the same condition on every time-step until the condition passes, at which point it progresses to the next state.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -87,7 +87,7 @@ Guard states are similar to [[conditional transitions|Generic Module Framework: 
 | `allow` | `{}` | **(choice)** Any valid [logical condition](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Logic) to test. |
 
 
-#### Example
+### Example
 
 The following is an example of a Guard state that only allows the module to continue if the patient is male and at least 40 years old.
 
@@ -116,11 +116,11 @@ The following is an example of a Guard state that only allows the module to cont
 
 The `Delay` state type introduces a pre-configured temporal delay in the module's timeline. As a simple example, a Delay state may indicate a one-month gap in time between an initial encounter and a followup encounter. The module will not pass through the Delay state until the proper amount of time has passed. The Delay state may define an `exact` time to delay (e.g. 4 days) or a `range` of time to delay (e.g. 5 - 7 days).
 
-#### Implementation Details
+### Implementation Details
 
 Synthea generation occurs in time steps; the default time step is 7 days.  This means that if a module is processed on a given date, the next time it is processed will be exactly 7 days later.  If a delay expiration falls between time steps (e.g. day 3 of a 7-day time step), then the first time step _after_ the delay expiration will effectively _rewind_ the clock to the delay expiration time and process states using that time.  Once it reaches a state that it can't pass through, it will process it once more using the original (7-day time step) time.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -144,7 +144,7 @@ Synthea generation occurs in time steps; the default time step is 7 days.  This 
 
 The exact value for the delay will be chosen randomly from this range.
 
-#### Examples
+### Examples
 
 The following is an example of a Delay state that delays exactly 4 days:
 
@@ -175,23 +175,23 @@ The following is an example of a Delay state that delays at least 5 days and at 
 
 The `Encounter` state type indicates a point in the module where an encounter should take place.  Encounters are important in Synthea because they are generally the mechanism through which the actual patient record is updated (a disease is diagnosed, a medication is prescribed, etc).  The generic module framework supports integration with scheduled wellness encounters from Synthea's [Encounters](https://github.com/synthetichealth/synthea/blob/master/lib/modules/encounters.rb) module, as well as creation of new stand-alone encounters.
 
-#### Scheduled Wellness Encounters vs. Standalone Encounters
+### Scheduled Wellness Encounters vs. Standalone Encounters
 
 An Encounter state with the `wellness` property set to `true` will block until the next scheduled wellness encounter occurs.  Scheduled wellness encounters are managed by the _Encounters_ module in Synthea and, depending on the patient's age, typically occur every 1 - 3 years.  When a scheduled wellness encounter finally does occur, Synthea will search the generic modules for currently blocked Encounter states and will immediately process them (and their subsequent states).  An example where this might be used is for a condition that onsets between encounters, but isn't found and diagnosed until the next regularly scheduled wellness encounter.
 
 An Encounter state without the `wellness` property set will be processed and recorded in the patient record immediately.  Since this creates an encounter, the `encounter_class` and on or more `codes` must be specified in the state configuration.  This is how generic modules can introduce encounters that are not already scheduled by other modules.
 
-#### Encounters and Related Events
+### Encounters and Related Events
 
 Encounters are typically the mechanism through which a patient's record will be updated. This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter. When an Encounter state is successfully processed, Synthea will look through the previously processed states for un-recorded ConditionOnset instances that indicate that Encounter (by name) as the `target_encounter`. If Synthea finds any, they will be recorded in the patient's record at the time of the encounter. This is the mechanism for onsetting a disease _before_ it is discovered and diagnosed.
 
 As soon as the Encounter state is processed, Synthea will continue to progress through the module. If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., MedicationOrders, Procedures, and ConditionOnsets).
 
-#### Future Implementation Considerations
+### Future Implementation Considerations
 
 Future implementations should also consider a more robust mechanism for defining the length of an encounter and the activities that happen during it.  Currently, encounter activities must start at the same exact time as the encounter start in order to be recorded.  This, however, is unrealistic for multi-day inpatient encounters.
 
-#### Encounter Classes
+### Encounter Classes
 
 Common encounter classes are:
 
@@ -199,7 +199,7 @@ Common encounter classes are:
 * `"inpatient"`: A non-emergency visit to a hospital, e.g. for routine surgery
 * `"ambulatory"`: A visit in a variety of outpatient settings, e.g. a visit to a PCP or a specialist
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -209,7 +209,7 @@ Common encounter classes are:
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Encounter. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-#### Examples
+### Examples
 
 The following is an example of an `Encounter` state that blocks until a regularly scheduled encounter:
 
@@ -243,11 +243,11 @@ The `ConditionOnset` state type indicates a point in the module where the patien
 
 If the ConditionOnset state's `target_encounter` is set to the name of a future encounter, then the condition will be diagnosed when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the condition will only be diagnosed if the ConditionOnset start time is the same as the encounter's start time.  See the Encounter section above for more details.
 
-#### Future Implementation Considerations
+### Future Implementation Considerations
 
 Although the generic module framework supports a distinction between a condition's onset date and diagnosis date, currently only the diagnosis date is recorded.  In the future, the `Synthea::Output::Record::condition` method should be updated to support an onset date.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -257,7 +257,7 @@ Although the generic module framework supports a distinction between a condition
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-#### Example
+### Example
 
 The following is an example of a `ConditionOnset` that should be diagnosed at the `"ED_Visit"` Encounter.
 
@@ -285,7 +285,7 @@ The `ConditionEnd` state type indicates a point in the module where a currently 
 2. By `condition_onset`, specifying the name of the `ConditionOnset` state in which the condition was onset
 3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `ConditionOnset` state assigned a condition
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -299,7 +299,7 @@ And one of:
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the condition was assigned to. |
 | `codes` | `[]` | One or more codes that described the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-#### Examples
+### Examples
 
 The following is an example of a `ConditionEnd` state that ends the condition Influenza by code:
 
@@ -341,7 +341,7 @@ The `MedicationOrder` state type indicates a point in the module where a medicat
 
 The `MedicationOrder` also supports identifying a previous `ConditionOnset` or the name of an `attribute` as the `reason` for the prescription.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -351,7 +351,7 @@ The `MedicationOrder` also supports identifying a previous `ConditionOnset` or t
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Medication.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#rxnorm-codes). |
 
-#### Example
+### Example
 
 The following is an example of a `MedicationOrder` that should be prescribed at the `"Annual_Checkup"` Encounter and cite the `"Diabetes"` condition as the reason:
 
@@ -380,7 +380,7 @@ The `MedicationEnd` state type indicates a point in the module where a currently
 2. By `medication_order`, specifying the name of the `MedicationOrder` state in which the medication was prescribed
 3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `MedicationOrder` state assigned a medication
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -394,7 +394,7 @@ And one of:
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the medication was assigned to. |
 | `codes` | `[]` | One or more codes that described the MedicationOrder.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#rxnorm-codes). |
 
-#### Examples
+### Examples
 
 The following is an example of a `MedicationEnd` that ends a prescription for Metformin, specified by code:
 
@@ -433,7 +433,7 @@ The following is an example of a `MedicationEnd` that ends a prescription for a 
 
 The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after a `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details. One or more `codes` describes the care plan and a list of `activities` describes what the care plan entails.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -444,7 +444,7 @@ The `CarePlanStart` state type indicates a point in the module where a care plan
 | `codes` | `[]` | One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 | `activities` | `[]` | **(optional)** One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-**Example**
+### Example
 
 The following is an example of a `CarePlanStart` that should be prescribed at the `"Annual_Checkup"` Encounter and cite the `"Diabetes"` ConditionOnset as the reason:
 
@@ -479,7 +479,7 @@ The `CarePlanEnd` state type indicates a point in the module where a currently p
 2. By `careplan`, specifying the name of the `CarePlanStart` state in which the care plan was prescribed
 3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `CarePlanStart` state assigned a care plan
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -493,7 +493,7 @@ And one of:
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the medication was assigned to. |
 | `codes` | `[]` | One or more codes that described the care plan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-#### Examples
+### Examples
 
 The following is an example of a `CarePlanEnd` that ends a prescription for "diabetes self management", by code:
 
@@ -534,11 +534,11 @@ The `Procedure` state type indicates a point in the module where a procedure sho
 
 The `Procedure` also supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the procedure.
 
-#### Future Implementation Considerations
+### Future Implementation Considerations
 
 Currently, the generic module framework does not provide a way to indicate the duration of a procedure.  This would probably be best implemented by simply introducing a property in `Procedure` to indicate its intended duration.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -547,7 +547,7 @@ Currently, the generic module framework does not provide a way to indicate the d
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
 
-#### Example
+### Example
 
 The following is an example of a Procedure that should be performed at the `"Inpatient_Encounter"` Encounter and cite the `"Appendicitis"` condition as the reason.
 
@@ -572,7 +572,7 @@ The `Observation` state type indicates a point in the module where an observatio
 
 If the Observation state's `target_encounter` is set to the name of a future encounter, then the observation will be recorded when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the observation will only be recorded if the Observation start time is the _same_ as the encounter's start time.  See the Encounter section above for more details.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -597,7 +597,7 @@ If the Observation state's `target_encounter` is set to the name of a future enc
 
 The actual value for the observation will be chosen randomly from this range.
 
-#### Example
+### Example
 
 The following is an example of an Observation that should be taken at the `"Checkup"` Encounter, that will result in an observation of body height between 40 and 60 cm:
 
@@ -609,7 +609,7 @@ The following is an example of an Observation that should be taken at the `"Chec
   "range": {
     "low": 40,
     "high": 60
-  },
+  }
   "codes": [
     {
       "system": "LOINC",
@@ -626,7 +626,7 @@ The following is an example of an Observation that should be taken at the `"Chec
 The `Symptom` state type adds or updates a patient's symptom. Synthea tracks symptoms in order to drive a patient's encounters, on a scale of 1-100. A symptom may be tracked for multiple conditions, in these cases only the highest value is considered. See also the [[Symptom|Generic Module Framework: Logic#symptom]] logical condition type.
 
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -650,7 +650,7 @@ The `Symptom` state type adds or updates a patient's symptom. Synthea tracks sym
 
 The actual value for the symptom will be chosen randomly from this range.
 
-#### Examples
+### Examples
 
 The following is an example of a Symptom state that sets the symptom value for Chest Pain to be exactly 27:
 
@@ -683,7 +683,7 @@ The following is an example of a Symptom state that sets the symptom value for C
 
 The `SetAttribute` state type sets a specified attribute on the patient entity. In addition to the `assign_to_attribute` property on `MedicationOrder`/`ConditionOnset`/etc states, this state allows for arbitrary text or values to be set on an `attribute`, or for the `attribute` to be reset.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -691,7 +691,7 @@ The `SetAttribute` state type sets a specified attribute on the patient entity. 
 | `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#attributes) being set. |
 | `value` | `numeric`, `boolean`, or `string` | **(optional)** The value of the attribute. If not provided, `value` is set to `null`. |
 
-#### Examples
+### Examples
 
 The following is an example of a `SetAttribute` state that sets the value of the `attribute` `"number_of_children"` to `3`:
 
@@ -716,7 +716,7 @@ The following is an example of a `SetAttribute` state that clears the `"number_o
 
 The `Counter` state type increments or decrements a specified numeric `attribute` on the patient entity. In essence, this state counts the number of times it is processed. Note: The `attribute` is initialized with a default value of `0` if not previously set.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -724,7 +724,7 @@ The `Counter` state type increments or decrements a specified numeric `attribute
 | `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#attributes) being counted. |
 | `action` | `string` | **(choice)** One of [`"increment"`, `"decrement"`]. |
 
-#### Examples
+### Examples
 
 The following is an example of a `Counter` that decrements the `"loop_index"` by `1` every time it is processed:
 
@@ -750,11 +750,11 @@ The following is an example of a `Counter` that increments the number of `"bronc
 
 The `Death` state type indicates a point in the module at which the patient dies or the patient is given a terminal diagnosis (e.g. "you have 3 months to live").  When the Death state is processed, the patient's death is immediately recorded (the `alive?` method will return `false`) unless `range` or `exact` attributes are specified, in which case the patient will die sometime in the future.  In either case the module will continue to progress to the next state(s) for the current time-step.  Typically, the Death state should transition to a `Terminal` state.
 
-#### Implementation Warning
+### Implementation Warning
 
 If a `Death` state is processed after a `Delay`, it may cause inconsistencies in the record.  This is because the `Delay` implementation must _rewind_ time to correctly honor the requested delay duration.  If it rewinds time, and then the patient dies at the rewinded time, then any modules that were processed before the generic module may have created events and records with a timestamp _after_ the patient's death.
 
-#### Supported Properties
+### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
@@ -776,7 +776,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 | `high` | `numeric` | The greatest (inclusive) number of `unit` left to live. |
 | `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#units).|
 
-#### Examples
+### Examples
 
 The following example is an immediate death:
 
