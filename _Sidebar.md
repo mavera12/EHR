@@ -2,7 +2,7 @@
 - [[Architecture]]
 - [[Adding a Module]]
 - [[Generic Module Framework]]
-  - [[Primitive Types|Generic Module Framework: Primitive Types]]
+  - [[Primitive Types|Generic Module Framework: Basics]]
   - [[States|Generic Module Framework: States]]
   - [[Logic|Generic Module Framework: Logic]]
   - [[Transitions|Generic Module Framework: Transitions]]
