@@ -95,7 +95,7 @@ For a searchable directory of valid SNOMED codes see the [IHTSDO SNOMED CT Brows
 
 ### RxNorm Codes
 
-[RxNorm](https://en.wikipedia.org/wiki/RxNorm) codes describe prescriptions of medication. They include dosage information and common Brands. In the Generic Module Framework these codes are used only for `MedicationOrder` states.
+[RxNorm](https://en.wikipedia.org/wiki/RxNorm) codes describe prescriptions and medications. They include dosage information and common Brands. In the Generic Module Framework these codes are used only for `MedicationOrder` states.
 
 For a searchable directory of RxNorm codes see the U.S. National Library of Medicine [RxNorm Browser](https://mor.nlm.nih.gov/RxNav/).
 
