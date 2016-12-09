@@ -10,7 +10,7 @@ Future plans for the generic module framework include a web interface to allow c
 
 Details and examples for these concepts are available on the following pages:
 
-### [[Primitive Types|Generic Module Framework: Primitive Types]]
+### [[Basics|Generic Module Framework: Basics]]
 ### [[States|Generic Module Framework: States]]
 ### [[Transitions|Generic Module Framework: Transitions]]
 ### [[Logic|Generic Module Framework: Logic]]
