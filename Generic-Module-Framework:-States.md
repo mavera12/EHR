@@ -132,7 +132,7 @@ Synthea generation occurs in time steps; the default time step is 7 days.  This 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `quantity` | `numeric` | The number of `unit`. |
-| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#units).|
+| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units).|
 
 ##### `range`:
 
@@ -140,7 +140,7 @@ Synthea generation occurs in time steps; the default time step is 7 days.  This 
 |:----------|:-----|:------------|
 | `low` | `numeric` | The lowest (inclusive) number of `unit`. |
 | `high` | `numeric` | The greatest (inclusive) number of `unit`. |
-| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#units).|
+| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units).|
 
 The exact value for the delay will be chosen randomly from this range.
 
@@ -207,7 +207,7 @@ Common encounter classes are:
 | `wellness` | `boolean` | If `true`, Synthea blocks 1-3 years until the next wellness encounter.<br/>**(optional)** if `false`. |
 | `encounter_class` | `string` | One of [`"emergency"`, `"inpatient"`, `"ambulatory"`] |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
-| `codes` | `[]` | One or more codes that describe the Encounter. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that describe the Encounter. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Examples
 
@@ -255,7 +255,7 @@ Although the generic module framework supports a distinction between a condition
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
-| `codes` | `[]` | One or more codes that describe the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that describe the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Example
 
@@ -297,7 +297,7 @@ And one of:
 |:----------|:-----|:------------|
 | `condition_onset` | `string` | The `"State_Name"` of a _previous_ `ConditionOnset` state.
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the condition was assigned to. |
-| `codes` | `[]` | One or more codes that described the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that described the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Examples
 
@@ -349,7 +349,7 @@ The `MedicationOrder` also supports identifying a previous `ConditionOnset` or t
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ but concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
-| `codes` | `[]` | One or more codes that describe the Medication.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#rxnorm-codes). |
+| `codes` | `[]` | One or more codes that describe the Medication.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#rxnorm-codes). |
 
 ### Example
 
@@ -392,7 +392,7 @@ And one of:
 |:----------|:-----|:------------|
 | `medication_order` | `string` | The `"State_Name"` of a _previous_ `MedicationOrder` state.
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the medication was assigned to. |
-| `codes` | `[]` | One or more codes that described the MedicationOrder.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#rxnorm-codes). |
+| `codes` | `[]` | One or more codes that described the MedicationOrder.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#rxnorm-codes). |
 
 ### Examples
 
@@ -441,8 +441,8 @@ The `CarePlanStart` state type indicates a point in the module where a care plan
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ but concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
-| `codes` | `[]` | One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
-| `activities` | `[]` | **(optional)** One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+| `activities` | `[]` | **(optional)** One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Example
 
@@ -491,7 +491,7 @@ And one of:
 |:----------|:-----|:------------|
 | `careplan` | `string` | The `"State_Name"` of a _previous_ `CarePlanStart` state.
 | `referenced_by_attribute` | `string` | The name of the `"attribute"` the medication was assigned to. |
-| `codes` | `[]` | One or more codes that described the care plan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that described the care plan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Examples
 
@@ -545,7 +545,7 @@ Currently, the generic module framework does not provide a way to indicate the d
 | `type` | `string` | Must be `"Procedure"`. |
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_  but concurrent `Encounter` state. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
-| `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#snomed-codes). |
+| `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Example
 
@@ -580,7 +580,7 @@ If the Observation state's `target_encounter` is set to the name of a future enc
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
 | `unit` | `string` | The unit of measure in which the observation is recorded (e.g. `"cm"`). |
 | `exact` or `range` | `{}` | **(choice)**  Must be either an `exact` or a `range` observation. |
-| `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#loinc-codes). |
+| `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
 
 ##### `exact`:
 
@@ -688,7 +688,7 @@ The `SetAttribute` state type sets a specified attribute on the patient entity. 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"SetAttribute"`. |
-| `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#attributes) being set. |
+| `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#attributes) being set. |
 | `value` | `numeric`, `boolean`, or `string` | **(optional)** The value of the attribute. If not provided, `value` is set to `null`. |
 
 ### Examples
@@ -721,7 +721,7 @@ The `Counter` state type increments or decrements a specified numeric `attribute
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Counter"`. |
-| `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#attributes) being counted. |
+| `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#attributes) being counted. |
 | `action` | `string` | **(choice)** One of [`"increment"`, `"decrement"`]. |
 
 ### Examples
@@ -766,7 +766,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `quantity` | `numeric` | The number of `unit` left to live. |
-| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#units).|
+| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units).|
 
 ##### `range`:
 
@@ -774,7 +774,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 |:----------|:-----|:------------|
 | `low` | `numeric` | The lowest (inclusive) number of `unit` left to live. |
 | `high` | `numeric` | The greatest (inclusive) number of `unit` left to live. |
-| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#units).|
+| `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units).|
 
 ### Examples
 
