@@ -1,1 +1,0 @@
-Instructions on how to run Synthea using Docker coming soon.
