@@ -65,7 +65,7 @@ See [Configuration](#configuration). There are important settings that must be c
 $ docker create -v /mnt/synthea --name synthea_output ubuntu 
 ```
 
-This creates a [data volume container](https://docs.docker.com/engine/tutorials/dockervolumes/#/creating-and-mounting-a-data-volume-container) using a standard Ubuntu image and names it "synthea_storage" for easy reference. The path to the volume (`/mnt/synthea/`) is _the same_ in both the `synthea_output` container and the `synthea` container. This location should also match `docker:location` in `synthea.yml`.
+This creates a [data volume container](https://docs.docker.com/engine/tutorials/dockervolumes/#/creating-and-mounting-a-data-volume-container) using a standard Ubuntu image and names it "synthea_output" for easy reference. The path to the volume (`/mnt/synthea/`) is _the same_ in both the `synthea_output` container and the `synthea` container. This location should also match `docker:location` in `synthea.yml`.
 
 ### 2. Run Synthea
 
@@ -81,7 +81,7 @@ This tells Docker to:
 
 The first time you call `docker-compose run` Docker will pull the required images from the Docker Hub and build them locally. The setup required for this first run will take a little while to execute, so sit tight. Subsequent runs will reuse these images and will be fast.
 
-After building Synthea will automatically run and write all output to the persistent storage volume at `/mnt/synthea`.
+After building, Synthea will automatically run and write all output to the persistent storage volume at `/mnt/synthea`.
 
 ### 3. Inspect the Output
 
