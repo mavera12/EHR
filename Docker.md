@@ -81,7 +81,7 @@ This tells Docker to:
 
 The first time you call `docker-compose run` Docker will pull the required images from the Docker Hub and build them locally. The setup required for this first run will take a little while to execute, so sit tight. Subsequent runs will reuse these images and will be fast.
 
-After building Synthea will automatically run and write all output to the persistent storage volume at `/mnt/synthea`.
+After building, Synthea will automatically run and write all output to the persistent storage volume at `/mnt/synthea`.
 
 ### 3. Inspect the Output
 
