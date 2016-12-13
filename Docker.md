@@ -12,8 +12,8 @@ There are several variants of Synthea available on the Docker Hub:
 
 | Variant | When to use it |
 |:--------|:---------------|
-| `synthetichealth/synthea:latest` | Use this variant if you're new to Synthea, just trying things out, or only need a few patient records to play with. This is suitable for single-threaded Synthea runs. |
-| `synthetichealth/synthea:jruby` | **(coming soon!)** When multithreaded, Synthea runs 30% faster by leveraging the concurrent power of the JVM. Use this variant if you need to generate _lots of records, fast_ and you plan to run Synthea multithreaded. |
+| `synthetichealth/synthea:latest` | **Always.** This version uses Matz's standard C Ruby and is fast and efficient when running on Docker. Allocating additional CPUs and memory to your Docker Engine will speed things up even more. |
+| `synthetichealth/synthea:jruby` | For posterity's sake. When multithreaded, Synthea runs 30% faster on bare metal by leveraging the concurrent power of the JVM. However, in Docker we've observed the opposite: Synthea is orders of magnitude slower on jRuby. ¯\\\_(ツ)\_/¯ |
 
 To pull a Synthea image from the Docker Hub:
 
