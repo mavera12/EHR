@@ -1,4 +1,5 @@
 - [[Home]]
+- [[Contributing]]
 - [[Architecture]]
 - [[Adding a Module]]
 - [[Generic Module Framework]]
