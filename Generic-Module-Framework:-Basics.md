@@ -127,7 +127,7 @@ For a searchable directory of LOINC codes see the [LOINC Browser](https://search
 
 ## A Basic Module
 
-A new module must minimally have a `name`, and a set of `states` that comprise the module. Every module must have an `"Initial"` state. Optionally, `remarks` may be used to add comments throughout the module.
+A new module must minimally have a `name` and a set of `states` that comprise the module. Every module must have an `"Initial"` state. Most modules also have a `"Terminal"` state. Additionally, `remarks` may be used to add comments throughout the module.
 
 ```json
 {
