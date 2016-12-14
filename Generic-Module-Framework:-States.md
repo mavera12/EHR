@@ -579,21 +579,28 @@ If the Observation state's `target_encounter` is set to the name of a future enc
 | `type` | `string` | Must be `"Observation"`. |
 | `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
 | `unit` | `string` | The unit of measure in which the observation is recorded (e.g. `"cm"`). |
-| `exact` or `range` | `{}` | **(choice)**  Must be either an `exact` or a `range` observation. |
 | `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
+
+And one of: 
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `exact` | `{}` | The exact value to be recorded for this Observation |
+| `range` | `{}` | A range of values from which one value will be recorded |
+| `attribute` | `string` | The name of an attribute that contains the value of some Observation |
 
 ##### `exact`:
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
-| `quantity` | `numeric` | The exact number of `unit` observed. |
+| `quantity` | `numeric` | The exact value of `unit` observed. |
 
 ##### `range`:
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
-| `low` | `numeric` | The lowest (inclusive) number of `unit` observed. |
-| `high` | `numeric` | The greatest (inclusive) number of `unit` observed. |
+| `low` | `numeric` | The lowest (inclusive) numeric value of `unit` observed. |
+| `high` | `numeric` | The greatest (inclusive) numeric value of `unit` observed. |
 
 The actual value for the observation will be chosen randomly from this range.
 
