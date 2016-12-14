@@ -1,4 +1,5 @@
 ## Allergic Rhinitis
+#### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Allergic%20Rhinitis.png)
 
 ![allergic rhinitis visualization](https://synthetichealth.github.io/synthea/graphviz/Allergic%20Rhinitis.png)
 
