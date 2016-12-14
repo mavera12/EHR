@@ -144,7 +144,8 @@ A new module must minimally have a `name`, and a set of `states` that comprise t
       "remarks": [
         "Every module needs an initial state. Most ",
         "modules should also have a Terminal state."
-      ]
+      ],
+      "direct_transition": "Terminal"
     },
     
     "Terminal": {
