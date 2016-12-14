@@ -1,3 +1,33 @@
+## A Basic Module
+
+A new module must minimally have a `name` and a set of `states` that comprise the module. Every module must have an `"Initial"` state. Most modules also have a `"Terminal"` state. Additionally, `remarks` may be used to add comments throughout the module.
+
+```json
+{
+  "name": "The Name of the Module",
+  "remarks": [
+    "Additional comments about the module, ",
+    "perhaps on multiple lines. Links to sources ",
+    "also go here."
+  ],
+  "states": {
+    
+    "Initial": {
+      "type": "Initial",
+      "remarks": [
+        "Every module needs an initial state. Most ",
+        "modules should also have a Terminal state."
+      ],
+      "direct_transition": "Terminal"
+    },
+    
+    "Terminal": {
+      "type": "Terminal"
+    }
+  }
+}
+```
+
 ## States
 
 [States](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-States) are the core of a Generic Module Framework. Modules typically have many states. Common states includes `Encounter`, `ConditionOnset`, `Procedure`, and `MedicationOrder`. While `states` can have any string as a name, the best practice is to use `Upper_Snake_Case` for state names. **State names must be unique within the same module** but may conflict across modules.
@@ -9,6 +39,22 @@ All states must minimally have a `type` identifying the type of state.
 ```json
 "Hello_World": {
   "type": "Simple"
+}
+```
+
+## Remarks
+
+Remarks are comments added GMF module files. All `remarks` sections are ignored by Synthea and are used for references, calculations, and details about part of the module. Remarks should always be a `list[]` of `strings`, for example:
+
+```json
+{
+  "remarks": [
+    "Remarks describe their parent object or detail important ",
+    "aspects of the module. Links to sources may be included here: ",
+    "http://www.example.com/source/ ",
+    
+    "You may write use extra newlines to separate out remarks."
+  ]
 }
 ```
 
@@ -124,51 +170,4 @@ For a searchable directory of LOINC codes see the [LOINC Browser](https://search
   "display": "Polyp size greatest dimension by CAP cancer protocols"
 }
 ```
-
-## A Basic Module
-
-A new module must minimally have a `name` and a set of `states` that comprise the module. Every module must have an `"Initial"` state. Most modules also have a `"Terminal"` state. Additionally, `remarks` may be used to add comments throughout the module.
-
-```json
-{
-  "name": "The Name of the Module",
-  "remarks": [
-    "Additional comments about the module, ",
-    "perhaps on multiple lines. Links to sources ",
-    "also go here."
-  ],
-  "states": {
-    
-    "Initial": {
-      "type": "Initial",
-      "remarks": [
-        "Every module needs an initial state. Most ",
-        "modules should also have a Terminal state."
-      ],
-      "direct_transition": "Terminal"
-    },
-    
-    "Terminal": {
-      "type": "Terminal"
-    }
-  }
-}
-```
-
-## Remarks
-
-Remarks are comments added GMF module files. All `remarks` sections are ignored by Synthea and are used for references, calculations, and details about part of the module. Remarks should always be a `list[]` of `strings`, for example:
-
-```json
-{
-  "remarks": [
-    "Remarks describe their parent object or detail important ",
-    "aspects of the module. Links to sources may be included here: ",
-    "http://www.example.com/source/ ",
-    
-    "You may write use extra newlines to separate out remarks."
-  ]
-}
-```
-
 
