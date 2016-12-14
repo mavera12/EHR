@@ -2,6 +2,10 @@
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Allergic%20Rhinitis.png)
 ![allergic rhinitis visualization](https://synthetichealth.github.io/synthea/graphviz/Allergic%20Rhinitis.png)
 
+# Appendicitis
+###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Appendicitis.png)
+![appendicitis visualization](https://synthetichealth.github.io/synthea/graphviz/Appendicitis.png)
+
 # Asthma
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Asthma.png)
 ![asthma visualization](https://synthetichealth.github.io/synthea/graphviz/Asthma.png)
