@@ -12,11 +12,13 @@ Synthea is a synthetic patient generator that models the medical history of synt
 
 If you are new to open source, please check out [github's guide to contributing](https://guides.github.com/activities/contributing-to-open-source/), otherwise please start contributing by:
 
+* [Reviewing Modules](https://github.com/synthetichealth/synthea/wiki/Module-Gallery)
+* [Answering Questions](https://github.com/synthetichealth/synthea/wiki/Contributing)
+* Contributing disease modules; we prefer that new contributions come in the form of [generic modules](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework)
 * [Creating Issues](https://github.com/synthetichealth/synthea/issues/new)
 * Forking our repos and issuing pull requests
 * Picking up issues or items from our [Project Board](https://github.com/synthetichealth/synthea/projects/1)
 * Editing our Wiki
-* Contributing disease modules; we prefer that new contributions come in the form of [generic modules](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework)
 
 ## Currently Supported Diseases
 
