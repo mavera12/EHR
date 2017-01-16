@@ -13,4 +13,5 @@
 - [[Graphviz Rules Diagram]]
 - [[Records]]
 - [[Docker]]
+- [[Windows installation]]
 
