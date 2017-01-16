@@ -1,4 +1,4 @@
-Installing Synthea on a Windows system that hasn't had any Ruby on it before took a little more effort. These are all the steps I had to do on a Windows 7 X64 machine.
+Installing Synthea on a Windows system that hasn't had any Ruby on it before took a little more effort. These are all the steps I had to do on a Windows 7 X64 machine. An alternative is to use a [[Docker]] container.
 
 Note: the 'cd', 'git' and other commands are to be run from a command line window (cmd.exe).
 
