@@ -12,6 +12,7 @@ The Generic Module Framework currently supports the following states:
 * [Symptom](#symptom)
 * [SetAttribute](#setattribute), [Counter](#counter)
 * [Death](#death)
+* [CallSubmodule](#callsubmodule)
 
 
 ## Initial
@@ -179,13 +180,15 @@ The `Encounter` state type indicates a point in the module where an encounter sh
 
 An Encounter state with the `wellness` property set to `true` will block until the next scheduled wellness encounter occurs.  Scheduled wellness encounters are managed by the _Encounters_ module in Synthea and, depending on the patient's age, typically occur every 1 - 3 years.  When a scheduled wellness encounter finally does occur, Synthea will search the generic modules for currently blocked Encounter states and will immediately process them (and their subsequent states).  An example where this might be used is for a condition that onsets between encounters, but isn't found and diagnosed until the next regularly scheduled wellness encounter.
 
-An Encounter state without the `wellness` property set will be processed and recorded in the patient record immediately.  Since this creates an encounter, the `encounter_class` and on or more `codes` must be specified in the state configuration.  This is how generic modules can introduce encounters that are not already scheduled by other modules.
+An Encounter state _without_ the `wellness` property set will be processed and recorded in the patient record immediately.  Since this creates an encounter, the `encounter_class` and one or more `codes` must be specified in the state configuration.  This is how generic modules can introduce encounters that are not already scheduled by other modules.
 
 ### Encounters and Related Events
 
-Encounters are typically the mechanism through which a patient's record will be updated. This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter. When an Encounter state is successfully processed, Synthea will look through the previously processed states for un-recorded ConditionOnset instances that indicate that Encounter (by name) as the `target_encounter`. If Synthea finds any, they will be recorded in the patient's record at the time of the encounter. This is the mechanism for onsetting a disease _before_ it is discovered and diagnosed.
+Encounters are typically the mechanism through which a patient's record will be updated. This makes sense since most recorded events (diagnoses, prescriptions, and procedures) should happen in the context of an encounter. When an Encounter state is successfully processed, Synthea will look through the previously processed states for un-recorded ConditionOnset or AllergyOnset instances that indicate that Encounter (by name) as the `target_encounter`. If Synthea finds any, they will be recorded in the patient's record at the time of the encounter. This is the mechanism for onsetting a disease _before_ it is discovered and diagnosed.
 
-As soon as the Encounter state is processed, Synthea will continue to progress through the module. If any subsequent states identify the previous Encounter as their `target_encounter` _and_ they occur at the _same time_ as the target encounter, then they will be added to the patient record.  This is the preferred mechanism for simulating events that happen _at_ the encounter (e.g., MedicationOrders, Procedures, and ConditionOnsets).
+### Current Encounter
+
+During a single time step, if an Encounter state is processed it becomes the `current_encounter`. This encounter will be used as the `target_encounter` for any clinical state processed during the _same_ time step, for example a Procedure or MedicationOrder. At the end of the time step the `current_encounter` expires and remains `nil` until another Encounter is processed. If Synthea cannot identify a `current_encounter` or `target_encounter` for a clinical state an error is raised.
 
 ### Future Implementation Considerations
 
@@ -334,10 +337,9 @@ The following is an example of a `ConditionEnd` state that ends a condition by t
 },
 ```
 
-
 ## MedicationOrder
 
-The `MedicationOrder` state type indicates a point in the module where a medication should be prescribed.  The MedicationOrder state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+The `MedicationOrder` state type indicates a point in the module where a medication should be prescribed.  The MedicationOrder state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
 
 The `MedicationOrder` also supports identifying a previous `ConditionOnset` or the name of an `attribute` as the `reason` for the prescription.
 
@@ -346,19 +348,45 @@ The `MedicationOrder` also supports identifying a previous `ConditionOnset` or t
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"MedicationOrder"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ but concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Medication.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#rxnorm-codes). |
+|`prescription` | `{}` | **(optional)** Detailed information about the prescription, including dosage information (see below). |
 
-### Example
+##### `prescription`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `refills` | `numeric` | **(optional)** The number of refills to allow. If not specified, defaults to `0`. |
+| `as_needed` | `boolean` | If `true`, the medication may be taken as needed instead of on a specific schedule. **(optional)** if `false`. |
+| `dosage` | `{}` | The amount and frequency that the medication should be taken. |
+| `duration` | `{}` | The total length of time that the medication should be taken for. |
+| `instructions` | `[]` | **(optional)** Specific instructions for taking the medication. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes) from the [Instruction Valueset](http://hl7.org/fhir/2017Jan/valueset-additional-instructions-codes.html).  |
+
+##### `dosage`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `amount` | `numeric` | The number of doses to take each time. |
+| `frequency` | `numeric` | The number of times the medication should be taken per period. |
+| `period` | `numeric` | The number of `units` that represents a period. |
+| `unit` | `string` | The unit of time describing the period. |
+
+##### `duration`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `quantity` | `numeric` | The number of `units` that the medication should be taken for. |
+| `unit` | `string` | The unit of time describing the duration. |
+
+
+### Examples
 
 The following is an example of a `MedicationOrder` that should be prescribed at the `"Annual_Checkup"` Encounter and cite the `"Diabetes"` condition as the reason:
 
 ```json
 "Prescribe_Metformin": {
   "type": "MedicationOrder",
-  "target_encounter": "Annual_Checkup",
   "assign_to_attribute": "diabetes_medication",
   "reason": "Diabetes",
   "codes": [
@@ -371,6 +399,61 @@ The following is an example of a `MedicationOrder` that should be prescribed at 
 }
 ```
 
+The following is an example of a `MedicationOrder` that also specifies dosage information. In this example, the patient should take "1 dose, twice per day for 2 weeks, before food":
+
+```json
+"Examplitol": {
+  "type": "MedicationOrder",
+  "reason": "Examplitis",
+  "codes": [
+    {
+      "system": "RxNorm",
+      "code": "123456",
+      "display": "Examplitol 100mg [Examplitol]"
+    }
+  ],
+  "prescription": {
+    "refills": 2,
+    "dosage": {
+      "amount": 1,
+      "frequency": 2,
+      "period": 1,
+      "unit": "days"
+    },
+    "duration": {
+      "quantity": 2,
+      "unit": "weeks"
+    },
+    "instructions": [
+      {
+        "system": "SNOMED-CT",
+        "code": "311501008",
+        "display": "Half to one hour before food"
+      }
+    ]
+  }
+}
+```
+
+If `as_needed` is true then dosage information does not need to be specified:
+
+```json
+"Examplitol": {
+  "type": "MedicationOrder",
+  "target_encounter": "Encounter",
+  "reason": "Examplitis",
+  "codes": [
+    {
+      "system": "RxNorm",
+      "code": "123456",
+      "display": "Examplitol 100mg [Examplitol]"
+    }
+  ],
+  "prescription": {
+    "as_needed": true
+  }
+}
+```
 
 ## MedicationEnd
 
@@ -431,14 +514,13 @@ The following is an example of a `MedicationEnd` that ends a prescription for a 
 
 ## CarePlanStart
 
-The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after a `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details. One or more `codes` describes the care plan and a list of `activities` describes what the care plan entails.
+The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details. One or more `codes` describes the care plan and a list of `activities` describes what the care plan entails.
 
 ### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"CarePlanStart"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ but concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
@@ -530,7 +612,7 @@ The following is an example of a `CarePlanEnd` that ends a prescription for a ca
 
 ## Procedure
 
-The `Procedure` state type indicates a point in the module where a procedure should be performed.  The Procedure state must come after the `target_encounter` Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+The `Procedure` state type indicates a point in the module where a procedure should be performed.  The Procedure state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
 
 The `Procedure` also supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the procedure.
 
@@ -543,7 +625,6 @@ Currently, the generic module framework does not provide a way to indicate the d
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Procedure"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_  but concurrent `Encounter` state. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
@@ -554,7 +635,6 @@ The following is an example of a Procedure that should be performed at the `"Inp
 ```json
 "Appendectomy": {
   "type": "Procedure",
-  "target_encounter": "Inpatient_Encounter",
   "reason": "Appendicitis",
   "codes": [
     {
@@ -568,16 +648,14 @@ The following is an example of a Procedure that should be performed at the `"Inp
 
 ## Observation
 
-The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc.
+The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc. The Observation state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
 
-If the Observation state's `target_encounter` is set to the name of a future encounter, then the observation will be recorded when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the observation will only be recorded if the Observation start time is the _same_ as the encounter's start time.  See the Encounter section above for more details.
 
 ### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Observation"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
 | `unit` | `string` | The unit of measure in which the observation is recorded (e.g. `"cm"`). |
 | `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
 
@@ -611,7 +689,6 @@ The following is an example of an Observation that should be taken at the `"Chec
 ```json
 "Height_Measurement": {
   "type": "Observation",
-  "target_encounter": "Checkup",
   "unit": "cm",
   "range": {
     "low": 40,
@@ -803,5 +880,27 @@ This example gives the patient 3 - 5 months to live:
     "high": 5,
     "unit": "months"
   }
+}
+```
+
+## CallSubmodule
+
+The `CallSubmodule` state immediately processes a reusable series of states contained in a [submodule](). These states are processes in the _same_ time step, starting with the submodule's `Initial` state. Once the submodule's `Terminal` state is reached, execution of the calling module resumes.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"CallSubmodule"`. |
+| `submodule` | `string` | The name of a [submodule]() to call. If no submodule with that name is found, an error is raised. |
+
+### Example
+
+In this example, the `medications/otc_pain_reliever` submodule is called to prescribe an over-the-counter pain reliever in the current time step:
+
+```json
+"Medication_Submodule": {
+  "type": "CallSubmodule",
+  "submodule": "medications/otc_pain_reliever"
 }
 ```
