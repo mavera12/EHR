@@ -9,6 +9,8 @@ For example, in Synthea submodule are used to:
 
 * Prescribe a common medication, such as an over-the-counter pain reliever, or antihistamine. The `medications/otc_pain_reliever` submodule is used by several main modules in Synthea where a pain reliever is needed.
 
+Submodules may themselves call submodules, although this is uncommon.
+
 ## Main Modules vs. Submodules
 
 All modules and submodules are kept in the `lib/generic/modules/` directory. For example, consider the following hierarchy:
