@@ -32,7 +32,6 @@ $ docker pull synthetichealth/synthea:latest
 **This is important:** Before running Synthea with Docker check the following settings in `synthea.yml`:
 
 ```yml
-  ...
   docker:
     dockerized: true
     location: '/mnt/synthea'
