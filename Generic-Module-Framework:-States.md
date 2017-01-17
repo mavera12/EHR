@@ -885,14 +885,14 @@ This example gives the patient 3 - 5 months to live:
 
 ## CallSubmodule
 
-The `CallSubmodule` state immediately processes a reusable series of states contained in a [submodule](). These states are processes in the _same_ time step, starting with the submodule's `Initial` state. Once the submodule's `Terminal` state is reached, execution of the calling module resumes.
+The `CallSubmodule` state immediately processes a reusable series of states contained in a [submodule](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Submodules). These states are processes in the _same_ time step, starting with the submodule's `Initial` state. Once the submodule's `Terminal` state is reached, execution of the calling module resumes.
 
 ### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"CallSubmodule"`. |
-| `submodule` | `string` | The name of a [submodule]() to call. If no submodule with that name is found, an error is raised. |
+| `submodule` | `string` | The name of a [submodule](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Submodules) to call. If no submodule with that name is found, an error is raised. |
 
 ### Example
 
