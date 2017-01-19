@@ -3,7 +3,7 @@ The Generic Module Framework supports the concept of "submodules". A submodule i
 1.  Used repeatedly in the same module, or
 2.  Used repeatedly by several different modules
 
-For example, in Synthea submodule are used to:
+For example, in Synthea submodules are used to:
 
 * Perform several Observations and Procedures that constitute a pregnancy workup. These states are reused at every pregnant patient's visit to the doctor, more than 10 times within the `pregnancy` module.
 
