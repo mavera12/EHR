@@ -3,7 +3,7 @@ The `Guard` state, `conditional_transition`, and `complex_transition` use condit
 
 * [Gender](#gender), [Socioeconomic Status](#socioeconomic-status), [Race](#race)
 * [Age](#age), [Date](#date)
-* [Symptom](#symptom), [Observation](#observation)
+* [Symptom](#symptom), [Observation](#observation), [Vital Sign](#vitalsign)
 * [Active Condition](#active-condition), [Active Medication](#active-medication), [Active CarePlan](#active-careplan)
 * [Attribute](#attribute), [PriorState](#priorstate)
 * [And](#and), [Or](#or), [Not](#not)
@@ -205,6 +205,31 @@ The following `Observation` condition will return `true` if the most recent `Obs
 }
 ```
 
+## Vital Sign
+The `Vital Sign` condition type tests a patient's current vital signs. Synthea tracks vital signs in order to drive a patient's physical condition, and are recorded in observations. See also the [[Symptom|Generic Module Framework: States#VitalSign]] state.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `condition_type` | `string` | Must be `"Vital Sign"`. |
+| `vital_sign` | `string` | The name of the vital sign to test against. |
+| `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`]. |
+| `value` | `numeric` | The value to test the vital sign against. |
+
+### Example
+
+The following `Vital Sign` condition will return `true` if the patient's Systolic Blood Pressure vital sign is greater than 120:
+
+```json
+{
+    "condition_type" : "Vital Sign",
+    "vital_sign" : "Systolic Blood Pressure",
+    "operator" : ">",
+    "value" : 120
+  },
+```
+
 ## Active Condition
 
 The `Active Condition` condition type tests whether a given condition is currently diagnosed and active on the patient. 
@@ -322,7 +347,7 @@ The following Active CarePlan condition will return `true` if the care plan refe
 
 ## PriorState
 
-The `PriorState` condition type tests the progression of the patient through the module, and checks if a specific state has already been processed (in other words, the state is in the module's state history). 
+The `PriorState` condition type tests the progression of the patient through the module, and checks if a specific state has already been processed (in other words, the state is in the module's state history). The search for the state may be limited by time or the name of another state.
 
 ### Supported Properties
 
@@ -330,6 +355,8 @@ The `PriorState` condition type tests the progression of the patient through the
 |:----------|:-----|:------------|
 | `condition_type` | `string` | Must be `"PriorState"`. |
 | `name` | `string` | The name of the state to check for in the module's history. |
+| `since` | `string` | The name of a state at which this logic will stop checking for the target state.
+| `within` | `{}` | An exact timespan to use to limit the search for the target state
 
 ### Example
 
@@ -341,6 +368,27 @@ The following `PriorState` condition will return `true` if the patient has alrea
   "name": "Emergency_Encounter"
 }
 ```
+
+The following `PriorState` condition will return `true` if the patient has passed through a state called `"Emergency_Encounter"` within the last 3 years, or `false` if the patient has never passed through the state, or last passed through the state more than 3 years ago:
+
+```json
+{
+  "condition_type": "PriorState",
+  "name": "Emergency_Encounter",
+  "within": { "quantity": 3, "unit" : "years"}
+}
+```
+
+The following `PriorState` condition will return `true` if the patient has already passed through a state called `"Emergency_Encounter"` since last passing through a state called "Followup", `false` otherwise. (In other words, if the patient hit state "Emergency_Encounter" more recently than state "Followup". Note that it is not necessary for the state "Followup" to have been hit for this to return true.)
+
+```json
+{
+  "condition_type": "PriorState",
+  "name": "Emergency_Encounter",
+  "since" : "Followup"
+}
+```
+
 
 ## Attribute
 
