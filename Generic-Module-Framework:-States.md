@@ -8,7 +8,9 @@ The Generic Module Framework currently supports the following states:
 * [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend)
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend)
 * [Procedure](#procedure)
+* [VitalSign](#vitalsign)
 * [Observation](#observation)
+* [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport)
 * [Symptom](#symptom)
 * [SetAttribute](#setattribute), [Counter](#counter)
 * [Death](#death)
@@ -674,6 +676,52 @@ The following is an example of a Procedure that should be performed at the `"Inp
 }
 ```
 
+## VitalSign
+The `VitalSign` state type indicates a point in the module where a patient's vital sign is set. Vital Signs represent the physical state of the patient, in contrast to Observations which are the recording of that physical state.
+
+### Usage Notes
+In general, the Vital Sign should be used if the value directly affects the patient's physical condition. For example, high blood pressure directly increases the risk of heart attack so any conditional logic that would trigger a heart attack should reference a Vital Sign instead of an Observation. On the other hand, if the value only affects the patient's care, using just an Observation would be more appropriate. For example, it is the observation of MMSE that can lead to a diagnosis of Alzheimer's; MMSE is an observed value and not a physical metric, so it should not be stored in a VitalSign.
+
+### Supported Properties
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"VitalSign"`. |
+| `vital_sign`| `string` | The name of the Vital Sign, which may be referenced later
+| `unit` | `string` | The unit of measure in which the vital sign is measured (e.g. `"cm"`). |
+
+And one of: 
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `exact` | `{}` | The exact value to be recorded for this Observation |
+| `range` | `{}` | A range of values from which one value will be recorded |
+
+
+##### `exact`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `quantity` | `numeric` | The exact value of `unit` observed. |
+
+##### `range`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `low` | `numeric` | The lowest (inclusive) numeric value of `unit` observed. |
+| `high` | `numeric` | The greatest (inclusive) numeric value of `unit` observed. |
+
+### Example
+The following is an example of a VitalSign state that sets the patient's Systolic Blood Pressure to 120 mmHg:
+
+```
+"SetBP" : {
+   "type" : "VitalSign",
+   "vital_sign" : "Systolic Blood Pressure",
+   "exact" : { "quantity" : "120" },
+   "unit" : "mmHg"
+},
+```
+
 ## Observation
 
 The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc. The Observation state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
@@ -694,6 +742,7 @@ And one of:
 | `exact` | `{}` | The exact value to be recorded for this Observation |
 | `range` | `{}` | A range of values from which one value will be recorded |
 | `attribute` | `string` | The name of an attribute that contains the value of some Observation |
+| `vital_sign`| `string` | The name of a Vital Sign that contains a value |
 
 ##### `exact`:
 
@@ -730,6 +779,63 @@ The following is an example of an Observation that should be taken at the `"Chec
     }
   ]
 }
+```
+
+
+## MultiObservation
+The `MultiObservation` state indicates that some number of prior Observation states should be grouped together as a single observation. This can be necessary when one observation records multiple values, for example in the case of Blood Pressure, which is really 2 values, Systolic and Diastolic Blood Pressure. This state must occur directly after the relevant Observation states, otherwise unexpected behavior can occur.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"MultiObservation"`. |
+| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
+| `number_of_observations` | `integer` | The number of observations to group within this `MultiObservation`
+| `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
+
+### Example
+The following example shows a `MultiObservation` which groups the 2 previous observations into 1 observation for Blood Pressure:
+
+```
+"Record_BP" : {
+   "type" : "MultiObservation",
+   "number_of_observations" : 2,
+   "codes" : [{
+     "system" : "LOINC",
+     "code" : "55284-4",
+     "display" : "Blood Pressure"
+   }],
+   "target_encounter" : "Wellness_Encounter"
+ }
+```
+
+## DiagnosticReport
+The `DiagnosticReport` state indicates that some number of prior Observation states should be grouped together within a single Diagnostic Report. This can be used when multiple observations are part of a single panel.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"DiagnosticReport"`. |
+| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
+| `number_of_observations` | `integer` | The number of observations to group within this `DiagnosticReport`
+| `codes` | `[]` | One or more codes that describe the DiagnosticReport. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
+
+### Example
+The following example shows a `DiagnosticReport` which groups the 8 previous observations into a Metabolic Panel Diagnostic Report:
+
+```
+"Record_MetabolicPanel" : {
+   "type" : "DiagnosticReport",
+   "number_of_observations" : 8,
+   "codes" : [{
+     "system" : "LOINC",
+     "code" : "51990-0",
+     "display" : "Basic Metabolic Panel"
+   }],
+   "target_encounter" : "Wellness_Encounter"
+ }
 ```
 
 
