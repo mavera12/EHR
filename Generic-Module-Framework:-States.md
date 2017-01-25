@@ -3,7 +3,7 @@ The Generic Module Framework currently supports the following states:
 * [Initial](#initial), [Terminal](#terminal)
 * [Simple](#simple)
 * [Guard](#guard), [Delay](#delay)
-* [Encounter](#encounter)
+* [Encounter](#encounter), [EncounterEnd](#encounterend)
 * [ConditionOnset](#conditiononset), [ConditionEnd](#conditionend)
 * [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend)
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend)
@@ -162,7 +162,7 @@ The following is an example of a Delay state that delays exactly 4 days:
 The following is an example of a Delay state that delays at least 5 days and at most 7 days:
 
 ```json
-"Delay_Unitl_Symptoms_Improve": {
+"Delay_Until_Symptoms_Improve": {
   "type": "Delay",
   "range": {
     "low": 5,
@@ -171,6 +171,7 @@ The following is an example of a Delay state that delays at least 5 days and at 
   }
 }
 ```
+
 
 ## Encounter
 
@@ -188,11 +189,8 @@ Encounters are typically the mechanism through which a patient's record will be 
 
 ### Current Encounter
 
-During a single time step, if an Encounter state is processed it becomes the `current_encounter`. This encounter will be used as the `target_encounter` for any clinical state processed during the _same_ time step, for example a Procedure or MedicationOrder. At the end of the time step the `current_encounter` expires and remains `nil` until another Encounter is processed. If Synthea cannot identify a `current_encounter` or `target_encounter` for a clinical state an error is raised.
+During a single time step, if an Encounter state is processed it becomes the `current_encounter`. This encounter will be used as the `target_encounter` for all clinical states, for example a Procedure or MedicationOrder. When an [EncounterEnd](#encounterend) state is reached, the `current_encounter` ends and remains `nil` until another Encounter is processed. If Synthea cannot identify a `current_encounter` or `target_encounter` for a clinical state an error is raised.
 
-### Future Implementation Considerations
-
-Future implementations should also consider a more robust mechanism for defining the length of an encounter and the activities that happen during it.  Currently, encounter activities must start at the same exact time as the encounter start in order to be recorded.  This, however, is unrealistic for multi-day inpatient encounters.
 
 ### Encounter Classes
 
@@ -238,6 +236,36 @@ The following is an example of an `Encounter` state indicating an ED visit:
     }
   ]
 }
+```
+
+## EncounterEnd
+
+The `EncounterEnd` state type indicates the end of the encounter the patient is currently in, for example when the patient leaves a clinician's office, or is discharged from a hospital. (See also [Encounter#Current Encounter](#currentencounter) for more information on "current encounters".) The time the encounter ended is recorded on the patient's record.
+
+### Note on Wellness Encounters
+
+Because wellness encounters are scheduled and initiated outside the generic modules, and a single wellness encounter may contain observations or medications from multiple modules, an EncounterEnd state will not record the end time for a wellness encounter. Hence it is not strictly necessary to use an EncounterEnd state to end the wellness encounter. Still, it is recommended to use an EncounterEnd state to mark a clear end to the encounter.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"Encounter"`. |
+| `discharge_disposition` | `code` | **(optional)** A single code that describes the discharge disposition. Should be a code from the [Discharge Disposition set](https://phinvads.cdc.gov/vads/ViewValueSet.action?id=9C24960D-3B7D-4B6A-B86B-8F101867BD4F)
+
+### Example
+
+The following is an example of an `EncounterEnd` state that ends the current encounter, where the patient is discharged to their home.
+
+```
+"End_Encounter" : {
+   "type" : "EncounterEnd",
+   "discharge_disposition" : {
+     "system" : "NUBC",
+     "code" : "01",
+     "display" : "Discharged to home care or self care (routine discharge)"
+   }
+ }
 ```
 
 ## ConditionOnset
