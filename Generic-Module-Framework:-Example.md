@@ -1,7 +1,5 @@
 The `graphviz` rake task will generate diagrams for all generic modules found in _lib/generic/modules/_.  The following is an example diagram representing a complete module for an artificial 'example' disease: Examplitis:
 
-![Examplitis Diagram](https://github.com/synthetichealth/synthea/raw/master/test/fixtures/generic/example_module_diagram.png)
-
 The above diagram was generated based on the following JSON module file:
 
 ```json
@@ -12,14 +10,14 @@ The above diagram was generated based on the following JSON module file:
     "can be cured with Examplitol or an Examplotomy but some never recover."
   ],
   "states": {
-  
+
     "Initial": {
       "type": "Initial",
       "conditional_transition": [
         {
           "condition": {
             "condition_type": "Gender",
-            "gender": "M" 
+            "gender": "M"
           },
           "transition": "Age_Guard"
         },
@@ -28,7 +26,7 @@ The above diagram was generated based on the following JSON module file:
         }
       ]
     },
-    
+
     "Age_Guard": {
       "type": "Guard",
       "allow": {
@@ -48,7 +46,7 @@ The above diagram was generated based on the following JSON module file:
         }
       ]
     },
-    
+
     "Pre_Examplitis": {
       "type": "Delay",
       "range": {
@@ -56,9 +54,9 @@ The above diagram was generated based on the following JSON module file:
         "high": 10,
         "unit": "years"
       },
-      "direct_transition": "Examplitis" 
+      "direct_transition": "Examplitis"
     },
-    
+
     "Examplitis": {
       "type": "ConditionOnset",
       "target_encounter": "Wellness_Encounter",
@@ -71,16 +69,15 @@ The above diagram was generated based on the following JSON module file:
       ],
       "direct_transition": "Wellness_Encounter"
     },
-    
+
     "Wellness_Encounter": {
       "type": "Encounter",
       "wellness": true,
       "direct_transition": "Examplitol"
     },
-    
+
     "Examplitol": {
       "type": "MedicationOrder",
-      "target_encounter": "Wellness_Encounter",
       "reason": "Examplitis",
       "codes": [
         {
@@ -104,7 +101,7 @@ The above diagram was generated based on the following JSON module file:
         }
       ]
     },
-    
+
     "Pre_Examplotomy": {
       "type": "Delay",
       "range": {
@@ -114,10 +111,10 @@ The above diagram was generated based on the following JSON module file:
       },
       "direct_transition": "Examplotomy_Encounter"
     },
-    
+
     "Examplotomy_Encounter": {
       "type": "Encounter",
-      "class": "daytime",
+      "encounter_class": "ambulatory",
       "codes": [
         {
           "system": "SNOMED-CT",
@@ -127,10 +124,14 @@ The above diagram was generated based on the following JSON module file:
       ],
       "direct_transition": "Examplotomy"
     },
-    
+
     "Examplotomy": {
       "type": "Procedure",
-      "target_encounter": "Examplotomy_Encounter",
+      "duration": {
+        "low": 2,
+        "high": 3,
+        "unit": "hours"
+      },
       "codes": [
         {
           "system": "SNOMED-CT",
@@ -139,7 +140,12 @@ The above diagram was generated based on the following JSON module file:
         }
       ],
       "reason": "Examplitis",
-      "distributed_transition": [
+      "direct_transition": "End_Examplotomy_Encounter"
+    },
+
+    "End_Examplotomy_Encounter": {
+    	"type": "EncounterEnd",
+    	"distributed_transition": [
         {
           "distribution": 0.1,
           "transition": "Death"
@@ -150,7 +156,7 @@ The above diagram was generated based on the following JSON module file:
         }
       ]
     },
-    
+
     "Last_Days": {
       "type": "Delay",
       "range": {
@@ -158,13 +164,13 @@ The above diagram was generated based on the following JSON module file:
           "high": 20,
           "unit": "years"
       },
-      "direct_transition": "Death" 
+      "direct_transition": "Death"
     },
-    
+
     "Death": {
       "type": "Death"
     },
-    
+
     "Terminal": {
       "type": "Terminal"
     }

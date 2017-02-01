@@ -191,7 +191,7 @@ Encounters are typically the mechanism through which a patient's record will be 
 
 ### Current Encounter
 
-During a single time step, if an Encounter state is processed it becomes the `current_encounter`. This encounter will be used as the `target_encounter` for all clinical states, for example a Procedure or MedicationOrder. When an [EncounterEnd](#encounterend) state is reached, the `current_encounter` ends and remains `nil` until another Encounter is processed. If Synthea cannot identify a `current_encounter` or `target_encounter` for a clinical state an error is raised.
+During a single time step, if an Encounter state is processed it becomes the `current_encounter`. This encounter will be used as the encounter for all subsequent clinical states, for example a Procedure or MedicationOrder. When an [EncounterEnd](#encounterend) state is reached, the `current_encounter` ends and remains `nil` until another Encounter is processed. If Synthea cannot identify a `current_encounter` for a clinical state an error is raised.
 
 
 ### Encounter Classes
@@ -470,7 +470,6 @@ If `as_needed` is true then dosage information does not need to be specified:
 ```json
 "Examplitol": {
   "type": "MedicationOrder",
-  "target_encounter": "Encounter",
   "reason": "Examplitis",
   "codes": [
     {
@@ -563,7 +562,6 @@ The following is an example of a `CarePlanStart` that should be prescribed at th
 ```json
 "Diabetes_CarePlan": {
   "type": "CarePlanStart",
-  "target_encounter": "Annual_Checkup",
   "assign_to_attribute": "diabetes_careplan",
   "reason": "Diabetes",
   "codes": [
@@ -790,7 +788,6 @@ The `MultiObservation` state indicates that some number of prior Observation sta
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"MultiObservation"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
 | `number_of_observations` | `integer` | The number of observations to group within this `MultiObservation`
 | `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
 
@@ -798,15 +795,16 @@ The `MultiObservation` state indicates that some number of prior Observation sta
 The following example shows a `MultiObservation` which groups the 2 previous observations into 1 observation for Blood Pressure:
 
 ```
-"Record_BP" : {
-   "type" : "MultiObservation",
-   "number_of_observations" : 2,
-   "codes" : [{
-     "system" : "LOINC",
-     "code" : "55284-4",
-     "display" : "Blood Pressure"
-   }],
-   "target_encounter" : "Wellness_Encounter"
+"Record_BP": {
+   "type": "MultiObservation",
+   "number_of_observations": 2,
+   "codes": [
+     {
+       "system": "LOINC",
+       "code": "55284-4",
+       "display": "Blood Pressure"
+   	  }
+   ]
  }
 ```
 
@@ -818,7 +816,6 @@ The `DiagnosticReport` state indicates that some number of prior Observation sta
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"DiagnosticReport"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a concurrent or future `Encounter` state. |
 | `number_of_observations` | `integer` | The number of observations to group within this `DiagnosticReport`
 | `codes` | `[]` | One or more codes that describe the DiagnosticReport. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
 
@@ -826,15 +823,16 @@ The `DiagnosticReport` state indicates that some number of prior Observation sta
 The following example shows a `DiagnosticReport` which groups the 8 previous observations into a Metabolic Panel Diagnostic Report:
 
 ```
-"Record_MetabolicPanel" : {
-   "type" : "DiagnosticReport",
-   "number_of_observations" : 8,
-   "codes" : [{
-     "system" : "LOINC",
-     "code" : "51990-0",
-     "display" : "Basic Metabolic Panel"
-   }],
-   "target_encounter" : "Wellness_Encounter"
+"Record_MetabolicPanel": {
+   "type": "DiagnosticReport",
+   "number_of_observations": 8,
+   "codes": [
+     {
+       "system": "LOINC",
+       "code": "51990-0",
+       "display": "Basic Metabolic Panel"
+     }
+   ]
  }
 ```
 
