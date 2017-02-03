@@ -5,6 +5,7 @@ The Generic Module Framework currently supports the following states:
 * [Guard](#guard), [Delay](#delay)
 * [Encounter](#encounter), [EncounterEnd](#encounterend)
 * [ConditionOnset](#conditiononset), [ConditionEnd](#conditionend)
+* [AllergyOnset](#allergyonset), [AllergyEnd](#allergyend)
 * [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend)
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend)
 * [Procedure](#procedure)
@@ -366,6 +367,103 @@ The following is an example of a `ConditionEnd` state that ends a condition by t
   "condition_onset": "Pre_Diabetes"
 },
 ```
+
+
+## AllergyOnset
+
+The `AllergyOnset` state type indicates a point in the module where the patient acquires an allergy.  This is _not_ necessarily the same as when the allergy is diagnosed and recorded in the patient's record.  In fact, it is possible for an allergy to onset but never be discovered.
+
+If the AllergyOnset state's `target_encounter` is set to the name of a future encounter, then the allergy will be diagnosed when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the condition will only be diagnosed if the AllergyOnset start time is the same as the encounter's start time.  See the Encounter section above for more details.
+
+### Future Implementation Considerations
+
+Although the generic module framework supports a distinction between an allergy's onset date and diagnosis date, currently only the diagnosis date is recorded.  In the future, the `Synthea::Output::Record::condition` method should be updated to support an onset date.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"AllergyOnset"`. |
+| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
+| `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
+| `codes` | `[]` | One or more codes that describe the Allergy. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+
+### Example
+
+The following is an example of an `AllergyOnset` that should be diagnosed at the `"ED_Visit"` Encounter.
+
+```json
+"Peanut_allergy": {
+  "type": "AllergyOnset",
+  "target_encounter": "ED_Visit",
+  "codes": [
+  	{
+	  "system": "SNOMED-CT",
+	  "code": "91935009",
+	  "display": "Allergy to peanuts"
+    }
+  ]
+}
+```
+
+
+## AllergyEnd
+
+The `AllergyEnd` state type indicates a point in the module where a currently active allergy should be ended, for example if the patient's allergy subsides with time. The `AllergyEnd` state supports three ways of specifying the allergy to end:
+
+1. By `codes[]`, specifying the system, code, and display name of the allergy to end
+2. By `allergy_onset`, specifying the name of the `AllergyOnset` state in which the allergy was onset
+3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `AllergyOnset` state assigned a condition
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"AllergyEnd"`. |
+
+And one of: 
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `allergy_onset` | `string` | The name of a _previous_ `AllergyOnset` state.
+| `referenced_by_attribute` | `string` | The name of the `"attribute"` the allergy was assigned to. |
+| `codes` | `[]` | One or more codes that described the Allergy. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+
+### Examples
+
+The following is an example of an `AllergyEnd` state that ends a peanut allergy by code:
+
+```json
+"Allergy_Resolves": {
+  "type": "AllergyEnd",
+  "codes": [
+    {
+      "system": "SNOMED-CT",
+      "code": "91935009",
+      "display": "Allergy to peanuts"
+    }
+  ]
+}
+```
+
+The following is an example of an `AllergyEnd` state that ends an allergy by attribute:
+
+```json
+"Allergy_Resolved": {
+  "type": "AllergyEnd",
+  "referenced_by_attribute": "allergy_variant"
+},
+```
+
+The following is an example of an `AllergyEnd` state that ends an allergy by the name of a `AllergyOnset` state:
+
+```json
+"End_Allergy": {
+  "type": "AllergyEnd",
+  "allergy_onset": "Shellfish_allergy"
+},
+```
+
 
 ## MedicationOrder
 
