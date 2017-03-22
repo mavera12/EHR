@@ -38,13 +38,17 @@
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Fibromyalgia.png)
 ![fibromyalgia visualization](https://synthetichealth.github.io/synthea/graphviz/Fibromyalgia.png)
 
+# Food Allergies
+###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Food%20Allergies.png)
+![food allergies visualization](https://synthetichealth.github.io/synthea/graphviz/Food%20Allergies.png)
+
 # Gout
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Gout.png)
 ![gout visualization](https://synthetichealth.github.io/synthea/graphviz/Gout.png)
 
 # Injuries
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Injuries.png)
-![injuries visualization](https://synthetichealth.github.io/synthea/graphviz/Fibromyalgia.png)
+![injuries visualization](https://synthetichealth.github.io/synthea/graphviz/Injuries.png)
 
 # Lung Cancer
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Lung%20Cancer.png)
@@ -54,9 +58,15 @@
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Lupus.png)
 ![lupus visualization](https://synthetichealth.github.io/synthea/graphviz/Lupus.png)
 
-# Medication Reconciliation
-###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Medication%20Reconciliation.png)
-![medication reconciliation visualization](https://synthetichealth.github.io/synthea/graphviz/Medication%20Reconciliation.png)
+# Metabolic Syndrome
+
+### Disease Progression:
+###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Metabolic%20Syndrome%20Disease%20Progression.png)
+![metabolic syndrome disease progression visualization](https://synthetichealth.github.io/synthea/graphviz/Metabolic%20Syndrome%20Disease%20Progression.png)
+
+### Standards of Care:
+###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Metabolic%20Syndrome%20Standards%20of%20Care.png)
+![metabolic syndrome standards of care visualization](https://synthetichealth.github.io/synthea/graphviz/Metabolic%20Syndrome%20Standards%20of%20Care.png)
 
 # Opioid Addiction
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/Opioid%20Addiction.png)
