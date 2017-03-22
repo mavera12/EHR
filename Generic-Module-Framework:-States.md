@@ -275,7 +275,7 @@ The following is an example of an `EncounterEnd` state that ends the current enc
 
 The `ConditionOnset` state type indicates a point in the module where the patient acquires a condition.  This is _not_ necessarily the same as when the condition is diagnosed and recorded in the patient's record.  In fact, it is possible for a condition to onset but never be discovered.
 
-If the ConditionOnset state's `target_encounter` is set to the name of a future encounter, then the condition will be diagnosed when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the condition will only be diagnosed if the ConditionOnset start time is the same as the encounter's start time.  See the Encounter section above for more details.
+If the ConditionOnset state's `target_encounter` is set to the name of a future encounter, then the condition will only be diagnosed when that future encounter occurs.
 
 ### Future Implementation Considerations
 
@@ -286,9 +286,8 @@ Although the generic module framework supports a distinction between a condition
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"ConditionOnset"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
+| `target_encounter` | `string` | A `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
-| `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Condition. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
 ### Example
@@ -373,8 +372,7 @@ The following is an example of a `ConditionEnd` state that ends a condition by t
 
 The `AllergyOnset` state type indicates a point in the module where the patient acquires an allergy.  This is _not_ necessarily the same as when the allergy is diagnosed and recorded in the patient's record.  In fact, it is possible for an allergy to onset but never be discovered.
 
-If the AllergyOnset state's `target_encounter` is set to the name of a future encounter, then the allergy will be diagnosed when that future encounter occurs.  If the `target_encounter` is set to the name of a previous encounter, then the condition will only be diagnosed if the AllergyOnset start time is the same as the encounter's start time.  See the Encounter section above for more details.
-
+If the AllergyOnset state's `target_encounter` is set to the name of a future encounter, then the allergy will only be diagnosed when that future encounter occurs. 
 ### Future Implementation Considerations
 
 Although the generic module framework supports a distinction between an allergy's onset date and diagnosis date, currently only the diagnosis date is recorded.  In the future, the `Synthea::Output::Record::condition` method should be updated to support an onset date.
@@ -384,7 +382,7 @@ Although the generic module framework supports a distinction between an allergy'
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"AllergyOnset"`. |
-| `target_encounter` | `string` | Either an `"attribute"` or a `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
+| `target_encounter` | `string` | A `"State_Name"` referencing a<br/>future or concurrent `Encounter` state. |
 | `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 | `codes` | `[]` | One or more codes that describe the Allergy. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
@@ -467,9 +465,9 @@ The following is an example of an `AllergyEnd` state that ends an allergy by the
 
 ## MedicationOrder
 
-The `MedicationOrder` state type indicates a point in the module where a medication should be prescribed.  The MedicationOrder state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+The `MedicationOrder` state type indicates a point in the module where a medication is prescribed.  `MedicationOrder` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
-The `MedicationOrder` also supports identifying a previous `ConditionOnset` or the name of an `attribute` as the `reason` for the prescription.
+The `MedicationOrder` state supports identifying a previous `ConditionOnset` or the name of an `attribute` as the `reason` for the prescription.
 
 ### Supported Properties
 
@@ -641,7 +639,7 @@ The following is an example of a `MedicationEnd` that ends a prescription for a 
 
 ## CarePlanStart
 
-The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed. The CarePlanStart state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record. See the Encounter section above for more details. One or more `codes` describes the care plan and a list of `activities` describes what the care plan entails.
+The `CarePlanStart` state type indicates a point in the module where a care plan should be prescribed.  `CarePlanStart` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details. One or more `codes` describes the care plan and a list of `activities` describes what the care plan entails.
 
 ### Supported Properties
 
@@ -738,7 +736,7 @@ The following is an example of a `CarePlanEnd` that ends a prescription for a ca
 
 ## Procedure
 
-The `Procedure` state type indicates a point in the module where a procedure should be performed.  The Procedure state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+The `Procedure` state type indicates a point in the module where a procedure should be performed.   `Procedure` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 The `Procedure` also supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the procedure.
 
@@ -820,7 +818,7 @@ The following is an example of a VitalSign state that sets the patient's Systoli
 
 ## Observation
 
-The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc. The Observation state must come after an Encounter state in the module, but must have the same start time as that Encounter; otherwise it will not be recorded in the patient's record.  See the Encounter section above for more details.
+The `Observation` state type indicates a point in the module where an observation is recorded. Observations include clinical findings, vital signs, lab tests, etc.  `Observation` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 ### Observation Categories
 Common observation categories include:
@@ -889,7 +887,7 @@ The following is an example of an Observation that should be taken at the `"Chec
 
 
 ## MultiObservation
-The `MultiObservation` state indicates that some number of prior Observation states should be grouped together as a single observation. This can be necessary when one observation records multiple values, for example in the case of Blood Pressure, which is really 2 values, Systolic and Diastolic Blood Pressure. This state must occur directly after the relevant Observation states, otherwise unexpected behavior can occur.
+The `MultiObservation` state indicates that some number of prior Observation states should be grouped together as a single observation. This can be necessary when one observation records multiple values, for example in the case of Blood Pressure, which is really 2 values, Systolic and Diastolic Blood Pressure. This state must occur directly after the relevant Observation states, otherwise unexpected behavior can occur.  `MultiObservation` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 ### Supported Properties
 
@@ -917,7 +915,7 @@ The following example shows a `MultiObservation` which groups the 2 previous obs
 ```
 
 ## DiagnosticReport
-The `DiagnosticReport` state indicates that some number of prior Observation states should be grouped together within a single Diagnostic Report. This can be used when multiple observations are part of a single panel.
+The `DiagnosticReport` state indicates that some number of prior Observation states should be grouped together within a single Diagnostic Report. This can be used when multiple observations are part of a single panel.  `DiagnosticReport` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 ### Supported Properties
 
