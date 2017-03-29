@@ -1,4 +1,5 @@
 - [[Home]]
+- [[Getting Started]]
 - [[Contributing]]
 - [[Module Gallery]]
 - [[Architecture]]
