@@ -894,6 +894,7 @@ The `MultiObservation` state indicates that some number of prior Observation sta
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"MultiObservation"`. |
+| `category` | `string` | The type of Observation being made, for example . Must be a valid [HL7 Observation Category](http://hl7.org/fhir/2017Jan/valueset-observation-category.html). |
 | `number_of_observations` | `integer` | The number of observations to group within this `MultiObservation`
 | `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
 
@@ -903,6 +904,7 @@ The following example shows a `MultiObservation` which groups the 2 previous obs
 ```
 "Record_BP": {
    "type": "MultiObservation",
+   "category" : "vital-signs",
    "number_of_observations": 2,
    "codes": [
      {
