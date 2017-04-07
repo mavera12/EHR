@@ -1,6 +1,6 @@
 # Welcome to the Synthea Wiki!
 
-For a quick start guide, see the [README](https://github.com/synthetichealth/synthea/blob/master/README.md).
+For a quick start, see the [README](https://github.com/synthetichealth/synthea/blob/master/README.md) and [Getting Started](https://github.com/synthetichealth/synthea/wiki/Getting-Started).
 
 ## Mission Statement
 
