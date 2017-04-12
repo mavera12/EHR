@@ -751,10 +751,20 @@ Currently, the generic module framework does not provide a way to indicate the d
 | `type` | `string` | Must be `"Procedure"`. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+| `duration` | `{}` | The length of the procedure, as a range with unit. |
+
+##### `duration`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `low` | `numeric` | The number of `units` that the medication should be taken for. |
+| `high` | `numeric` | The number of `units` that the medication should be taken for. |
+| `unit` | `string` | The unit of time, e.g. `"minutes"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units). |
+
 
 ### Example
 
-The following is an example of a Procedure that should be performed at the `"Inpatient_Encounter"` Encounter and cite the `"Appendicitis"` condition as the reason.
+The following is an example of a Procedure that should be performed at the `"Inpatient_Encounter"` Encounter and cite the `"Appendicitis"` condition as the reason. From start to finish, an appendectomy takes 2-3 hours.
 
 ```json
 "Appendectomy": {
@@ -766,7 +776,12 @@ The following is an example of a Procedure that should be performed at the `"Inp
       "code": "6025007",
       "display": "Laparoscopic appendectomy"
     }
-  ]
+  ],
+  "duration": {
+    "low": 2,
+    "high": 3,
+    "unit": "hours"
+  }
 }
 ```
 
