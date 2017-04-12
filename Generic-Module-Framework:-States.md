@@ -757,8 +757,8 @@ Currently, the generic module framework does not provide a way to indicate the d
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
-| `low` | `numeric` | The number of `units` that the medication should be taken for. |
-| `high` | `numeric` | The number of `units` that the medication should be taken for. |
+| `low` | `numeric` | The minimum length of time the procedure takes. |
+| `high` | `numeric` | The maximum length of time the procedure takes. |
 | `unit` | `string` | The unit of time, e.g. `"minutes"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units). |
 
 
