@@ -736,13 +736,9 @@ The following is an example of a `CarePlanEnd` that ends a prescription for a ca
 
 ## Procedure
 
-The `Procedure` state type indicates a point in the module where a procedure should be performed.   `Procedure` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
+The `Procedure` state type indicates a point in the module where a procedure should be performed. `Procedure` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details. Optionally, you may define a duration of time that the procedure takes.
 
 The `Procedure` also supports identifying a previous `ConditionOnset` or an attribute as the `reason` for the procedure.
-
-### Future Implementation Considerations
-
-Currently, the generic module framework does not provide a way to indicate the duration of a procedure.  This would probably be best implemented by simply introducing a property in `Procedure` to indicate its intended duration.
 
 ### Supported Properties
 
