@@ -1095,8 +1095,8 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Death"`. |
 | `exact` or `range` | `{}` | **(optional, choice)** An exact amount or range of time that the patient has left to live. |
-| `codes` | [] | One or more codes that describe the Cause of Death. The first code is used on the Death Certificate. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
-| `condition_onset` | `string` | The `"State_Name"` of a _previous_ `ConditionOnset` state that is the Cause of Death to be listed on the Death Certificate. |
+| `codes` | `[]` | **(optional)** One or more codes that describe the Cause of Death. The first code is used on the Death Certificate. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+| `condition_onset` | `string` | **(optional)** The `"State_Name"` of a _previous_ `ConditionOnset` state that is the Cause of Death to be listed on the Death Certificate. |
 
 ##### `exact`:
 
