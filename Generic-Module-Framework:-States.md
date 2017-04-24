@@ -1085,6 +1085,12 @@ The following is an example of a `Counter` that increments the number of `"bronc
 
 The `Death` state type indicates a point in the module at which the patient dies or the patient is given a terminal diagnosis (e.g. "you have 3 months to live").  When the Death state is processed, the patient's death is immediately recorded (the `alive?` method will return `false`) unless `range` or `exact` attributes are specified, in which case the patient will die sometime in the future.  In either case the module will continue to progress to the next state(s) for the current time-step.  Typically, the Death state should transition to a `Terminal` state.
 
+The Cause of Death listed on a Death Certificate can be specified in three ways:
+
+1. By `codes[]`, specifying the system, code, and display name of the condition causing death.
+2. By `condition_onset`, specifying the name of the `ConditionOnset` state in which the condition causing death was onset.
+3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `ConditionOnset` state assigned a condition that caused death.
+
 ### Implementation Warning
 
 If a `Death` state is processed after a `Delay`, it may cause inconsistencies in the record.  This is because the `Delay` implementation must _rewind_ time to correctly honor the requested delay duration.  If it rewinds time, and then the patient dies at the rewinded time, then any modules that were processed before the generic module may have created events and records with a timestamp _after_ the patient's death.
@@ -1097,6 +1103,7 @@ If a `Death` state is processed after a `Delay`, it may cause inconsistencies in
 | `exact` or `range` | `{}` | **(optional, choice)** An exact amount or range of time that the patient has left to live. |
 | `codes` | `[]` | **(optional)** One or more codes that describe the Cause of Death. The first code is used on the Death Certificate. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 | `condition_onset` | `string` | **(optional)** The `"State_Name"` of a _previous_ `ConditionOnset` state that is the Cause of Death to be listed on the Death Certificate. |
+| `referenced_by_attribute` | `string` | **(optional)** The name of the `"attribute"` the condition was assigned to, which should be used as the Cause of Death on the Death Certificate. |
 
 ##### `exact`:
 
