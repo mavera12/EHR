@@ -5,6 +5,7 @@ Synthea instances can be run in parallel using [Docker](https://www.docker.com/)
 * Install and run the [Docker Engine](https://docs.docker.com/engine/getstarted/step_one/). Variants exist for OS X, Linux, and Windows.
 * If you're new to Docker, check out Docker's helpful [Getting Started Guide](https://docs.docker.com/engine/getstarted/).
 * Pull the latest Synthea images from [The Docker Hub](https://hub.docker.com/r/synthetichealth/synthea/).
+* Clone this repository and move to the directory you cloned it into.
 
 ## Synthea Variants
 
