@@ -652,6 +652,22 @@ The `CarePlanStart` state type indicates a point in the module where a care plan
 | `activities` | `[]` | **(optional)** One or more codes that describe the CarePlan.<br/>Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 | `goals` | `[]` | **(optional)** One or more goals associated with the CarePlan. |
 
+##### `goals`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `observation` | `[]` | **(optional)** Goal of Observations within a certain threshold. |
+| `text` | `string` | **(optional)** Goal description. |
+| `addresses` | `[]` | The name of an attribute assigned via `ConditionOnset`. |
+
+##### `observation`:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `codes` | `[]` | List of codes. |
+| `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`, `"is nil"`, `"is not nil"`]. |
+| `value` | `numeric` | The value to test the observation against. |
+
 ### Example
 
 The following is an example of a `CarePlanStart` that should be prescribed at the `"Annual_Checkup"` Encounter and cite the `"Diabetes"` ConditionOnset as the reason:
