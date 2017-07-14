@@ -288,7 +288,7 @@ The following `Active Medication` condition will return `true` if the patient cu
 
 ```json
 {
-  "condition_type": "Active CarePlan",
+  "condition_type": "Active Medication",
   "codes": [
     {
       "system": "RxNorm",
