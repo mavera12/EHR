@@ -1,16 +1,16 @@
 # Introduction
-## Welcome to Synthea!
-Thank you for your interest in Synthea. 
+## Welcome to Synthea<sup>TM</sup>!
+Thank you for your interest in Synthea<sup>TM</sup>. 
 
-Synthea is a synthetic patient generator that models the medical history of synthetic patients. Our mission is to output high-quality synthetic, realistic but not real, patient data and associated health records covering every aspect of healthcare. The resulting data is free from cost, privacy, and security restrictions. It can be used without restriction for a variety of secondary uses in academia, research, industry, and government (although a citation would be appreciated).
+Synthea<sup>TM</sup> is a synthetic patient generator that models the medical history of synthetic patients. Our mission is to output high-quality synthetic, realistic but not real, patient data and associated health records covering every aspect of healthcare. The resulting data is free from cost, privacy, and security restrictions. It can be used without restriction for a variety of secondary uses in academia, research, industry, and government (although a citation would be appreciated).
 
-## How does Synthea work?
-Synthea generates synthetic patient records using an agent-based approach. Each synthetic patient is generated independently, as they progress from birth to death through modular representations of various diseases and conditions. Each patient runs through every module in the system. Once a patient dies or the simulation reaches the current day, that patient record can be exported in a number of different formats.
+## How does Synthea<sup>TM</sup> work?
+Synthea<sup>TM</sup> generates synthetic patient records using an agent-based approach. Each synthetic patient is generated independently, as they progress from birth to death through modular representations of various diseases and conditions. Each patient runs through every module in the system. Once a patient dies or the simulation reaches the current day, that patient record can be exported in a number of different formats.
 
 ![](https://raw.githubusercontent.com/synthetichealth/synthea/gh-pages/images/architecture.png)
 
 ### Disease Modules
-The Synthea [Generic Module Framework](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework) allows for the creation of state machines representing the progression and standards of care for common diseases, using a set of predefined states, transitions, and conditional logic. Modules are built based on publicly available health data, including disease incidence and prevalence statistics, and clinical practice guidelines. The disease modules represent a Monte Carlo simulation, where events occur depending with varying frequency based on repeated weighted random sampling.
+The Synthea<sup>TM</sup> [Generic Module Framework](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework) allows for the creation of state machines representing the progression and standards of care for common diseases, using a set of predefined states, transitions, and conditional logic. Modules are built based on publicly available health data, including disease incidence and prevalence statistics, and clinical practice guidelines. The disease modules represent a Monte Carlo simulation, where events occur depending with varying frequency based on repeated weighted random sampling.
 
 As an example, consider the Appendicitis module:
 
@@ -36,20 +36,20 @@ An **Encounter** state indicates an interaction between patient and healthcare p
 
 #### FHIR
 
-Synthea currently supports exporting patients as Fast Healthcare Interoperability Resources (FHIR), version 1.8.0. FHIR is a standard created by HL7 for exchanging healthcare information electronically. The philosophy behind FHIR is to build a base set of resources that, either by themselves or when combined, satisfy the majority of common use cases. For more information on FHIR, see [http://hl7.org/fhir/2017Jan/index.html](http://hl7.org/fhir/2017Jan/index.html) While FHIR supports both XML and JSON, Synthea exports FHIR as JSON only. Synthea uses the [fhir_models](https://github.com/fhir-crucible/fhir_models) library to export FHIR.
+Synthea<sup>TM</sup> currently supports exporting patients as Fast Healthcare Interoperability Resources (FHIR), version 1.8.0. FHIR is a standard created by HL7 for exchanging healthcare information electronically. The philosophy behind FHIR is to build a base set of resources that, either by themselves or when combined, satisfy the majority of common use cases. For more information on FHIR, see [http://hl7.org/fhir/2017Jan/index.html](http://hl7.org/fhir/2017Jan/index.html) While FHIR supports both XML and JSON, Synthea exports FHIR as JSON only. Synthea uses the [fhir_models](https://github.com/fhir-crucible/fhir_models) library to export FHIR.
 
 #### C-CDA
 
-Synthea uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients as Consolidated Clinical Document Architecture (C-CDA) format. C-CDA is an XML-based standard defined by HL7, that uses templates from a standard library to represent clinical concepts. For more information on C-CDA,  see [http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258). 
+Synthea<sup>TM</sup> uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients as Consolidated Clinical Document Architecture (C-CDA) format. C-CDA is an XML-based standard defined by HL7, that uses templates from a standard library to represent clinical concepts. For more information on C-CDA,  see [http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258). 
 
 #### HTML
-Synthea uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients in a human-readable HTML format.
+Synthea<sup>TM</sup> uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients in a human-readable HTML format.
 
 **Sample:**  
 ![html_sample](https://cloud.githubusercontent.com/assets/13512036/24475242/430c4ecc-149d-11e7-96bc-9280fee0989a.JPG)
 
 #### Text
-For quick, human-readable patient records, Synthea includes a text-based exporter. This format does not adhere to any standards but is clear and easy for a person to read and understand. 
+For quick, human-readable patient records, Synthea<sup>TM</sup> includes a text-based exporter. This format does not adhere to any standards but is clear and easy for a person to read and understand. 
 
 **Sample:**
 
@@ -130,15 +130,15 @@ START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION
 ```
 
 
-# Installing Synthea
+# Installing Synthea<sup>TM</sup>
 ## Prerequisites
  - Git
- - Ruby 2.0.0 or higher
+ - Ruby 2.1.0 or higher
  - [Graphviz](http://www.graphviz.org/) (required for generating images from modules, patients can be generated without this)
  - [MongoDB](https://www.mongodb.com/) (required to output records in C-CDA or HTML format, patients can be generated in FHIR or other formats without this)
 
 
-To copy the Synthea repository locally and install the necessary gems, open a terminal window and run the following commands:
+To copy the Synthea<sup>TM</sup> repository locally and install the necessary gems, open a terminal window and run the following commands:
 
 ```
 git clone https://github.com/synthetichealth/synthea.git
@@ -159,13 +159,13 @@ For more info on MongoDB on Mac, see [https://docs.mongodb.com/manual/tutorial/i
 
 
 ### Windows
-For Windows-specific installation instructions of Git and Synthea, please see [https://github.com/synthetichealth/synthea/wiki/Windows-installation](https://github.com/synthetichealth/synthea/wiki/Windows-installation)
+For Windows-specific installation instructions of Git and Synthea<sup>TM</sup>, please see [https://github.com/synthetichealth/synthea/wiki/Windows-installation](https://github.com/synthetichealth/synthea/wiki/Windows-installation)
 
 For more on MongoDB on Windows, see [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
 
 
-# Configuring Synthea
-Many features of Synthea are configurable using the settings file at `./config/synthea.yml`. This settings file is hierarchical, so to refer to individual settings we use the complete name. For example, to describe the following settings:
+# Configuring Synthea<sup>TM</sup>
+Many features of Synthea<sup>TM</sup> are configurable using the settings file at `./config/synthea.yml`. This settings file is hierarchical, so to refer to individual settings we use the complete name. For example, to describe the following settings:
 
 
 ```
@@ -234,11 +234,11 @@ We describe the configuration as:
 
 ### Other Settings
 
-Synthea contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea to another geographic or geopolitical location.
+Synthea<sup>TM</sup> contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea<sup>TM</sup> to another geographic or geopolitical location.
 
-# Running Synthea
+# Running Synthea<sup>TM</sup>
 
-The primary entry point of Synthea is the "generate" task, which can be run from the terminal in the `synthea` folder by running the following command.
+The primary entry point of Synthea<sup>TM</sup> is the "generate" task, which can be run from the terminal in the `synthea` folder by running the following command.
 
 ```
 bundle exec rake synthea:generate
@@ -295,7 +295,7 @@ Note in this case that Arlington patient 1/1 was generated 3 times, because the 
 
 
 
-In either case, when Synthea is finished generating patients, you will see a large volume of metrics, ending with output similar to the following:
+In either case, when Synthea<sup>TM</sup> is finished generating patients, you will see a large volume of metrics, ending with output similar to the following:
 
 ```
   "population_count": 161,
