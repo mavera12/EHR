@@ -1,10 +1,10 @@
-# Welcome to the Synthea Wiki!
+# Welcome to the Synthea<sup>TM</sup> Wiki!
 
 For a quick start, see the [README](https://github.com/synthetichealth/synthea/blob/master/README.md) and [Getting Started](https://github.com/synthetichealth/synthea/wiki/Getting-Started).
 
 ## Mission Statement
 
-Synthea is a synthetic patient generator that models the medical history of synthetic patients. Our mission is to output high-quality synthetic, realistic but not real, patient data and associated health records covering every aspect of healthcare. The resulting data is free from cost, privacy, and security restrictions. It can be used without restriction for a variety of secondary uses in academia, research, industry, and government (although a citation would be appreciated).
+Synthea<sup>TM</sup> is a synthetic patient generator that models the medical history of synthetic patients. Our mission is to output high-quality synthetic, realistic but not real, patient data and associated health records covering every aspect of healthcare. The resulting data is free from cost, privacy, and security restrictions. It can be used without restriction for a variety of secondary uses in academia, research, industry, and government (although a citation would be appreciated).
 
 You can read our first academic paper here: https://doi.org/10.1093/jamia/ocx079
 
