@@ -10,7 +10,7 @@ The Generic Module Framework currently supports the following states:
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend)
 * [Procedure](#procedure)
 * [VitalSign](#vitalsign)
-* [Observation](#observation)
+* [Observation](#observation-1)
 * [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport)
 * [Symptom](#symptom)
 * [SetAttribute](#setattribute), [Counter](#counter)
