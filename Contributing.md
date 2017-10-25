@@ -11,9 +11,8 @@ We need **quantitative** feedback. Our models are driven by statistics, incidenc
 
 ## Claims Data
 
-In Synthea v1.0 we did not model claims data of any kind. For **ALL** modules, we would like to know:
+In Synthea v1.0 we did not model claims data of any kind. The latest `main` branch of Synthea includes claims, but the prices are computed from CMS formulas and do not closely mirror real-world prices. For **ALL** modules, we would like to know:
 
-#### What does claims data for this module look like?
 * Cost of outpatient visits, ED visits, specialists?
 * Cost of treatments (e.g. physical therapy)?
 * Cost of procedures (e.g. surgery)?
