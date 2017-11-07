@@ -1,9 +1,9 @@
 - [[Home]]
 - [[Getting Started]]
 - [[Contributing]]
+  - [[Adding a Module]]
 - [[Module Gallery]]
 - [[Architecture]]
-- [[Adding a Module]]
 - [[Generic Module Framework]]
   - [[Basics|Generic Module Framework: Basics]]
   - [[States|Generic Module Framework: States]]
@@ -16,4 +16,3 @@
 - [[Records]]
 - [[Docker]]
 - [[Windows installation]]
-
