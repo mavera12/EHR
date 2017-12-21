@@ -49,8 +49,17 @@ The CCDA Record uses the [health-data-standards](https://github.com/projectcypre
 
 `self.convert_to_ccda(entity, end_time = Time.now)` can be called to generate the CCDA record for a patient. The function works exactly the same as `self.convert_to_fhir()` described above.
 
+Supported CCDA Entries:
+ - Vital Signs
+ - Conditions
+ - Encounters
+ - Immunizations
+ - Procedures
+ - Care Plans
+ - Medications
+
 ### Text Record
 You can enable text records in `config/synthea.yml` by setting `synthea:exporter:text:export` to `true`. The Text Exporter will output a UTF-8 text file that lists a human-readable text file containing the patient record.
 
 ### CSV Record
-You can enable Comma-Separate Value (CVS) records in `config/synthea.yml` by setting `synthea:exporter:csv:export` to `true`. The CSV Exporter will output a collection of UTF-8 CSV files that lists patients, encounters, medications, and so forth in separate files -- where patients and encounters have unique identifiers and other resources (such as conditions and medications) are appropriately linked to the patients and encounters. The exported files are suitable for an Extract-Transform-Load (ETL) process to import them into a relational database.
+You can enable Comma-Separated Value (CSV) records in `config/synthea.yml` by setting `synthea:exporter:csv:export` to `true`. The CSV Exporter will output a collection of UTF-8 CSV files that lists patients, encounters, medications, and so forth in separate files -- where patients and encounters have unique identifiers and other resources (such as conditions and medications) are appropriately linked to the patients and encounters. The exported files are suitable for an Extract-Transform-Load (ETL) process to import them into a relational database.
