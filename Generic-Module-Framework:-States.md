@@ -248,7 +248,7 @@ Because wellness encounters are scheduled and initiated outside the generic modu
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
-| `type` | `string` | Must be `"Encounter"`. |
+| `type` | `string` | Must be `"EncounterEnd"`. |
 | `discharge_disposition` | `code` | **(optional)** A single code that describes the discharge disposition. Should be a code from the [Discharge Disposition set](https://phinvads.cdc.gov/vads/ViewValueSet.action?id=9C24960D-3B7D-4B6A-B86B-8F101867BD4F)
 
 ### Example
