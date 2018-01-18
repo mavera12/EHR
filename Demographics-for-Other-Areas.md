@@ -80,3 +80,14 @@ Gender, Race, Age, Income, and Education all play a role in health access, outco
 
 Synthea uses Gender, Race, and Age in some disease modules because these are factors in disease prevalence and incidence rates.
 Synthea uses Income and Education to determine a socioeconomic status. The socioeconomic calculation is here: https://github.com/synthetichealth/synthea/blob/00bd0928d353e6d713d9d4f6d1a3163a1d5103b6/lib/modules/lifecycle.rb#L460
+
+## Examples for Other Areas
+
+These are incomplete partial examples for illustration purposes.
+
+### England
+```csv
+
+```
+
+### Netherlands
