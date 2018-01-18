@@ -21,7 +21,7 @@ The demographics file is a CSV file, with a single row for each city.
 
 Column Header | Description
 --------------|------------
-`` | The first column has no header. It is the number of the city. The program ignores this column.
+` ` | The first column has no header. It is the number of the city. The program ignores this column.
 `COUNTY` | County number. Ignored.
 `NAME` | City Name
 `STNAME` | State Name
@@ -68,3 +68,10 @@ Column Header | Description
 `HS_DEGREE` | Education Group with a High School equivalent education. Percentage `0.0 - 1.0`
 `SOME_COLLEGE` | Education Group with Some College education. Percentage `0.0 - 1.0`
 `BS_DEGREE` | Education Group with a Bachelors Degree or Higher education (includes PhD, JD, MD). Percentage `0.0 - 1.0`
+
+The following columns in each row should sum to `1.0`
+* `TOT_MALE`,`TOT_FEMALE`
+* `WHITE`,`HISPANIC`,`BLACK`,`ASIAN`,`NATIVE`,`OTHER`
+* `1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`10`,`11`,`12`,`13`,`14`,`15`,`16`,`17`,`18`
+* `00..10`,`10..15`,`15..25`,`25..35`,`35..50`,`50..75`,`75..100`,`100..150`,`150..200`,`200..999`
+* `LESS_THAN_HS`,`HS_DEGREE`,`SOME_COLLEGE`,`BS_DEGREE`
