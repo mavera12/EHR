@@ -21,7 +21,7 @@ The demographics file is a CSV file, with a single row for each city.
 
 Column Header | Description
 --------------|------------
- | The first column has no header. It is the number of the city. The program ignores this column.
+`` | The first column has no header. It is the number of the city. The program ignores this column.
 `COUNTY` | County number. Ignored.
 `NAME` | City Name
 `STNAME` | State Name
@@ -37,23 +37,23 @@ Column Header | Description
 `NATIVE` | Percentage of the population that is Native or Indigenous peoples. `0.0 - 1.0`
 `OTHER` | Percentage of the population that does not fit into the other racial categories. `0.0 - 1.0`
 `1` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`2` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`3` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`4` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`5` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`6` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`7` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`8` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`9` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`10` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`11` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`12` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`13` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`14` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`15` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`16` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`17` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
-`18` | Age Group `0..4`. Percentage of the population in this age group. `0.0 - 1.0`
+`2` | Age Group `5..9`. Percentage of the population in this age group. `0.0 - 1.0`
+`3` | Age Group `10..14`. Percentage of the population in this age group. `0.0 - 1.0`
+`4` | Age Group `15..19`. Percentage of the population in this age group. `0.0 - 1.0`
+`5` | Age Group `20..24`. Percentage of the population in this age group. `0.0 - 1.0`
+`6` | Age Group `25..29`. Percentage of the population in this age group. `0.0 - 1.0`
+`7` | Age Group `30..34`. Percentage of the population in this age group. `0.0 - 1.0`
+`8` | Age Group `35..39`. Percentage of the population in this age group. `0.0 - 1.0`
+`9` | Age Group `40..44`. Percentage of the population in this age group. `0.0 - 1.0`
+`10` | Age Group `45..49`. Percentage of the population in this age group. `0.0 - 1.0`
+`11` | Age Group `50..54`. Percentage of the population in this age group. `0.0 - 1.0`
+`12` | Age Group `55..59`. Percentage of the population in this age group. `0.0 - 1.0`
+`13` | Age Group `60..64`. Percentage of the population in this age group. `0.0 - 1.0`
+`14` | Age Group `65..69`. Percentage of the population in this age group. `0.0 - 1.0`
+`15` | Age Group `70..74`. Percentage of the population in this age group. `0.0 - 1.0`
+`16` | Age Group `75..79`. Percentage of the population in this age group. `0.0 - 1.0`
+`17` | Age Group `80..84`. Percentage of the population in this age group. `0.0 - 1.0`
+`18` | Age Group `85..110`. Percentage of the population in this age group. `0.0 - 1.0`
 `00..10` | Annual Income Group $0 USD - $10K USD. Percentage of population. `0.0 - 1.0`
 `10..15` | Annual Income Group $10K USD - $15K USD. Percentage of population. `0.0 - 1.0`
 `15..25` | Annual Income Group $15K 1USD - $25K USD. Percentage of population. `0.0 - 1.0`
