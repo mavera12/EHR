@@ -70,8 +70,13 @@ Column Header | Description
 `BS_DEGREE` | Education Group with a Bachelors Degree or Higher education (includes PhD, JD, MD). Percentage `0.0 - 1.0`
 
 The following columns in each row should sum to `1.0`
-* `TOT_MALE`,`TOT_FEMALE`
-* `WHITE`,`HISPANIC`,`BLACK`,`ASIAN`,`NATIVE`,`OTHER`
-* `1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`10`,`11`,`12`,`13`,`14`,`15`,`16`,`17`,`18`
-* `00..10`,`10..15`,`15..25`,`25..35`,`35..50`,`50..75`,`75..100`,`100..150`,`150..200`,`200..999`
-* `LESS_THAN_HS`,`HS_DEGREE`,`SOME_COLLEGE`,`BS_DEGREE`
+* Gender: `TOT_MALE`,`TOT_FEMALE`
+* Race: `WHITE`,`HISPANIC`,`BLACK`,`ASIAN`,`NATIVE`,`OTHER`
+* Age: `1`,`2`,`3`,`4`,`5`,`6`,`7`,`8`,`9`,`10`,`11`,`12`,`13`,`14`,`15`,`16`,`17`,`18`
+* Income: `00..10`,`10..15`,`15..25`,`25..35`,`35..50`,`50..75`,`75..100`,`100..150`,`150..200`,`200..999`
+* Education: `LESS_THAN_HS`,`HS_DEGREE`,`SOME_COLLEGE`,`BS_DEGREE`
+
+Gender, Race, Age, Income, and Education all play a role in health access, outcomes, and costs.
+
+Synthea uses Gender, Race, and Age in some disease modules because these are factors in disease prevalence and incidence rates.
+Synthea uses Income and Education to determine a socioeconomic status. The socioeconomic calculation is here: 
