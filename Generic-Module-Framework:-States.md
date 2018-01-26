@@ -1,17 +1,26 @@
 The Generic Module Framework currently supports the following states:
 
-Control States | Clinical States
----------------|----------------
-[Initial](#initial) | [Encounter](#encounter), [EncounterEnd](#encounterend)
-[Terminal](#terminal) | [ConditionOnset](#conditiononset), [ConditionEnd](#conditionend)
-[Simple](#simple) | [AllergyOnset](#allergyonset), [AllergyEnd](#allergyend)
-[Guard](#guard) | [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend)
-[Delay](#delay) | [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend)
-[SetAttribute](#setattribute) | [Procedure](#procedure)
-[Counter](#counter) | [VitalSign](#vitalsign)
-[CallSubmodule](#callsubmodule) | [Observation](#observation-1), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport)
-  | | [Symptom](#symptom)
-  | | [Death](#death)
+**Control States**
+* [Initial](#initial)
+* [Terminal](#terminal)
+* [Simple](#simple)
+* [Guard](#guard)
+* [Delay](#delay)
+* [SetAttribute](#setattribute)
+* [Counter](#counter)
+* [CallSubmodule](#callsubmodule)
+
+**Clinical States**
+* [Encounter](#encounter), [EncounterEnd](#encounterend) 
+* [ConditionOnset](#conditiononset), [ConditionEnd](#conditionend) 
+* [AllergyOnset](#allergyonset), [AllergyEnd](#allergyend) 
+* [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend) 
+* [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend) 
+* [Procedure](#procedure) 
+* [VitalSign](#vitalsign) 
+* [Observation](#observation-1), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
+* [Symptom](#symptom) 
+* [Death](#death) 
 
 ## Initial
 
