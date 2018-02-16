@@ -16,8 +16,11 @@ run_synthea Utah "Salt Lake City"
 ```
 
 ### Scaling the Population
-If you crack open the `config/synthea.yml` file you can generate the entire population of each city, or a percentage of the population.  Set `synthea.sequential.population_scaling` to `true` to generate scaled portion of the population, or `false` to generate everyone in the city. You can set the scale factor in `synthea.sequential.population_scaling_rate`.
+You can generate the population at scale by using the `-p` command line switch to only generate a specific number of patients. For example, generating a hundred patients:
 
+```
+run_synthea -p 100 Utah "Salt Lake City"
+```
 
 ### Demographics File Format
 
