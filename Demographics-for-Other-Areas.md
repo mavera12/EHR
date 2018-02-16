@@ -1,14 +1,18 @@
-By default, the project contains demographics for the entire United States in `resources/demographics.csv` which has been post-processed from publicly available US Census Bureau files.
+By default, the project contains demographics for the entire United States in `src/main/resources/geography/demographics.csv` which has been post-processed from publicly available US Census Bureau files.
+
+If you modify or replace the demographics file, you may also need to replace `src/main/resources/geography/zipcodes.csv` which contains postal codes and geographic locations (latitude and longitude) for each location.
+
+If you want to change patient names to be more appropriate for another area (e.g. not so North American) you'll also need to modify or replace the `src/main/resources/names.yml` file.
 
 ### Generating a State or City
 For example, you can generate synthetic patients for the state of New York:
 ```
-bundle exec rake synthea:generate_state['New York']
+run_synthea "New York"
 ```
 
 Alternatively, you can generate a single city:
 ```
-bundle exec rake synthea:generate_city['Bedford','Massachusetts']
+run_synthea Utah "Salt Lake City"
 ```
 
 ### Scaling the Population
