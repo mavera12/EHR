@@ -13,7 +13,7 @@ Submodules may themselves call submodules, although this is uncommon.
 
 ## Main Modules vs. Submodules
 
-All modules and submodules are kept in the `lib/generic/modules/` directory. For example, consider the following hierarchy:
+All modules and submodules are kept in the `src/main/resources/modules/` directory. For example, consider the following hierarchy:
 
 ```
 modules/
@@ -29,36 +29,18 @@ All modules at the **top-level** of the `modules/` directory are considered "mai
 
 Any modules **in folders** within the `modules/` directory are considered "submodules". Synthea will not use these modules to generate a new patient record unless they are explicity called by a main module using a `CallSubmodule` state. In the example above, `medications/otc_pain_reliever` and `medications/otc_antihistamine` are submodules.
 
-## The Global `MODULES` Lookup
-
-At runtime, all modules and submodules are loaded into the global `Synthea::MODULES` lookup. Each module is assigned a unique `key` that refers to that module within the lookup. In the example above, the `MODULES` lookup would contain the following:
-
-#### Main Modules:
-
-* `MODULES['asthma']` would contain the "Asthma" module
-* `MODULES['diabetes']` would contain the "Diabetes" module
-* `MODULES['pregnancy']` would contain the "Pregnancy" module
-
-#### Submodules:
-
-* `MODULES['medications/otc_pain_reliever']` would contain the "Over-the-Counter Pain Reliever" module
-* `MODULES['medications/otc_antihistamine']` would contain the "Over-the-Counter Anthistamine" module
-
-The `key` that refers to a module is derrived from that module's filename. Keys to submodules always start with the name of the directory they're in, followed by the name of the submodule.
-
 ## How the `CallSubmodule` State Works
 
 Each main module runs in a "context" that keeps track of states available to the module, a history of states that have been processed, and the `current_state` that is being processed in a given time step. When a `CallSubmodule` state is processed Synthea does the following:
 
 1. Saves the `key` that refers to the current module being processed so it can be retrieved and resumed later.
-2. Saves the `current_state` of the current module being processed. In practice this is always the `CallSubmodule` state so it's transition may be used when the submodule eventually returns.
-3. Loads the submodule from `Synthea::MODULES` and resumes processing states _in the same time step_, starting with the submodule's `Initial` state.
+2. Saves the `current_state` of the current module being processed. In practice this is always the `CallSubmodule` state so its transition may be used when the submodule eventually returns.
+3. Loads the submodule from the global set of modules and resumes processing states _in the same time step_, starting with the submodule's `Initial` state.
 
-A submodule "returns" when it's `Terminal` state is reached. At that time, Synthea does the following:
+A submodule "returns" when its `Terminal` state is reached. At that time, Synthea does the following:
 
-1. Restores the calling module from `Synthea::MODULES` using the saved `key`.
-2. Restores the context's `current_state` using the saved `current_state`.
-3. Resumes processing states _in the same time step_ starting with the next state that the `CallSubmodule` state transitions to.
+1. Returns to the calling module
+2. Resumes processing states _in the same time step_ starting with the next state that the `CallSubmodule` state transitions to.
 
 ### Example
 
