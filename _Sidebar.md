@@ -12,7 +12,5 @@
   - [[Transitions|Generic Module Framework: Transitions]]
   - [[Submodules|Generic Module Framework: Submodules]]
   - [[Complete Example|Generic Module Framework: Example]]
-- [[Graphviz Rules Diagram]]
 - [[Records]]
-- [[Docker]]
 - [[Windows installation]]
