@@ -25,10 +25,9 @@ Details and examples for these concepts are available on the following pages:
 
 Within the _synthea_ repository, the following files and paths are relevant to the generic module framework:
 
-* **`lib/generic/modules/`**: the path containing the JSON module files that Synthea should process
-* **`lib/generic/context.rb`**: the `Context` class definition; responsible for maintaining a module's state definition, state history, and current state for each patient.  The `Context` class also processes states and transitions.
-* **`lib/generic/logic.rb`**: the `Logic` module implements the methods corresponding to the supported logical condition types
-* **`lib/generic/states.rb`**: the `States` module implements the supported state types
-* **`modules/generic.rb`**: the `Generic` module defines the Synthea `rule` that is executed on every time-step.  It loops through the modules in `lib/generic/modules/`, setting up and running the context for each module.
-* **`test/fixtures/generic/*.json`**: the test fixtures for all of the generic module framework unit tests
-* **`test/generic_*_test.rb`**: the unit tests for the generic module framework's context, logic, and state implementations
+* **`src/main/resources/modules/`**: the path containing the JSON module files that Synthea should process
+* **`src/main/java/org/mitre/synthea/engine/Module.java`**: the `Module` class definition; responsible for maintaining a module's state definition.  The `Module` class also processes states and transitions.
+* **`src/main/java/org/mitre/synthea/engine/Logic.java`**: the `Logic` class implements the methods corresponding to the supported logical condition types
+* **`src/main/java/org/mitre/synthea/engine/State.java`**: the `State` class implements the supported state types
+* **`src/test/resources/generic/*.json`**: the test fixtures for all of the generic module framework unit tests
+* **`src/test/java/org/mitre/synthea/engine/*Test.java`**: the unit tests for the generic module framework's context, logic, and state implementations
