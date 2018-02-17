@@ -11,7 +11,6 @@
   - [[Logic|Generic Module Framework: Logic]]
   - [[Transitions|Generic Module Framework: Transitions]]
   - [[Submodules|Generic Module Framework: Submodules]]
-  - [[Logging|Generic Module Framework: Logging]]
   - [[Complete Example|Generic Module Framework: Example]]
 - [[Graphviz Rules Diagram]]
 - [[Records]]
