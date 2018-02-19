@@ -13,4 +13,3 @@
   - [[Submodules|Generic Module Framework: Submodules]]
   - [[Complete Example|Generic Module Framework: Example]]
 - [[Records]]
-- [[Windows installation]]
