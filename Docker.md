@@ -1,3 +1,5 @@
+**Note: this page is out-of-date as it refers to the now-retired Ruby version of Synthea. The Java version has not been "Docker-ized" nor are there plans to do so at this time. This information is left for reference**
+
 Synthea instances can be run in parallel using [Docker](https://www.docker.com/), an open-source software containerization platform. Docker wraps synthea in a complete, lightweight filesystem that contains everything needed to run Synthea: code, system tools, libraries, etc. - everything that we install in our own production Synthea environments.
 
 ## Getting Started
