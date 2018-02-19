@@ -36,17 +36,11 @@ An **Encounter** state indicates an interaction between patient and healthcare p
 
 #### FHIR
 
-Synthea<sup>TM</sup> currently supports exporting patients as Fast Healthcare Interoperability Resources (FHIR), version 1.8.0. FHIR is a standard created by HL7 for exchanging healthcare information electronically. The philosophy behind FHIR is to build a base set of resources that, either by themselves or when combined, satisfy the majority of common use cases. For more information on FHIR, see [http://hl7.org/fhir/2017Jan/index.html](http://hl7.org/fhir/2017Jan/index.html) While FHIR supports both XML and JSON, Synthea exports FHIR as JSON only. Synthea uses the [fhir_models](https://github.com/fhir-crucible/fhir_models) library to export FHIR.
+Synthea<sup>TM</sup> currently supports exporting patients as Fast Healthcare Interoperability Resources (FHIR), versions 3.0.1 (STU3) and 1.0.2 (DSTU2). FHIR is a standard created by HL7 for exchanging healthcare information electronically. The philosophy behind FHIR is to build a base set of resources that, either by themselves or when combined, satisfy the majority of common use cases. For more information on FHIR, see [http://hl7.org/fhir/index.html](http://hl7.org/fhir/index.html) While FHIR supports both XML and JSON, Synthea exports FHIR as JSON only. Synthea uses the [HAPI FHIR](http://hapifhir.io/) library to export FHIR.
 
 #### C-CDA
+Synthea<sup>TM</sup> uses the [MDHT CDA Tools](http://cdatools.org/) library along with templates from the [health-data-standards](https://github.com/projectcypress/health-data-standards) Ruby gem to export patients as Consolidated Clinical Document Architecture (C-CDA) format. C-CDA is an XML-based standard defined by HL7, that uses templates from a standard library to represent clinical concepts. For more information on C-CDA,  see [http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258). 
 
-Synthea<sup>TM</sup> uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients as Consolidated Clinical Document Architecture (C-CDA) format. C-CDA is an XML-based standard defined by HL7, that uses templates from a standard library to represent clinical concepts. For more information on C-CDA,  see [http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258](http://www.hl7.org/implement/standards/product_brief.cfm?product_id=258). 
-
-#### HTML
-Synthea<sup>TM</sup> uses the [health-data-standards](https://github.com/projectcypress/health-data-standards) library to export patients in a human-readable HTML format.
-
-**Sample:**  
-![html_sample](https://cloud.githubusercontent.com/assets/13512036/24475242/430c4ecc-149d-11e7-96bc-9280fee0989a.JPG)
 
 #### Text
 For quick, human-readable patient records, Synthea<sup>TM</sup> includes a text-based exporter. This format does not adhere to any standards but is clear and easy for a person to read and understand. 
@@ -133,70 +127,73 @@ START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION
 # Installing Synthea<sup>TM</sup>
 ## Prerequisites
  - Git
- - Ruby 2.1.0 or higher
- - [Graphviz](http://www.graphviz.org/) (required for generating images from modules, patients can be generated without this)
- - [MongoDB](https://www.mongodb.com/) (required to output records in C-CDA or HTML format, patients can be generated in FHIR or other formats without this)
+ - Java 1.8 or higher
 
 
 To copy the Synthea<sup>TM</sup> repository locally and install the necessary gems, open a terminal window and run the following commands:
 
+To clone the SyntheaTM repo, then build and run the test suite:
+
 ```
 git clone https://github.com/synthetichealth/synthea.git
 cd synthea
-gem install bundler
-bundle install
+./gradlew build check test
+```
+**Note: if running on Windows, use .\gradlew.bat instead of ./gradle -- this guide uses ./gradle for brevity**
+
+# Running Synthea<sup>TM</sup>
+
+The primary entry point of Synthea<sup>TM</sup> is the "run" task, which can be run from the terminal in the `synthea` folder by running the following command.
+
+```
+./gradlew run
 ```
 
-## Platform-Specific Notes
-### Mac OS X
-Ruby 2.0.0 comes shipped with Mac OS. If you want to use another or multiple versions of Ruby, we recommend using RVM. See [https://rvm.io/](https://rvm.io/) for more information.
+Alternatively, you may run the provided script "run_synthea" which allows for passing command-line arguments. 
 
-You may already have Git installed if you use Xcode. For more information on Git, see [https://www.atlassian.com/git/tutorials/install-git#mac-os-x](https://www.atlassian.com/git/tutorials/install-git#mac-os-x) .
+```
+./run_synthea
+```
+**Note: if running on Windows, use .\run_synthea.bat instead of ./run_synthea -- this guide uses ./run_synthea for brevity**
 
-Graphviz can also be installed from [Homebrew](https://brew.sh/) (with `brew install graphviz`) or [MacPorts](https://www.macports.org/) (with port "graphviz")
+When you run this command, you should see output similar to the following:
 
-For more info on MongoDB on Mac, see [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
+```
+user@hostname ~/synthea $ ./run_synthea
+
+> Task :run
+Loading C:\Users\dehall\synthea\build\resources\main\modules\allergic_rhinitis.json
+Loading C:\Users\dehall\synthea\build\resources\main\modules\allergies\allergy_incidence.json
+[... many more lines of Loading ...]
+Loading C:\Users\dehall\synthea\build\resources\main\modules\wellness_encounters.json
+Loaded 68 modules.
+Running with options:
+Population: 1
+Seed: 1519063214833
+Location: Massachusetts
+
+1 -- Jerilyn993 Parker433 (10 y/o) Lawrence, Massachusetts
+
+```
 
 
-### Windows
-For Windows-specific installation instructions of Git and Synthea<sup>TM</sup>, please see [https://github.com/synthetichealth/synthea/wiki/Windows-installation](https://github.com/synthetichealth/synthea/wiki/Windows-installation)
+This command takes additional parameters to specify different regions or common run options. Any options not specified are left at the default value.
 
-For more on MongoDB on Windows, see [https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/)
+`run_synthea run_synthea [-s seed] [-p populationSize] [state [city]]`
+
+Some examples:
+
+ -   `run_synthea Massachusetts` -- to generate a population in all cities and towns in Massachusetts
+ -   `run_synthea Alaska Juneau` -- to generate a population in only Juneau, Alaska
+ -   `run_synthea -s 12345` -- to generate a population using seed 12345. Populations generated with the same seed and the same version of Synthea should be identical
+ -   `run_synthea -p 1000` -- to generate a population of 1000 patients
+ -   `run_synthea -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
+ -   `run_synthea -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
+
 
 
 # Configuring Synthea<sup>TM</sup>
-Many features of Synthea<sup>TM</sup> are configurable using the settings file at `./config/synthea.yml`. This settings file is hierarchical, so to refer to individual settings we use the complete name. For example, to describe the following settings:
-
-
-```
-synthea:
-  exporter:
-    ccda:
-      export: true
-      upload: null
-    fhir:
-      export: true
-      upload: null
-    html:
-      export: false
-    text:
-      export: false
-    csv:
-      export: false
-      export_headers: true
-```
-
-We describe the configuration as:
-
- - `synthea.exporter.ccda.export` is set to `true`
- - `synthea.exporter.ccda.upload` is set to `null`
- - `synthea.exporter.fhir.export` is set to `true`
- - `synthea.exporter.fhir.upload` is set to `null`
- - `synthea.exporter.html.export` is set to `false`
- - `synthea.exporter.text.export` is set to `false`
- - `synthea.exporter.csv.export` is set to `false`
- - `synthea.exporter.csv.export_headers` is set to `true`
-
+Many features of Synthea<sup>TM</sup> are configurable using the settings file at `./src/main/resources/synthea.properties`.
 
 ## Summary of Configuration Options
 
@@ -204,137 +201,64 @@ We describe the configuration as:
 
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
-| `synthea.exporter.ccda.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting patients in CCDA format. Note that CCDA format requires MongoDB, so if MongoDB is not installed, this setting must be changed to `false` |
-| `synthea.exporter.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting patients in FHIR format. |
-| `synthea.exporter.fhir.upload` | `null`/URL of FHIR Server | `null` | Put the URL of a FHIR server here to enable automatic uploading of FHIR records to that server upon generation. Does nothing if `synthea.exporter.ccda.export` is `false`. NOTE: this process may significantly slow generation, so it may be preferable to explore alternative options. |
-| `synthea.exporter.html.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in HTML format. For human-readable records, we recommend either HTML or Text export be enabled. Note that HTML format requires MongoDB, so if MongoDB is not installed, this setting must be left at `false` |
-| `synthea.exporter.text.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in a simple text-based format. |
-| `synthea.exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. |
-| `synthea.exporter.csv.export_headers` | `true`/`false` | `true` | This setting enables or disables exporting a header line on CSV exported records. It may be desired in certain cases to disable the header line by changing this setting to `false`, for example if concatenating multiple results together. |
+| `exporter.ccda.export` | `true`/`false` | `false` | Change this setting to `true` to enableexporting patients in CCDA format. |
+| `exporter.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting patients in FHIR STU3 format. |
+| `exporter.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in FHIR DSTU2 format. |
+| `exporter.hospital.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting hospital information in FHIR STU3 format. |
+| `exporter.hospital.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting hospital information in FHIR DSTU2 format. |
+| `exporter.text.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in a simple text-based format. |
+| `exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. |
+
 
 ### Other Export Settings
 
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
-| `synthea.exporter.years_of_history` | Whole number | `5` | The number of years of patient history to include in patient records. For example, if set to `5`, then all patient history older than 5 years old (2012 or earlier) will not be included in the exported records. Note that conditions and medications that are currently active will still be exported, regardless of this setting. Set this to `0` to keep all history in the patient record. |
-| `synthea.exporter.location` | Folder paths | `./output/` | This is the base folder in which all patient records will be exported. Files will be exported to subfolders based on their type. (For example FHIR records will be stored in the `/fhir/` subfolder under this folder. |
-| `synthea.exporter.folder_per_city` | `true`/`false` | `false` | If true, patient records will be grouped into subfolders based on the patient's city. |
-| `synthea.exporter.subfolders_by_id_substring` | `true`/`false` | `true` | If true, patient records will be grouped into subfolders based on their UUID, which is a randomly generated unique identifer. This reduces the number of files in any single folder, and ensures a roughly even distribution of files among folders. However there is no correlation between files in any given folder as the IDs are random. |
-| `synthea.exporter.use_uuid_filenames` | `true`/`false` | `true` | If true, patient records will have filenames based on their UUID. If false, patient records will have filenames based on the patient's name and age. This is mostly intended as a debugging feature - if watching the terminal as patients are generating, this makes it easier to find the record once it is generated.   |
+| `exporter.years_of_history` | Whole number | `10` | The number of years of patient history to include in patient records. For example, if set to `5`, then all patient history older than 5 years old (2012 or earlier) will not be included in the exported records. Note that conditions and medications that are currently active will still be exported, regardless of this setting. Set this to `0` to keep all history in the patient record. |
+| `exporter.baseDirectory` | Folder paths | `./output/` | This is the base folder in which all patient records will be exported. Files will be exported to subfolders based on their type. (For example FHIR records will be stored in the `/fhir/` subfolder under this folder. |
+| `exporter.subfolders_by_id_substring` | `true`/`false` | `false` | If true, patient records will be grouped into subfolders based on their UUID, which is a randomly generated unique identifer. This reduces the number of files in any single folder, and ensures a roughly even distribution of files among folders. However there is no correlation between files in any given folder as the IDs are random. |
+| `synthea.exporter.use_uuid_filenames` | `true`/`false` | `false` | If true, patient records will have filenames based only on their UUID. If false, patient records will have filenames including the patient's name. This is mostly intended as a debugging feature - if watching the terminal as patients are generating, this makes it easier to find the record once it is generated. |
 
 
 ### Generation Settings
 
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
-| `synthea.sequential.population` | Whole numbers | `./output/` | This is the number of living patients (population size) that Synthea will generate. Synthea will generate patients until the number of living patients reaches this value. |
-| `synthea.sequential.multithreading` | `true`/`false` | `false` | If true, (and supported by your version of Ruby) Synthea will generate patients using multiple threads. This results in significantly improved throughput and shortened time to generate large number of patients |
-| `synthea.sequential.clean_output_each_run` | `true`/`false` | `true` | If true, Synthea will clear out the output directory each time it starts generation. This means that any generated patients will be lost if not backed up or transferred elsewhere. This defaults to true in order to conserve space. |
+| `generate.default_population` | Whole numbers | `./output/` | This is the number of living patients (population size) that Synthea will generate. Synthea will generate patients until the number of living patients reaches this value. |
+| `generate.database_type` | `file`, `in-memory`, or `none` | `in-memory` | Synthea uses a database to track various metrics, which can be used to produce various reports. If these reports are not desired, the database may be disabled to improve runtime performance. Alternatively, if it is desirable to persist this data across runs, use the `file` option to save data to a persistent database file. ( ./database.mv.db , which can be accessed using the H2 DB client) |
 
 
 ### Other Settings
 
 Synthea<sup>TM</sup> contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea<sup>TM</sup> to another geographic or geopolitical location.
 
-# Running Synthea<sup>TM</sup>
-
-The primary entry point of Synthea<sup>TM</sup> is the "generate" task, which can be run from the terminal in the `synthea` folder by running the following command.
-
-```
-bundle exec rake synthea:generate
-```
-
-When you run this command, you should see output similar to the following:
-
-```
-user@hostname ~/synthea $ bundle exec rake synthea:generate
-Clearing output folders...
-Loaded "Pregnancy" module from /home/user/synthea/lib/generic/modules/pregnancy.json
-Loaded "Dermatitis" module from /home/user/synthea/lib/generic/modules/dermatitis.json
-Loaded "Fibromyalgia" module from /home/user/synthea/lib/generic/modules/fibromyalgia.json
-[... many more modules loaded ...]
-Loaded "Injuries" module from /home/user/synthea/lib/generic/modules/injuries.json
-Generating 100 patients...
-[2017-03-29 14:11:43] 1: Raynor416, Gino157. White French canadian. 26 y/o M 161 lbs. --
-[2017-03-29 14:11:44] 2(d: myocardial_infarction): Jones760, Zackary250. White American. 57 y/o M 206 lbs. -- atopic_dermatitis, allergy_to_fish, perennial_allergic_rhinitis, coronary_heart_disease, myocardial_infarction, history_of_myocardial_infarction
-[2017-03-29 14:11:45] 3: Lehner650, Delia192. White Italian. 4 y/o F 33 lbs. --
-...
-
-```
-
-
-This command takes an optional parameter, which is the name of a file containing census statistics, for example:
-
-```
-bundle exec rake synthea:generate['./config/Suffolk_County.json']
-```
-This command uses the census statistics to choose "targets" for generated patients based on city, including a target age, gender, race, ethnicity, and socioeconomic status. 
-When you run this command, you should see similar output to the above, but additionally some indication that there are city-specific populations being generated:
-
-```
-user@hostname ~/synthea $ bundle exec rake synthea:generate['./config/Middlesex_County.json']
-Clearing output folders...
-Loaded "Pregnancy" module from /home/user/synthea/lib/generic/modules/pregnancy.json
-[...]
-Loaded "Injuries" module from /home/user/synthea/lib/generic/modules/injuries.json
-Generating 100 patients...
-Generating 1 patients within Acton
-[2017-03-29 16:07:47] Acton 1/1: Goyette117, Jannie717. White Portuguese. 62 y/o M 243 lbs. -- drug_overdose, chronic_sinusitis_(disorder)
-Generating 1 patients within Arlington
-[2017-03-29 16:07:49] Arlington 1/1(d: chronic_obstructive_bronchitis_(disorder)): Boyle939, Kade518. White Italian. 61 y/o M 251 lbs. -- prediabetes, chronic_sinusitis_(disorder), chronic_obstructive_bronchitis_(disorder), coronary_heart_disease, osteoporosis_(disorder)
-[2017-03-29 16:07:51] Arlington 1/1(d: myocardial_infarction): Kilback378, Jace581. White Italian. 27 y/o M 181 lbs. -- coronary_heart_disease, chronic_sinusitis_(disorder), myocardial_infarction, history_of_myocardial_infarction
-[2017-03-29 16:07:54] Arlington 1/1: Tromp265, Josianne933. White Italian. 64 y/o M 241 lbs. --
-Generating 1 patients within Ashby
-[2017-03-29 16:07:55] Ashby 1/1: Keeling746, Napoleon147. White Polish. 27 y/o M 146 lbs. --
-Generating 1 patients within Ashland
-[2017-03-29 16:07:57] Ashland 1/1: Trantow54, Colt161. White Polish. 45 y/o F 219 lbs. -- female_infertility, prediabetes, appendicitis, rupture_of_appendix, history_of_appendectomy
-Generating 1 patients within Ayer
-```
-
-Note in this case that Arlington patient 1/1 was generated 3 times, because the first 2 times the patient died before reaching the target age range.
-
-
-
-In either case, when Synthea<sup>TM</sup> is finished generating patients, you will see a large volume of metrics, ending with output similar to the following:
-
-```
-  "population_count": 161,
-  "living": 100,
-  "living_adults": 78,
-  "age_sum": 7191,
-  "adults": 134,
-  "dead": 61,
-  "living_hypertension_and_diabetes": 5
-}
-Outputting Metabolic Syndrome Results to output/prevalences.csv
-Completed in 5 minute(s) 4 second(s).
-Finished.
-user@hostname ~/synthea $ 
-
-```
-
-
 
 ## Examples of Common Tasks
 
 ### Generate a Specific Number of Patients
 
-1. Change the value of setting `synthea.sequential.population` to the desired number of (living) patients. Synthea will generate patients until the target number of living patients have been generated.
-2. From a terminal, run `bundle exec rake synthea:generate`
+Option 1:
+1. Change the value of setting `generate.default_population` to the desired number of (living) patients. Synthea will generate patients until the target number of living patients have been generated.
+2. From a terminal, run `./run_synthea`
+
+OR 
+
+Option 2:
+1. From a terminal, run `./run_synthea -p <number_of_patients>`
 
 ### Generate Patients only in FHIR Format
+1. Change the value of setting `exporter.fhir.export` to `true` and change the value of the other `exporter.___.export` settings to `false`.
+2. From a terminal, run `./run_synthea`
 
-1. Change the value of setting `synthea.exporter.fhir.export` to `true` and change the value of the other `synthea.exporter.fhir.____` settings to `false`.
-2. From a terminal, run `bundle exec rake synthea:generate`
 
-### Generate Patients Based on a Single County
+### Generate Patients Based on a Single State
+1. From a terminal, run `./run_synthea <state_name>`
 
-1. Identify the configuration file containing census information for the desired county.
-2. From a terminal, run `bundle exec rake synthea:generate[<the path to the selected configuration file>]`
+
+### Generate Patients Based on a Single City
+1. From a terminal, run `./run_synthea <state_name> <city_name>`
 
 
 ### Generate Visual Representation of Disease Modules
-
-1. Ensure that Graphviz is installed.
-2. From a terminal, run `bundle exec rake synthea:graphviz`
-3. The log will output the location of the generated files.
+1. From a terminal, run `./gradle graphviz`
+2. The log will output the location of the generated files.
