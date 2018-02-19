@@ -4,21 +4,26 @@ The overall objective of Synthea is to produce synthetic health records from gen
 ### Synthea Record
 The class for the Synthea patient record can be found in `src/main/java/org/mitre/synthea/world/concepts/HealthRecord.java`.
 
-* `@patient_info` - an attributes hash that contains keys `:deathdate` and `:expired` to track if the patient is dead and the time of death
-* `@present` - a hash that references condition or procedure resource hashes. For example, `@present[:diabetes]` yields the hash corresponding to diabetes in `@conditions`. This hash allows for easy lookup to determine if a patient has a certain condition, as well as modification of the condition. Procedures and conditions are being tracked by this hash.
+At a high level, the record is structured as follows:
 
-The following are arrays of hashes where each hash contains information on a single instance of its resource
-* `@encounters` - Each hash is an encounter
-* `@observations` - Each hash is an observation or diagnostic report
-* `@conditions` - Each hash is a condition
-* `@procedures` - Each hash is a procedure
-* `@immunizations` - Each hash is an immunization
-* `@careplans` - Each hash is a care plan
-* `@medications` - Each hash is a medication order (aka prescription)
+ - death (date of death)
+ - encounters
+    - observations
+    - reports
+    - conditions
+    - allergies
+    - procedures
+    - immunizations
+    - medications
+    - careplans
+    - claim
+ - present
+
+Note: `present` is a map that references active condition or procedures. This map allows for easy lookup to determine if a patient has a certain condition, as well as modification of the condition. Procedures and conditions are being tracked by this hash.
 
 The resources appended to these arrays should be appended throughout the patient generation process, such that the array contents are always sorted in chronological order.
 
-**An important note: the record and arrays itself should NOT be manipulated directly. When writing to the record, use the record functions provided.**
+**An important note: the record and arrays should NOT be manipulated directly. When writing to the record, use the record functions provided.**
 
 ### FHIR Record
 
