@@ -1,4 +1,4 @@
-** NOTE: these rules and diagrams were generated using the Ruby version of Synthea; the Java version has no such concept of "rules" and as such this is no longer current. This page is left only for historical context. **
+**NOTE: these rules and diagrams were generated using the Ruby version of Synthea; the Java version has no such concept of "rules" and as such this is no longer current. This page is left only for historical context.**
 
 ### Viewing Rules and Attributes Relationships
 
