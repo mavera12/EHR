@@ -1,3 +1,5 @@
+**NOTE: these steps refer to installing the Ruby version of Synthea on Windows -- the Ruby version of Synthea has been retired so these steps are not necessary to install the current Java implementation. These installation steps are preserved for posterity**
+
 Installing Synthea on a Windows system that hasn't had any Ruby on it before took a little more effort. These are all the steps I had to do on a Windows 7 X64 machine. An alternative is to use a [[Docker]] container.
 
 Note: the 'cd', 'git' and other commands are to be run from a command line window (cmd.exe).
