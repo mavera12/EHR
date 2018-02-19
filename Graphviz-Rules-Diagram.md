@@ -1,3 +1,5 @@
+** NOTE: these rules and diagrams were generated using the Ruby version of Synthea; the Java version has no such concept of "rules" and as such this is no longer current. This page is left only for historical context. **
+
 ### Viewing Rules and Attributes Relationships
 
 A diagram showing the relationships between various rules and attributes can be generated with Graphviz. Since there are so many rules and attributes being modeled in Synthea, it can often be useful to see a visual representation of how these different aspects interact with each other.
