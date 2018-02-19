@@ -15,7 +15,6 @@ Details and examples for these concepts are available on the following pages:
 ### [[Transitions|Generic Module Framework: Transitions]]
 ### [[Logic|Generic Module Framework: Logic]]
 ### [[Submodules|Generic Module Framework: Submodules]]
-### [[Logging|Generic Module Framework: Logging]]
 ### [[Complete Module Example: Examplitis|Generic Module Framework: Example]]
 
 ***
