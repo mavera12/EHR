@@ -1,6 +1,6 @@
 The `graphviz` gradle task will generate diagrams for all generic modules found in _src/main/resources/modules/_.  The following is an example diagram representing a complete module for an artificial 'example' disease: Examplitis:
 
-![Example Diagram](https://github.com/synthetichealth/synthea/blob/master/test/fixtures/generic/example_module_diagram.png)
+![Example Diagram](https://raw.githubusercontent.com/synthetichealth/synthea/ruby/test/fixtures/generic/example_module_diagram.png)
 
 The above diagram was generated based on the following JSON module file:
 
