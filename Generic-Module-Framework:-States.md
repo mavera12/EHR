@@ -660,7 +660,7 @@ The `CarePlanStart` state type indicates a point in the module where a care plan
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
-| `observation` | `[]` | **(optional)** Goal of Observations within a certain threshold. |
+| `observation` | `{}` | **(optional)** Logical test that should be true when the goal has been achieved. For instance, BMI < 30. See also the See also the [[Observation|Generic Module Framework: Logic#observation]] logical condition type. |
 | `text` | `string` | **(optional)** Goal description. |
 | `addresses` | `[]` | The name of an attribute assigned via `ConditionOnset`. |
 
