@@ -56,12 +56,26 @@ The following example demonstrates a state that should transition to the `"Medic
 ```
 
 ### Named Probabilities
-For cases
+For cases where transition probabilities are likely to change based on many different factors, it may be useful to use a "named" transition probability, where the probability of taking any transition is based on the value in an attribute rather than fixed. In this case, instead of a number, the `distribution` on the transition option is an object containing the name of the attribute to look up the transition probability, and a default value for the case where the attribute is not present on the patient.
 
 
 ### Example
-
-
+```json
+"distributed_transition": [
+    {
+        "distribution": { "attribute" : "probability1", "default" : 0.15 },
+        "transition": "Terminal1"
+    },
+    {
+        "distribution": { "attribute" : "probability2", "default" : 0.55 },
+        "transition": "Terminal2"
+    },
+    {
+        "distribution": { "attribute" : "probability3", "default" : 0.30 },
+        "transition": "Terminal3"
+    }
+]
+```
 
 ## Conditional
 
