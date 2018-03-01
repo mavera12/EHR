@@ -55,6 +55,14 @@ The following example demonstrates a state that should transition to the `"Medic
 }
 ```
 
+### Named Probabilities
+For cases
+
+
+### Example
+
+
+
 ## Conditional
 
 `Conditional` transitions will transition to one of several possible states based on conditional logic.  A `conditional_transition` consists of an array of `condition`/`transition` pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition to its corresponding `transition` state.  The last element in the `condition_transition` array may contain only a `transition` (with no `condition`) to indicate a "fallback transition" when all other conditions are `false`.
