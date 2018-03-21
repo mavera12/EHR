@@ -63,8 +63,8 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
-| | Cost | Numeric | `true` | The base cost of the encounter, **not** including any costs related to medications, immunizations, procedures, or other services. |
-| | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT, **if** this encounter targeted a specific condition. |
+| | Cost | Numeric | `true` | The base cost of the encounter, **not** including any line item costs related to medications, immunizations, procedures, or other services. |
+| | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT, **only if** this encounter targeted a specific condition. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
 
 # Immunizations
@@ -78,6 +78,17 @@ Data Dictionary information for each CSV table follows below.
 | | Cost | Numeric | `true` | The line item cost of the immunization. |
 
 # Medications
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Start | Date (`YYYY-MM-DD`) | `true` | The date the medication was prescribed. |
+| | Stop | Date (`YYYY-MM-DD`) | `false` | The date the prescription ended, if applicable. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the medication was prescribed. 
+| | Code | String | `true` | Medication code from RxNorm. |
+| | Description | String | `true` | Description of the medication. |
+| | Cost | Numeric | `true` | The line item cost of the medication. |
+| | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT specifying why this medication was prescribed. |
+| | ReasonDescription | String | `false` | Description of the reason code. |
 
 # Observations
 
