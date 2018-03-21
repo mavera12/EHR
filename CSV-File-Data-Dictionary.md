@@ -28,19 +28,19 @@ Data Dictionary information for each CSV table follows below.
 |-|-------------|-----------|-----------|-------------|
 | | Start | Date (`YYYY-MM-DD`) | `true` | The date the allergy was diagnosed. |
 | | Stop | Date (`YYYY-MM-DD`) | `false` | The date the allergy ended, if applicable. |
-| :key: | Patient | UUID | `true` | Foreign key to the Patient. |
-| :key: | Encounter | UUID | `true` | Foreign key to the Encounter when the allergy was diagnosed. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the allergy was diagnosed. |
 | | Code | String | `true` | Allergy code from SNOMED-CT |
 | | Description | String | `true` | Description of the Allergy |
 
 # CarePlans
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Unique Identifier of the care plan. |
+| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the care plan. |
 | | Start | Date (`YYYY-MM-DD`) | `true` | The date the care plan was initiated. |
 | | Stop | Date (`YYYY-MM-DD`) | `false` | The date the care plan ended, if applicable. |
-| :key: | Patient | UUID | `true` | Foreign key to the Patient. |
-| :key: | Encounter | UUID | `true` | Foreign key to the Encounter when the care plan was initiated. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the care plan was initiated. |
 | | Code | String | `true` | Allergy code from SNOMED-CT |
 | | Description | String | `true` | Description of the Allergy |
 | | ReasonCode | String | `true` | Diagnosis code from SNOMED-CT that this care plan addresses. |
