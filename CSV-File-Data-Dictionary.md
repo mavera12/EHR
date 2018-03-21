@@ -113,14 +113,23 @@ Data Dictionary information for each CSV table follows below.
 | | Prefix | String | `false` | Name prefix, such as `Mr.`, `Mrs.`, `Dr.`, etc. |
 | | First | String | `true` | First name of the patient. |
 | | Last | String | `true` | Last or surname of the patient. |
-| | Suffix | String | `false` | Name suffix, such as `Esq.`, `Jr.`, etc. |
+| | Suffix | String | `false` | Name suffix, such as `PhD`, `MD`, `JD`, etc. |
 | | Maiden | String | `false` | Maiden name of the patient. |
-| | Marital | String | `false` | Marital Status. `M` is married, `S` is single. Current no support for divorce (`D`) or widowing (`W`) |
+| | Marital | String | `false` | Marital Status. `M` is married, `S` is single. Currently no support for divorce (`D`) or widowing (`W`) |
 | | Race | String | `true` | Description of the patient's primary race. |
 | | Ethnicity | String | `true` | Description of the patient's primary ethnicity. |
 | | Gender | String | `true` | Gender. `M` is male, `F` is female. |
 | | BirthPlace | String | `true` | Name of the town where the patient was born. |
-| | Address | String | `true` | Patient's current address without commas or newlines. |
-
+| | Address | String | `true` | Patient's current full address without commas or newlines. |
 
 # Procedures
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Date | Date (`YYYY-MM-DD`) | `true` | The date the procedure was performed. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the procedure was performed. 
+| | Code | String | `true` | Procedure code from SNOMED-CT |
+| | Description | String | `true` | Description of the procedure. |
+| | Cost | Numeric | `true` | The line item cost of the procedure. |
+| | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT specifying why this procedure was performed. |
+| | ReasonDescription | String | `false` | Description of the reason code. |
