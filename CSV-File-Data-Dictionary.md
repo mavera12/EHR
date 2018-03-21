@@ -64,9 +64,9 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
-| | Cost | Numeric | `true` | The base cost of the encounter, *not* including any costs related to medications, immunizations, procedures, or other services.
-| | ReasonCode | String | `true` | Diagnosis code from SNOMED-CT that this care plan addresses. |
-| | ReasonDescription | String | `true` | Description of the reason code. |
+| | Cost | Numeric | `true` | The base cost of the encounter, **not** including any costs related to medications, immunizations, procedures, or other services.
+| | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT, **if** this encounter targeted a specific condition. |
+| | ReasonDescription | String | `false` | Description of the reason code. |
 
 # Immunizations
 
