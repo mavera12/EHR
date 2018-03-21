@@ -24,6 +24,11 @@ Data Dictionary information for each CSV table follows below.
 
 # Allergies
 
+| | Column Name | Data Type | Description |
+|-|-------------|-----------|-------------|
+| | Start | Date (`YYYY-MM-DD`) | The date the allergy was diagnosed. |
+
+
 # CarePlans
 
 # Conditions
