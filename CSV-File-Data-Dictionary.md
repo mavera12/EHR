@@ -24,10 +24,14 @@ Data Dictionary information for each CSV table follows below.
 
 # Allergies
 
-| | Column Name | Data Type | Description |
-|-|-------------|-----------|-------------|
-| | Start | Date (`YYYY-MM-DD`) | The date the allergy was diagnosed. |
-
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Start | Date (`YYYY-MM-DD`) | `true` | The date the allergy was diagnosed. |
+| | Stop | Date (`YYYY-MM-DD`) | `false` | The data the allergy ended, if applicable. |
+| :key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :key: | Encounter | UUID | `true` | Foreign key to the Encounter when the allergy was diagnosed. |
+| | Code | String | `true` | Allergy code from SNOMED-CT |
+| | Description | String | `true` | Description of the Allergy |
 
 # CarePlans
 
@@ -44,4 +48,3 @@ Data Dictionary information for each CSV table follows below.
 # Patients
 
 # Procedures
-
