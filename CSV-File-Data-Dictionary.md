@@ -41,14 +41,32 @@ Data Dictionary information for each CSV table follows below.
 | | Stop | Date (`YYYY-MM-DD`) | `false` | The date the care plan ended, if applicable. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the care plan was initiated. |
-| | Code | String | `true` | Allergy code from SNOMED-CT |
-| | Description | String | `true` | Description of the Allergy |
+| | Code | String | `true` | Code from SNOMED-CT |
+| | Description | String | `true` | Description of the care plan. |
 | | ReasonCode | String | `true` | Diagnosis code from SNOMED-CT that this care plan addresses. |
 | | ReasonDescription | String | `true` | Description of the reason code. |
 
 # Conditions
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Start | Date (`YYYY-MM-DD`) | `true` | The date the condition was diagnosed. |
+| | Stop | Date (`YYYY-MM-DD`) | `false` | The date the condition resolved, if applicable. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the condition was diagnosed. |
+| | Code | String | `true` | Diagnosis code from SNOMED-CT |
+| | Description | String | `true` | Description of the condition. |
 
 # Encounters
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the encounter. |
+| | Date | Date (`YYYY-MM-DD`) | `true` | The date the encounter took place. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| | Code | String | `true` | Encounter code from SNOMED-CT |
+| | Description | String | `true` | Description of the type of encounter. |
+| | Cost | Numeric | `true` | The base cost of the encounter, *not* including any costs related to medications, immunizations, procedures, or other services.
+| | ReasonCode | String | `true` | Diagnosis code from SNOMED-CT that this care plan addresses. |
+| | ReasonDescription | String | `true` | Description of the reason code. |
 
 # Immunizations
 
