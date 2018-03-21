@@ -10,7 +10,7 @@ After running Synthea, the CSV exporter will create nine files:
 
 | File | Description |
 |------|-------------|
-| `allergies.csv` | Patient allergy data. |
+| [`allergies.csv`](#Allergies) | Patient allergy data. |
 | `careplans.csv` | Patient care plan data, including goals. |
 | `conditions.csv` | Patient conditions or diagnoses. |
 | `encounters.csv` | Patient encounter data. |
