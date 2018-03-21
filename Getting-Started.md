@@ -14,7 +14,7 @@ The Synthea<sup>TM</sup> [Generic Module Framework](https://github.com/synthetic
 
 As an example, consider the Appendicitis module:
 
-![](https://synthetichealth.github.io/synthea/graphviz/Appendicitis.png)
+![](https://raw.githubusercontent.com/synthetichealth/synthea/gh-pages/graphviz/appendicitis.png)
 
 Every patient starts at the **Initial** state at birth. As soon as the Initial state is processed, each patient will conditionally transition to either the **Male** or **Female** state depending on their gender. Males have an approximate lifetime risk of appendicitis of 8.6%, and females have an approximate lifetime risk of 6.7%. This percent of patients will then transition immediately to the **Pre\_appendicitis** state, whereas the remaining 90+% of patients will transition directly to the **Terminal** state, at which point their progression of the Appendicitis module is complete.
 
