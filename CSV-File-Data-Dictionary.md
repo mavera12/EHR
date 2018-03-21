@@ -91,6 +91,15 @@ Data Dictionary information for each CSV table follows below.
 | | ReasonDescription | String | `false` | Description of the reason code. |
 
 # Observations
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Date | Date (`YYYY-MM-DD`) | `true` | The date the observation was performed. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the observation was performed. 
+| | Code | String | `true` | Observation or Lab code from LOINC |
+| | Description | String | `true` | Description of the observation or lab. |
+| | Value | Numeric | `true` | The recorded value of the observation. |
+| | Units | String | `true` | The units of measure for the value. |
 
 # Patients
 
