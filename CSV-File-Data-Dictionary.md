@@ -98,8 +98,9 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the observation was performed. 
 | | Code | String | `true` | Observation or Lab code from LOINC |
 | | Description | String | `true` | Description of the observation or lab. |
-| | Value | Numeric | `true` | The recorded value of the observation. |
+| | Value | String | `true` | The recorded value of the observation. |
 | | Units | String | `true` | The units of measure for the value. |
+| | Type | String | `true` | The datatype of `Value`: `text` or `numeric` |
 
 # Patients
 | | Column Name | Data Type | Required? | Description |
