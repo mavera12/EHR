@@ -99,7 +99,7 @@ Data Dictionary information for each CSV table follows below.
 | | Code | String | `true` | Observation or Lab code from LOINC |
 | | Description | String | `true` | Description of the observation or lab. |
 | | Value | String | `true` | The recorded value of the observation. |
-| | Units | String | `true` | The units of measure for the value. |
+| | Units | String | `false` | The units of measure for the value. |
 | | Type | String | `true` | The datatype of `Value`: `text` or `numeric` |
 
 # Patients
