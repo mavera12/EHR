@@ -119,7 +119,7 @@ The following example demonstrates a state that should transition to the `"Male_
 
 `Complex` transitions are a combination of direct, distributed, and conditional transitions.  A `complex_transition` consists of an array of condition/transition pairs which are tested in the order they are defined.  The first condition that evaluates to `true` will result in a transition based on its corresponding `transition` or `distributions`.  If the module defines a `transition`, it will transition directly to that named state. If the module defines `distributions`, it will then transition to one of these according to the same rules as the `distributed_transition`. See [Distributed](#distributed) for more detail. The last element in the `complex_transition` array may omit the `condition` to indicate a fallback transition when all other conditions are `false`.
 
-If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to a default `Terminal` state.
+If none of the `conditions` evaluated to `true`, and no fallback transition was specified, the module will transition to the last defined transition.
 
 Please see the [[Logic|Generic Module Framework: Logic]] section for more information about creating logical conditions.
 
