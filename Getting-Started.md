@@ -127,7 +127,7 @@ START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION
 # Installing Synthea<sup>TM</sup>
 ## Prerequisites
  - Git
- - Java 1.8 or higher
+ - Java 1.8 or higher (select JDK, not JRE install)
 
 
 To copy the Synthea<sup>TM</sup> repository locally and install the necessary gems, open a terminal window and run the following commands:
@@ -260,5 +260,5 @@ Option 2:
 
 
 ### Generate Visual Representation of Disease Modules
-1. From a terminal, run `./gradle graphviz`
+1. From a terminal, run `./gradlew graphviz`
 2. The log will output the location of the generated files.
