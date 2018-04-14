@@ -16,7 +16,8 @@ The Generic Module Framework currently supports the following states:
 * [AllergyOnset](#allergyonset), [AllergyEnd](#allergyend) 
 * [MedicationOrder](#medicationorder), [MedicationEnd](#medicationend) 
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend) 
-* [Procedure](#procedure) 
+* [Procedure](#procedure)
+* [ImagingStudy](#imagingstudy)
 * [VitalSign](#vitalsign) 
 * [Observation](#observation-1), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
 * [Symptom](#symptom) 
@@ -799,6 +800,84 @@ The following is an example of a Procedure that should be performed at the `"Inp
     "high": 3,
     "unit": "hours"
   }
+}
+```
+
+## ImagingStudy
+
+The `ImagingStudy` state type indicates a point in the module where an imaging study was performed on the patient. An ImagingStudy consists of one or more `series` or images.
+
+Each series is a set of images taken of a specific `body_site` (for example, "Right Knee") using a specific `modality` (for example "Magnetic Resonance").
+
+Images taken during each series are represented as `instances`, where each instance captures a `title` and `sop_class` describing the DICOM Subject-Object Pair (SOP) that constitutes the image.
+
+An ImagingStudy **must** occur during an Encounter.
+
+### Usage Notes
+
+When an ImagingStudy state is processed, both an ImagingStudy and a Procedure are added to the patient's record. Because the [FHIR U.S. Core Implementation Guide](https://www.hl7.org/fhir/us/core/) does not profile ImagingStudy, large vendors in the U.S. will support Procedure via the Argonauts program, but not necessarily ImagingStudy. If modules produce both, then the fact that a patient had an X-Ray or MRI or Ultrasound will be found by clients no matter the system importing/exposing the data.
+
+An ImagingStudy state typically precedes a series of Observation states and their encompassing DiagnosticReport state. Observations and DiagnosticReports should be used to capture the physician's interpretation of the ImagingStudy's results.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `type` | `string` | Must be `"ImagingStudy"`. |
+| `procedure_code` | `{}` | A [SNOMED](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes) code describing the ImagingStudy as a Procedure. |
+| `series` | `[]` | One or more series of images. |
+
+##### `series`:
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `body_site` | `{}` | A [SNOMED](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes) Body Structures code describing what part of the body the images in the series were taken of. |
+| `modality` | `{}` | A [DICOM-DCM](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-dcm-codes) code describing the method used to take the images. |
+| `instances` | `[]` | One or more image instances taken in the series. |
+
+##### `instances`:
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `title` | `string` | A title for the image. |
+| `sop_class` | `{}` | A [DICOM-SOP](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-sop-codes) code describing the type of image taken. |
+
+### Example
+
+The following is an example of an ImagingStudy state capturing a single X-Ray image taken of the patient's ankle:
+
+```
+"Ankle_X_Ray": {
+  "type": "ImagingStudy",
+  "procedure_code": {
+    "system": "SNOMED-CT",
+    "code": "19490002",
+    "display": "Ankle X-ray"
+  },
+  "series": [
+    {
+      "body_site": {
+        "system": "SNOMED-CT",
+        "code": "344001",
+        "display": "Ankle"
+      },
+      "modality": {
+        "system": "DICOM-DCM",
+        "code": "DX",
+        "display": "Digital Radiography"
+      },
+      "instances": [
+        {
+          "title": "Image of ankle",
+          "sop_class": {
+            "system": "DICOM-SOP",
+            "code": "1.2.840.10008.5.1.4.1.1.1.1",
+            "display": "Digital X-Ray Image Storage"
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
