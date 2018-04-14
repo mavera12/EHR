@@ -170,3 +170,31 @@ For a searchable directory of LOINC codes see the [LOINC Browser](https://search
   "display": "Polyp size greatest dimension by CAP cancer protocols"
 }
 ```
+
+### DICOM DCM Codes
+
+[DICOM-DCM](https://www.dicomlibrary.com/dicom/modality/) codes describe the modality used to take a series of images in an ImagingStudy. In the Generic Module Framework these codes are only used for `ImagingStudy` states.
+
+#### Example
+
+```
+{
+  "system": "DICOM-DCM",
+  "code": "MR",
+  "display": "Magnetic Resonance"
+}
+```
+
+### DICOM SOP Codes
+
+[DICOM-SOP]() codes describe an individual image instance taken in a series of images during an ImagingStudy. Specifically, SOP codes describe the Subject-Object Pair (SOP) that constitutes the image. In the Generic Module Framework these codes are only used for `ImagingStudy` states.
+
+#### Example
+
+```
+{
+  "system": "DICOM-SOP",
+  "code": "1.2.840.10008.5.1.4.1.1.1.1",
+  "display": "Digital X-Ray Image Storage"
+}
+```
