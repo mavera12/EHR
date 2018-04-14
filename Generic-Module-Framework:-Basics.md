@@ -187,7 +187,7 @@ For a searchable directory of LOINC codes see the [LOINC Browser](https://search
 
 ### DICOM SOP Codes
 
-[DICOM-SOP]() codes describe an individual image instance taken in a series of images during an ImagingStudy. Specifically, SOP codes describe the Subject-Object Pair (SOP) that constitutes the image. In the Generic Module Framework these codes are only used for `ImagingStudy` states.
+[DICOM-SOP](https://www.dicomlibrary.com/dicom/sop/) codes describe an individual image instance taken in a series of images during an ImagingStudy. Specifically, SOP codes describe the Subject-Object Pair (SOP) that constitutes the image. In the Generic Module Framework these codes are only used for `ImagingStudy` states.
 
 #### Example
 
