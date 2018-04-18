@@ -19,7 +19,7 @@ The Generic Module Framework currently supports the following states:
 * [Procedure](#procedure)
 * [ImagingStudy](#imagingstudy)
 * [VitalSign](#vitalsign) 
-* [Observation](#observation-1), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
+* [Observation](#observation), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
 * [Symptom](#symptom) 
 * [Death](#death) 
 
