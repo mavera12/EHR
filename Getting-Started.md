@@ -99,7 +99,7 @@ ENCOUNTERS:
 ```
 
 #### CSV
-Researchers have requested a simple table-based format that could easily be imported into any database for analysis. Unlike other formats which export a single record per patient, this format generates 9 total files, and adds lines to each based on the clinical events for each patient. These files are intended to be analogous to database tables, with the patient UUID being a foreign key. Files include: `patients.csv`, `encounters.csv`, `allergies.csv`, `medications.csv`, `conditions.csv`, `careplans.csv`, `observations.csv`, `procedures.csv`, and `immunizations.csv` .
+Researchers have requested a simple table-based format that could easily be imported into any database for analysis. Unlike other formats which export a single record per patient, this format generates 9 total files, and adds lines to each based on the clinical events for each patient. These files are intended to be analogous to database tables, with the patient UUID being a foreign key. Files include: `patients.csv`, `encounters.csv`, `allergies.csv`, `medications.csv`, `conditions.csv`, `careplans.csv`, `observations.csv`, `procedures.csv`, and `immunizations.csv`. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary) for definitions of the CSV files.
 
 **Sample**:
 
