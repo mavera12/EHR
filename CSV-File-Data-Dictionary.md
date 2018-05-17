@@ -59,7 +59,8 @@ Data Dictionary information for each CSV table follows below.
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
 | :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the encounter. |
-| | Date | Date (`YYYY-MM-DD`) | `true` | The date the encounter took place. |
+| | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the encounter started. |
+| | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the encounter concluded. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
@@ -121,7 +122,10 @@ Data Dictionary information for each CSV table follows below.
 | | Ethnicity | String | `true` | Description of the patient's primary ethnicity. |
 | | Gender | String | `true` | Gender. `M` is male, `F` is female. |
 | | BirthPlace | String | `true` | Name of the town where the patient was born. |
-| | Address | String | `true` | Patient's current full address without commas or newlines. |
+| | Address | String | `true` | Patient's street address without commas or newlines. |
+| | City | String | `true` | Patient's address city. |
+| | State | String | `true` | Patient's address state. |
+| | Zip | String | `true` | Patient's zip code. |
 
 # Procedures
 | | Column Name | Data Type | Required? | Description |
