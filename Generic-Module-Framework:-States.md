@@ -769,7 +769,7 @@ The `Procedure` also supports identifying a previous `ConditionOnset` or an attr
 | `type` | `string` | Must be `"Procedure"`. |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Procedure. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
-| `duration` | `{}` | The length of the procedure, as a range with unit. |
+| `duration` | `{}` | **(optional)** The length of the procedure, as a range with unit. |
 
 ##### `duration`:
 
