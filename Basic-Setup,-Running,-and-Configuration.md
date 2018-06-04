@@ -49,7 +49,11 @@ Location: Massachusetts
 This command takes additional parameters to specify different regions or common run options. Any options not specified are left at the default value.
 
 ```
-run_synthea [-s seed] [-p populationSize] [state [city]]
+run_synthea [-s seed] 
+            [-p populationSize]
+            [-g gender]
+            [-a minAge-maxAge]
+            [state [city]]
 ```
 
 Some examples:
@@ -58,6 +62,8 @@ Some examples:
  -   `run_synthea Alaska Juneau` -- to generate a population in only Juneau, Alaska
  -   `run_synthea -s 12345` -- to generate a population using seed 12345. Populations generated with the same seed and the same version of Synthea should be identical
  -   `run_synthea -p 1000` -- to generate a population of 1000 patients
+ -   `run_synthea -a 30-40` -- to generate a population of 30 to 40 year olds
+ -   `run_synthea -g F` -- to generate only female patients
  -   `run_synthea -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
  -   `run_synthea -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
 
@@ -77,7 +83,7 @@ Many features of Synthea are configurable using the settings file at `./src/main
 | `exporter.hospital.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting hospital information in FHIR STU3 format. |
 | `exporter.hospital.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting hospital information in FHIR DSTU2 format. |
 | `exporter.text.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in a simple text-based format. |
-| `exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. |
+| `exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary). |
 
 
 ### Other Export Settings
