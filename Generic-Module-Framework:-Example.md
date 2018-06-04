@@ -1,4 +1,4 @@
-This example contains a [diagram](#examplitis-diagram) with complete [JSON](#examplitis-json) and a walk-through. The `graphviz` gradle task will generate diagrams for all generic modules found in `src/main/resources/modules/`. Alternatively, modules can be edited using the online [Module Builder](https://synthetichealth.github.io/module-builder/) tool. The following is an example diagram representing a complete module for an artificial example disease: Examplitis.
+This example contains a [diagram](#examplitis-diagram) with complete [JSON](#examplitis-json) and a [walk-through](#examplitis-walk-through). The `graphviz` gradle task will generate diagrams for all generic modules found in `src/main/resources/modules/`. Alternatively, modules can be edited using the online [Module Builder](https://synthetichealth.github.io/module-builder/) tool. The following is an example diagram representing a complete module for an artificial example disease: Examplitis.
 
 ## Examplitis Diagram
 ![Example Diagram](https://raw.githubusercontent.com/synthetichealth/synthea/ruby/test/fixtures/generic/example_module_diagram.png)
