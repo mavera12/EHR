@@ -1,7 +1,11 @@
 - [[Home]]
 - [[Getting Started]]
   - [[Basic Setup, Running, and Configuration]]
+- Other Areas
   - [[Demographics for Other Areas]]
+  - Zip or Postal Codes
+  - Name Data
+  - Provider Data
   - [[Cost Data]]
 - [[Contributing]]
   - [[Adding a Module]]
