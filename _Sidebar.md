@@ -1,5 +1,6 @@
 - [[Home]]
 - [[Getting Started]]
+  - [[Basic Setup, Running, and Configuration]]
   - [[Demographics for Other Areas]]
   - [[Cost Data]]
 - [[Contributing]]
