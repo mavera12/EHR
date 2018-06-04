@@ -90,7 +90,7 @@ Many features of Synthea are configurable using the settings file at `./src/main
 
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
-| `exporter.years_of_history` | Whole number | `10` | The number of years of patient history to include in patient records. For example, if set to `5`, then all patient history older than 5 years old (2012 or earlier) will not be included in the exported records. Note that conditions and medications that are currently active will still be exported, regardless of this setting. Set this to `0` to keep all history in the patient record. |
+| `exporter.years_of_history` | Whole number | `10` | The number of years of patient history to include in patient records. For example, if set to `5`, then all patient history older than 5 years old (from the time you execute the program) will not be included in the exported records. Note that conditions and medications that are currently active will still be exported, regardless of this setting. Set this to `0` to keep all history in the patient record. |
 | `exporter.baseDirectory` | Folder paths | `./output/` | This is the base folder in which all patient records will be exported. Files will be exported to subfolders based on their type. (For example FHIR records will be stored in the `/fhir/` subfolder under this folder. |
 | `exporter.subfolders_by_id_substring` | `true`/`false` | `false` | If true, patient records will be grouped into subfolders based on their UUID, which is a randomly generated unique identifer. This reduces the number of files in any single folder, and ensures a roughly even distribution of files among folders. However there is no correlation between files in any given folder as the IDs are random. |
 | `synthea.exporter.use_uuid_filenames` | `true`/`false` | `false` | If true, patient records will have filenames based only on their UUID. If false, patient records will have filenames including the patient's name. This is mostly intended as a debugging feature - if watching the terminal as patients are generating, this makes it easier to find the record once it is generated. |
@@ -106,8 +106,7 @@ Many features of Synthea are configurable using the settings file at `./src/main
 
 ### Other Settings
 
-Synthea<sup>TM</sup> contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea<sup>TM</sup> to another geographic or geopolitical location.
-
+Synthea<sup>TM</sup> contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea<sup>TM</sup> to another geographic or geopolitical location (in which case they should see the series of wiki pages under `Other Areas` starting with [Demographics for Other Areas](https://github.com/synthetichealth/synthea/wiki/Demographics-for-Other-Areas).
 
 ## Examples of Common Tasks
 
