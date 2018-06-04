@@ -1,4 +1,19 @@
-Costs in Synthea represent a very simplified version of real-world costs. While real-world costs can vary wildly due to differences providers, cities, states, payers, as of May 2018 Synthea only models cost at a basic level, where prices for a service are consistent across all instances of that service. Synthea stores all these prices in lookup tables as listed below:
+Costs in Synthea represent a very simplified version of real-world costs. While real-world costs can vary wildly due to differences providers, cities, states, payers, as of May 2018 Synthea only models cost at a basic level, where prices for a service are consistent across all instances of that service. Synthea stores all these prices in lookup tables as listed below. In the case where costs are not included in the lookup tables, there are default values configured in the `./src/main/resources/synthea.properties` file:
+
+```properties
+# Default Costs, to be used for pricing something that we don't have a specific price for
+# -- $500 for procedures is completely invented
+generate.costs.default_procedure_cost = 500.00
+# -- $255 for medications - also invented
+generate.costs.default_medication_cost = 255.00
+# -- Encounters billed using avg prices from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3096340/
+# -- Adjustments for initial or subsequent hospital visit and level/complexity/time of encounter
+# -- not included. Assume initial, low complexity encounter (Tables 4 & 6)
+generate.costs.default_encounter_cost = 125.00
+# -- https://www.nytimes.com/2014/07/03/health/Vaccine-Costs-Soaring-Paying-Till-It-Hurts.html
+# -- currently all vaccines cost $136.
+generate.costs.default_immunization_cost = 136.00
+```
 
 ## Encounters
 Encounter costs are stored in `src/main/resources/costs/encounters.csv`.
