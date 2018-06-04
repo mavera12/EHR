@@ -30,7 +30,7 @@ Alternatively, you may run the provided `run_synthea` script which makes it easi
 When you run this command, you should see output similar to the following:
 
 ```
-user@hostname ~/synthea $ ./run_synthea
+example@hostname ~/synthea $ ./run_synthea
 
 > Task :run
 Loading C:\Users\example\synthea\build\resources\main\modules\allergic_rhinitis.json
@@ -48,7 +48,9 @@ Location: Massachusetts
 
 This command takes additional parameters to specify different regions or common run options. Any options not specified are left at the default value.
 
-`run_synthea [-s seed] [-p populationSize] [state [city]]`
+```
+run_synthea [-s seed] [-p populationSize] [state [city]]
+```
 
 Some examples:
 
