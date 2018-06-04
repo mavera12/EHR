@@ -12,6 +12,6 @@
   - [[Logic|Generic Module Framework: Logic]]
   - [[Transitions|Generic Module Framework: Transitions]]
   - [[Submodules|Generic Module Framework: Submodules]]
-  - [[Complete Example|Generic Module Framework: Example]]
+  - [[Complete Example|Generic Module Framework: Complete Example]]
 - [[Records]]
   - [[CSV File Data Dictionary]]
