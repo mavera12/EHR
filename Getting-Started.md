@@ -12,25 +12,7 @@ Synthea<sup>TM</sup> generates synthetic patient records using an agent-based ap
 ### Disease Modules
 The Synthea<sup>TM</sup> [Generic Module Framework](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework) allows for the creation of state machines representing the progression and standards of care for common diseases, using a set of predefined states, transitions, and conditional logic. Modules are built based on publicly available health data, including disease incidence and prevalence statistics, and clinical practice guidelines. The disease modules represent a Monte Carlo simulation, where events occur depending with varying frequency based on repeated weighted random sampling.
 
-As an example, consider the Appendicitis module:
-
-![](https://raw.githubusercontent.com/synthetichealth/synthea/gh-pages/graphviz/appendicitis.png)
-
-Every patient starts at the **Initial** state at birth. As soon as the Initial state is processed, each patient will conditionally transition to either the **Male** or **Female** state depending on their gender. Males have an approximate lifetime risk of appendicitis of 8.6%, and females have an approximate lifetime risk of 6.7%. This percent of patients will then transition immediately to the **Pre\_appendicitis** state, whereas the remaining 90+% of patients will transition directly to the **Terminal** state, at which point their progression of the Appendicitis module is complete.
-
-The patients in the Pre\_appendicitis state will transition randomly to one of four states, representing the age distribution of appendicitis:
-
-* 26.3% will transition to **Ages\_1\_17**, representing the  proportion of the population afflicted by appendicitis between ages 1 and 17
-* 42.3% will transition to **Ages\_18\_44**
-* 22.1% will transition to **Ages\_45\_64**
-* The remaining 9.3% will transition to **Ages\_65\_Plus**
-
-These four states are of the **Delay** type, which indicates that the module progression will pause until a certain amount of time has passed. For instance, the Ages\_18\_44 state will pause for a random amount of time between 18 and 44 years. Once the amount of time has passed, progression will continue and the patient will transition to the **Appendicitis** state.
-
-The Appendicitis state is a **ConditionOnset**, which indicates the point at which the condition first onsets for the patient. The ConditionOnset includes the SNOMED code for the condition which will be added to the patient's record once the condition is diagnosed. From there, 30% of patients will transition to **Rupture** where they experience a ruptured appendix and then transition to the **Appendicitis\_Encounter** state, and 70% will transition directly to the Appendicitis\_Encounter.
-
-An **Encounter** state indicates an interaction between patient and healthcare provider. As the patient progresses through subsequent states, the system keeps a reference to the current Encounter the patient is in, to associate to subsequent events. The patient then is diagnosed with a "History of appendectomy" condition for future reference, then transitions to the **Appendectomy\_Encounter** state and then the **Appendectomy** state where an appendectomy is performed. The patient then transitions to a 1-5 day recovery period, at which point they transition to the **End\_Appendectomy\_Encounter** state where the encounter ends and they are discharged. Finally, they transition to the Terminal state, and the module progression is complete.
-
+For a walk-through of a complete example, see the [Complete Example](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Complete-Example) page. To view, edit, or create new modules, try our online [Module Builder](https://synthetichealth.github.io/module-builder/).
 
 ### Patient Record Formats
 
