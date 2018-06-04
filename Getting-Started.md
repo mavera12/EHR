@@ -105,4 +105,4 @@ START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION
 1990-09-01,,5e0d195e-1cd9-494d-8f9a-757c15da2aed,918b17f4-e815-44ef-9eeb-41953bbcf7e9,429007001,History of cardiac arrest (situation)
 ```
 
-**[Next: Basic Setup, Running, and Configuration](https://github.com/synthetichealth/synthea/wiki/Basic-Setup,-Running,-and-Configuration)**
+**[Next: Basic Setup and Running](https://github.com/synthetichealth/synthea/wiki/Basic-Setup-and-Running)**
