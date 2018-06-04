@@ -14,7 +14,7 @@ cd synthea
 
 # Running Synthea<sup>TM</sup>
 
-The primary entry point of Synthea is the "run" gradle task, which can be run from the terminal in the `synthea` folder by running the following command.
+The primary entry point of Synthea is the `run` gradle task, which can be run from the terminal in the `synthea` folder by running the following command.
 
 ```
 ./gradlew run
