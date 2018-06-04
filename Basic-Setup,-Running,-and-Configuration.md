@@ -95,7 +95,7 @@ Many features of Synthea are configurable using the settings file at `./src/main
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
 | `generate.default_population` | Whole numbers | `./output/` | This is the number of living patients (population size) that Synthea will generate. Synthea will generate patients until the number of living patients reaches this value. |
-| `generate.database_type` | `file`, `in-memory`, or `none` | `in-memory` | Synthea uses a database to track various metrics, which can be used to produce various reports. If these reports are not desired, the database may be disabled to improve runtime performance. Alternatively, if it is desirable to persist this data across runs, use the `file` option to save data to a persistent database file. ( ./database.mv.db , which can be accessed using the H2 DB client) |
+| `generate.database_type` | `file`, `in-memory`, or `none` | `in-memory` | Synthea uses a database to track various metrics, which can be used to produce various reports. If these reports are not desired, the database may be disabled to improve runtime performance. Alternatively, if it is desirable to persist this data across runs, use the `file` option to save data to a persistent database file (`./database.mv.db`, which can be accessed using the [h2 database client](https://github.com/h2database/h2database)). But beware of `file` as the size of the database can grow VERY large. |
 
 
 ### Other Settings
