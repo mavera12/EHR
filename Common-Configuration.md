@@ -1,5 +1,3 @@
-# Configuring Synthea<sup>TM</sup>
-
 Many features of Synthea are configurable using the settings file at `./src/main/resources/synthea.properties`.
 
 ## Summary of Commonly-Used Configuration Options
