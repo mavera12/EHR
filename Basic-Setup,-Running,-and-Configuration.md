@@ -107,33 +107,3 @@ Many features of Synthea are configurable using the settings file at `./src/main
 ### Other Settings
 
 Synthea<sup>TM</sup> contains a number of configurable options relating to the world, human vital signs, risk levels, etc. These have been pre-seeded with values based on US and Massachusetts data, with citations for these values where possible. Users generally will not want to modify these unless trying to simulate a specific result or trying to adapt Synthea<sup>TM</sup> to another geographic or geopolitical location (in which case they should see the series of wiki pages under `Other Areas` starting with [Demographics for Other Areas](https://github.com/synthetichealth/synthea/wiki/Demographics-for-Other-Areas).
-
-## Examples of Common Tasks
-
-### Generate a Specific Number of Patients
-
-Option 1:
-1. Change the value of setting `generate.default_population` to the desired number of (living) patients. Synthea will generate patients until the target number of living patients have been generated.
-2. From a terminal, run `./run_synthea`
-
-OR 
-
-Option 2:
-1. From a terminal, run `./run_synthea -p <number_of_patients>`
-
-### Generate Patients only in FHIR Format
-1. Change the value of setting `exporter.fhir.export` to `true` and change the value of the other `exporter.___.export` settings to `false`.
-2. From a terminal, run `./run_synthea`
-
-
-### Generate Patients Based on a Single State
-1. From a terminal, run `./run_synthea <state_name>`
-
-
-### Generate Patients Based on a Single City
-1. From a terminal, run `./run_synthea <state_name> <city_name>`
-
-
-### Generate Visual Representation of Disease Modules
-1. From a terminal, run `./gradlew graphviz`
-2. The log will output the location of the generated files.
