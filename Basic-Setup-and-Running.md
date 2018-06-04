@@ -66,3 +66,5 @@ Some examples:
  -   `run_synthea -g F` -- to generate only female patients
  -   `run_synthea -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
  -   `run_synthea -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
+
+**[Next: Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration)**
