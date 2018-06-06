@@ -1,6 +1,6 @@
 By default, the project contains demographics for the entire United States in `src/main/resources/geography/demographics.csv` which has been post-processed from publicly available US Census Bureau files.
 
-You can modify the demographics file or have Synthea use an alternative demographics file by altering the `./src/main/resources/synthea.properties` file:
+You can modify the demographics file or have Synthea use an alternative demographics file by altering the `src/main/resources/synthea.properties` file:
 
 ```properties
 # default demographics is every city in the US
