@@ -38,15 +38,15 @@ Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip
 
 ```csv
 ,USPS,ST,NAME,ZCTA5,LAT,LON
-0,West Midlands,WMS,Shrewsbury,SY1,52.7081,2.7549
-1,West Midlands,WMS,Shrewsbury,SY2,52.7083,2.7546
-2,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
+0,West Midlands,WMS,Shrewsbury,SY1,52.7081,-2.7549
+1,West Midlands,WMS,Shrewsbury,SY2,52.7083,-2.7546
+2,West Midlands,WMS,Shrewsbury,SY3,52.7089,-2.7543
 ```
 
 Finally, we need to provide at least one hospital for our Salopians, so we edit the **hospitals** file:
 
 ```csv
-id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
+,id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
 0,010001,Royal Shrewsbury Hospital,Mytton Oak Rd,Shrewsbury,WMS,SY3 8XQ,Shropshire,01743261000,NHS Teaching Hospital,Government - Hospital District or Authority,Yes,5,52.7091,-2.7931
 ```
 
