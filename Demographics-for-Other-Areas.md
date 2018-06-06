@@ -1,8 +1,8 @@
 By default, the project contains demographics for the entire United States in `src/main/resources/geography/demographics.csv` which has been post-processed from publicly available US Census Bureau files.
 
-If you modify or replace the demographics file, you may also need to replace `src/main/resources/geography/zipcodes.csv` which contains postal codes and geographic locations (latitude and longitude) for each location.
+If you modify or replace the demographics file, you may also need to replace the [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes) file which contains postal codes and geographic locations (latitude and longitude) for each location.
 
-If you want to change patient names to be more appropriate for another area (e.g. not so North American) you'll also need to modify or replace the `src/main/resources/names.yml` file.
+You may also want to change patient names to be more appropriate for another area (e.g. not so North American). If so, you'll also need to modify or replace the [Names](https://github.com/synthetichealth/synthea/wiki/Name-Data) file.
 
 ### Generating a State or City
 For example, you can generate synthetic patients for the state of New York:
@@ -92,7 +92,7 @@ Synthea uses Income and Education to determine a socioeconomic status. The socio
 
 These are incomplete partial examples for illustration purposes.
 
-If running Synthea for non-US locations, patient records may still require post-processing to clean up the listed country (`US` will still appear) and postal codes within addresses.
+If running Synthea for non-US locations, patient records may still require post-processing to clean up the listed country (`US` will still appear in an address) and  [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes)  within addresses.
 
 ### Abridged Example for United Kingdom
 Districting and addresses in the United Kingdom differ from the United States. In this example, the County is entered in the `STNAME` column and the District is entered in the `CTYNAME`.
