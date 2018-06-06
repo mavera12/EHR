@@ -19,7 +19,8 @@ The exporting of FHIR can be configured using the `src/main/resources/synthea.pr
 ```properties
 # default FHIR configuration.
 exporter.fhir.export = true
-# transaction bundle 'true' produces transaction Bundles, 'false' produces collection Bundles.
+# transaction bundle 'true' produces transaction Bundles
+# while 'false' produces collection Bundles.
 exporter.fhir.transaction_bundle = true
 # Standard Health Record (SHR) extensions for STU3
 exporter.fhir.use_shr_extensions = true
