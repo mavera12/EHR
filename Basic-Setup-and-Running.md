@@ -10,7 +10,7 @@ git clone https://github.com/synthetichealth/synthea.git
 cd synthea
 ./gradlew build check test
 ```
-**Note: if running on Windows, use `.\gradlew.bat` instead of `./gradle` -- this guide uses `./gradle` for brevity**
+**Note: if running on Windows, use `.\gradlew.bat` instead of `./gradlew` -- this guide uses `./gradlew` for brevity**
 
 # Running Synthea<sup>TM</sup>
 
