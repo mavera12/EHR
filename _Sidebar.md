@@ -4,9 +4,9 @@
   - [[Common Configuration]]
 - Other Areas
   - [[Demographics for Other Areas]]
-  - Zip or Postal Codes
-  - Name Data
-  - Provider Data
+  - [[Zip or Postal Codes]]
+  - [[Name Data]]
+  - [[Provider Data]]
   - [[Cost Data]]
 - [[Contributing]]
   - [[Adding a Module]]
