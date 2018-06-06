@@ -2,7 +2,7 @@
 - [[Getting Started]]
   - [[Basic Setup and Running]]
   - [[Common Configuration]]
-- Other Areas
+- [[Other Areas]]
   - [[Demographics for Other Areas]]
   - [[Zip or Postal Codes]]
   - [[Name Data]]
