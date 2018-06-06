@@ -38,6 +38,7 @@ Supported FHIR Resources:
 - `Observation`
 - `DiagnosticReport`
 - `Procedure`
+- `ImagingStudy`
 - `Immunization`
 - `CarePlan`
 - `MedicationRequest`
