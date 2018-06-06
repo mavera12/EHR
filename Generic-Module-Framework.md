@@ -5,10 +5,9 @@ Synthea contains a framework for defining modules using JSON.  These JSON module
 
 This simplified example of childhood ear infections shows the flow of a generic module. In this instance, children get ear infections at different rates based on their age, are then diagnosed at an encounter, and then are prescribed either an antibiotic or a painkiller. 
 
-Future plans for the generic module framework include a web interface to allow clinicians or other healthcare professionals to design Synthea modules with no programming experience required.
+The [Module Builder](https://synthetichealth.github.io/module-builder/) is a web interface for clinicians and other healthcare professionals to design Synthea modules with no programming experience required.
 
-
-Details and examples for these concepts are available on the following pages:
+Details and examples for the core generic module concepts are available on the following pages:
 
 ### [[Basics|Generic Module Framework: Basics]]
 ### [[States|Generic Module Framework: States]]
