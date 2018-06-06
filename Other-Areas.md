@@ -25,3 +25,27 @@ You can find detailed instructions on each of these file formats on the Synthea 
 * **Names** file contains language-specific family names and first names by gender. It also contains names suitable for street addresses. https://github.com/synthetichealth/synthea/wiki/Name-Data
 * **Cost** files contain costs for different types of Encounters, Procedures, Medications, and Immunizations. https://github.com/synthetichealth/synthea/wiki/Cost-Data
 
+### Abridged Example for Shrewsbury, Shropshire, United Kingdom
+
+Districting and addresses in the United Kingdom differ from the United States. In this example, the County is entered in the `CTYNAME` column and the Region is entered in the `STNAME`. Let's start with the **demographics** file:
+
+```csv
+,COUNTY,NAME,STNAME,POPESTIMATE2015,CTYNAME,TOT_POP,TOT_MALE,TOT_FEMALE,WHITE,HISPANIC,BLACK,ASIAN,NATIVE,OTHER,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,00..10,10..15,15..25,25..35,35..50,50..75,75..100,100..150,150..200,200..999,LESS_THAN_HS,HS_DEGREE,SOME_COLLEGE,BS_DEGREE
+1,1,West Midlands,Shropshire,2620,Shrewsbury,486300,0.489,0.511,0.985,0,0.001,0.004,0,0,0.063,0.063,0.063,0.052,0.052,0.052,0.052,0.052,0.076,0.076,0.076,0.076,0.076,0.035,0.035,0.035,0.035,0.035,0.133333333,0.133333333,0.133333333,0.147225,0.147225,0.147225,0.147225,0.1,0.01,0.001,0.18,0.387,22.35,22.35
+```
+
+Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip codes** file:
+
+```csv
+,USPS,ST,NAME,ZCTA5,LAT,LON
+0,West Midlands,WMS,Shrewsbury,SY1,52.7081,2.7549
+0,West Midlands,WMS,Shrewsbury,SY2,52.7083,2.7546
+0,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
+```
+
+Finally, we need to provide hospitals for our Salopians, so we edit the **hospitals** file:
+
+```csv
+id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
+0,010001,Royal Shrewsbury Hospital,Mytton Oak Rd,Shrewsbury,WMS,SY3 8XQ,Shropshire,01743261000,NHS Teaching Hospital,Government - Hospital District or Authority,Yes,5,52.7091,-2.7931
+```
