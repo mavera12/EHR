@@ -20,4 +20,5 @@
   - [[Submodules|Generic Module Framework: Submodules]]
   - [[Complete Example|Generic Module Framework: Complete Example]]
 - [[Records]]
+  - [[HL7 FHIR]]
   - [[CSV File Data Dictionary]]
