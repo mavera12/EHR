@@ -14,6 +14,8 @@ Currently supported FHIR Resources:
 - `CarePlan`
 - `MedicationRequest`
 
+### Configuring FHIR
+
 The exporting of FHIR can be configured using the `src/main/resources/synthea.properties`:
 
 ```properties
@@ -29,4 +31,55 @@ exporter.fhir_dstu2.export = false
 # Exporting Hospital Provider Data in STU3 or DSTU2
 exporter.hospital.fhir.export = true
 exporter.hospital.fhir_dstu2.export = false
+```
+
+### Producing and Using FHIR
+
+In the `synthea.properties` file, make sure that `exporter.fhir.export`, `exporter.fhir.transaction_bundle`, and `exporter.hospital.fhir.export` are all set to `true`.
+
+Next, produce some synthetic data:
+```
+./run_synthea -p 100
+```
+
+By default, FHIR JSON data should now exist in the `./output/fhir` sub-directory. If you have a FHIR server and client, you can `POST` those bundles to the FHIR server. For example:
+
+```
+curl http://hapi.fhir.org/baseDstu3 
+  --data-binary "@/Users/example/synthea/output/fhir/Maryetta775_Rowe323_2cb7e4dd-9d8b-49cf-b1e4-9839be8bc754.json" 
+  -H "Content-Type: application/fhir+json"
+```
+
+The FHIR server should return a `transaction-response` `Bundle`:
+```json
+{
+  "resourceType": "Bundle",
+  "id": "ca4d459f-b078-4c04-a152-c7ce76a25179",
+  "type": "transaction-response",
+  "link": [
+    {
+      "relation": "self",
+      "url": "http://hapi.fhir.org/baseDstu3"
+    }
+  ],
+  "entry": [
+    {
+      "response": {
+        "status": "201 Created",
+        "location": "Patient/4147259/_history/1",
+        "etag": "1",
+        "lastModified": "2018-06-06T18:26:06.038+00:00"
+      }
+    },
+    ...abridged...
+  ]
+}
+```
+
+### Other Examples of Using Synthea FHIR Data
+
+The [Healthcare Services Platform Consortium (HSPC)](https://www.hspconsortium.org) has a [developer sandbox environment](https://sandbox.hspconsortium.org/#/login) that allows developers to spin-up FHIR servers and load them with Synthea data. They also host a FHIR server preloaded with Synthea data. As an example, you can search their public server for Diabetes:
+
+```
+https://api-stu3.hspconsortium.org/STU301withSynthea/data/Condition?code:text=diabetes
 ```
