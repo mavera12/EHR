@@ -41,3 +41,10 @@ Column Header | Description
 `LON` | Longitude
 
 `LAT` and `LON` are used to select which facilities patients choose from when seeking care.
+
+### Example for Hospital in the United Kingdom
+
+```csv
+,id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
+0,010001,Royal Shrewsbury Hospital,Mytton Oak Rd,Shrewsbury,WMS,SY3 8XQ,Shropshire,01743261000,NHS Teaching Hospital,Government - Hospital District or Authority,Yes,5,52.7091,-2.7931
+```
