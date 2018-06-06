@@ -27,11 +27,11 @@ You can find detailed instructions on each of these file formats on the Synthea 
 
 ### Abridged Example for Shrewsbury, Shropshire, United Kingdom
 
-Districting and addresses in the United Kingdom differ from the United States. Let's start with the **demographics** file. In this example, the County is entered in the `CTYNAME` column and the Region is entered in the `STNAME`:
+Districting and addresses in the United Kingdom differ from the United States. Let's start with the **demographics** file:
 
 ```csv
 ,COUNTY,NAME,STNAME,POPESTIMATE2015,CTYNAME,TOT_POP,TOT_MALE,TOT_FEMALE,WHITE,HISPANIC,BLACK,ASIAN,NATIVE,OTHER,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,00..10,10..15,15..25,25..35,35..50,50..75,75..100,100..150,150..200,200..999,LESS_THAN_HS,HS_DEGREE,SOME_COLLEGE,BS_DEGREE
-1,1,West Midlands,Shropshire,2620,Shrewsbury,486300,0.489,0.511,0.985,0,0.001,0.004,0,0,0.063,0.063,0.063,0.052,0.052,0.052,0.052,0.052,0.076,0.076,0.076,0.076,0.076,0.035,0.035,0.035,0.035,0.035,0.133333333,0.133333333,0.133333333,0.147225,0.147225,0.147225,0.147225,0.1,0.01,0.001,0.18,0.387,22.35,22.35
+1,1,Shrewsbury,West Midlands,2620,Shropshire,486300,0.489,0.511,0.985,0,0.001,0.004,0,0,0.063,0.063,0.063,0.052,0.052,0.052,0.052,0.052,0.076,0.076,0.076,0.076,0.076,0.035,0.035,0.035,0.035,0.035,0.133333333,0.133333333,0.133333333,0.147225,0.147225,0.147225,0.147225,0.1,0.01,0.001,0.18,0.387,22.35,22.35
 ```
 
 Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip codes** file:
@@ -39,8 +39,8 @@ Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip
 ```csv
 ,USPS,ST,NAME,ZCTA5,LAT,LON
 0,West Midlands,WMS,Shrewsbury,SY1,52.7081,2.7549
-0,West Midlands,WMS,Shrewsbury,SY2,52.7083,2.7546
-0,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
+1,West Midlands,WMS,Shrewsbury,SY2,52.7083,2.7546
+2,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
 ```
 
 Finally, we need to provide at least one hospital for our Salopians, so we edit the **hospitals** file:
@@ -49,3 +49,57 @@ Finally, we need to provide at least one hospital for our Salopians, so we edit 
 id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
 0,010001,Royal Shrewsbury Hospital,Mytton Oak Rd,Shrewsbury,WMS,SY3 8XQ,Shropshire,01743261000,NHS Teaching Hospital,Government - Hospital District or Authority,Yes,5,52.7091,-2.7931
 ```
+
+For now, let's leave the **names** and **cost** files as-is.
+
+```
+./run_synthea -s 0 -p 1 "West Midlands" Shrewsbury
+
+...abridged...
+
+Loaded 70 modules.
+Running with options:
+Population: 1
+Seed: 0
+Location: Shrewsbury, West Midlands
+Min Age: 0
+Max Age: 140
+1 -- Brigitte394 Stark857 (50 y/o F) Shrewsbury, West Midlands DECEASED
+1 -- Jeanine128 Gleason633 (57 y/o F) Shrewsbury, West Midlands 
+{alive=1, dead=1}
+```
+
+Check the FHIR output of `Jeanine128 Gleason633`:
+
+```json
+...abridged...
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": -2.7546
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": 52.7083
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "560 Corkery Annex Suite 36"
+            ],
+            "city": "Shrewsbury",
+            "state": "West Midlands",
+            "postalCode": "SY1",
+            "country": "US"
+          }
+        ],
+...abridged...
+```
+
+It looks like we have generated a person in Shrewsbury... US? Looks like we need a little more work to do. :)
