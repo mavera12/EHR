@@ -1,4 +1,4 @@
-By default, the project contains English-style and Spanish-style name suitable for the United States in `src/main/resources/names.yaml` file.
+By default, the project contains English-style and Spanish-style names suitable for the United States in `src/main/resources/names.yaml` file.
 
 You can change those names, or add names for other languages. The languages people speak determines their name. The language they speak is determined by their ethnicity. If you want to add other languages, you'll need to modify the `src/main/java/org/mitre/synthea/world/geographic/Demographics.java` file. Specifically, these two functions:
 
