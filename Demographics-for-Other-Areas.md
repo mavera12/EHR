@@ -7,7 +7,7 @@ You can modify the demographics file or have Synthea use an alternative demograp
 generate.demographics.default_file = geography/demographics.csv
 ```
 
-If you modify or replace the demographics file, you may also need to replace the [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes) file which contains postal codes and geographic locations (latitude and longitude) for each location.
+If you modify or replace the demographics file, you may also need to replace the [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes) file which contains postal codes and geographic locations (latitude and longitude) for each location, and the [Providers](https://github.com/synthetichealth/synthea/wiki/Provider-Data) file which contains information and locations (latitude and longitude) for each provider location.
 
 You may also want to change patient names to be more appropriate for another area (e.g. not so North American). If so, you'll also need to modify or replace the [Names](https://github.com/synthetichealth/synthea/wiki/Name-Data) file.
 
@@ -29,7 +29,7 @@ You can generate the population at scale by using the `-p` command line switch t
 run_synthea -p 100 Utah "Salt Lake City"
 ```
 
-### Demographics File Format
+## Demographics File Format
 
 The demographics file is a CSV file, with a single row for each city.
 
