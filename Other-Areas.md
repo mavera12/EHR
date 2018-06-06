@@ -17,13 +17,6 @@ generate.costs.default_encounter_cost = 125.00
 generate.costs.default_immunization_cost = 136.00
 ```
 
-You can modify the demographics file or have Synthea use an alternative demographics file by altering the `src/main/resources/synthea.properties` file:
-
-```properties
-# default demographics is every city in the US
-generate.demographics.default_file = geography/demographics.csv
-```
-
 You can find detailed instructions on each of these file formats on the Synthea Wiki:
 
 * **Demographics** file contains city-level distributions of Gender, Race, Age, Income, and Education which all play a role in health access, outcomes, and costs. https://github.com/synthetichealth/synthea/wiki/Demographics-for-Other-Areas
