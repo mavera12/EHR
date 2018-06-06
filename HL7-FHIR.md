@@ -78,8 +78,4 @@ The FHIR server should return a `transaction-response` `Bundle`:
 
 ### Other Examples of Using Synthea FHIR Data
 
-The [Healthcare Services Platform Consortium (HSPC)](https://www.hspconsortium.org) has a [developer sandbox environment](https://sandbox.hspconsortium.org/#/login) that allows developers to spin-up FHIR servers and load them with Synthea data. They also host a FHIR server preloaded with Synthea data. As an example, you can search their public server for Diabetes:
-
-```
-https://api-stu3.hspconsortium.org/STU301withSynthea/data/Condition?code:text=diabetes
-```
+The [Healthcare Services Platform Consortium (HSPC)](https://www.hspconsortium.org) has a [developer sandbox environment](https://sandbox.hspconsortium.org/#/login) that allows developers to spin-up FHIR servers and load them with Synthea data. They also host a FHIR server preloaded with Synthea data called `HSPC Synthea STU3 (3.0.1)` (authentication required).
