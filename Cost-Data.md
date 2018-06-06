@@ -1,4 +1,4 @@
-Costs in Synthea represent a very simplified version of real-world costs. While real-world costs can vary wildly due to differences providers, cities, states, payers, as of May 2018 Synthea only models cost at a basic level, where prices for a service are consistent across all instances of that service. Synthea stores all these prices in lookup tables as listed below. In the case where costs are not included in the lookup tables, there are default values configured in the `./src/main/resources/synthea.properties` file:
+Costs in Synthea represent a very simplified version of real-world costs. While real-world costs can vary wildly due to differences in providers, cities, states, and payers -- as of May 2018 -- Synthea only models cost at a basic level, where prices for a service are consistent across all instances of that service. Synthea stores all these prices in lookup tables as listed below. In the case where costs are not included in the lookup tables, there are default values configured in the `src/main/resources/synthea.properties` file:
 
 ```properties
 # Default Costs, to be used for pricing something that we don't have a specific price for
