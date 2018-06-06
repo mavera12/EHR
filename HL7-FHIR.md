@@ -28,7 +28,4 @@ exporter.fhir_dstu2.export = false
 # Exporting Hospital Provider Data in STU3 or DSTU2
 exporter.hospital.fhir.export = true
 exporter.hospital.fhir_dstu2.export = false
-# number of years of history to keep in exported records, anything older than this may be filtered out
-# set years_of_history = 0 to skip filtering altogether and keep the entire history
-exporter.years_of_history = 10
 ```
