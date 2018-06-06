@@ -38,7 +38,7 @@ Districting and addresses in the United Kingdom differ from the United States. I
 
 ```csv
 ,USPS,ST,NAME,ZCTA5,LAT,LON
-0,West Midlands,WMS,Shropshire,SY1,52.7081,2.7549
-0,West Midlands,WMS,Shropshire,SY2,52.7083,2.7546
-0,West Midlands,WMS,Shropshire,SY3,52.7089,2.7543
+0,West Midlands,WMS,Shrewsbury,SY1,52.7081,2.7549
+0,West Midlands,WMS,Shrewsbury,SY2,52.7083,2.7546
+0,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
 ```
