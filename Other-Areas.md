@@ -27,7 +27,7 @@ You can find detailed instructions on each of these file formats on the Synthea 
 
 ### Abridged Example for Shrewsbury, Shropshire, United Kingdom
 
-Districting and addresses in the United Kingdom differ from the United States. In this example, the County is entered in the `CTYNAME` column and the Region is entered in the `STNAME`. Let's start with the **demographics** file:
+Districting and addresses in the United Kingdom differ from the United States. Let's start with the **demographics** file. In this example, the County is entered in the `CTYNAME` column and the Region is entered in the `STNAME`:
 
 ```csv
 ,COUNTY,NAME,STNAME,POPESTIMATE2015,CTYNAME,TOT_POP,TOT_MALE,TOT_FEMALE,WHITE,HISPANIC,BLACK,ASIAN,NATIVE,OTHER,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,00..10,10..15,15..25,25..35,35..50,50..75,75..100,100..150,150..200,200..999,LESS_THAN_HS,HS_DEGREE,SOME_COLLEGE,BS_DEGREE
@@ -43,7 +43,7 @@ Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip
 0,West Midlands,WMS,Shrewsbury,SY3,52.7089,2.7543
 ```
 
-Finally, we need to provide hospitals for our Salopians, so we edit the **hospitals** file:
+Finally, we need to provide at least one hospital for our Salopians, so we edit the **hospitals** file:
 
 ```csv
 id,name,address,city,state,zip,county,phone,type,ownership,emergency,quality,LAT,LON
