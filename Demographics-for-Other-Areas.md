@@ -1,5 +1,12 @@
 By default, the project contains demographics for the entire United States in `src/main/resources/geography/demographics.csv` which has been post-processed from publicly available US Census Bureau files.
 
+You can modify this file or have Synthea use an alternative demographics file by altering the `./src/main/resources/synthea.properties` file:
+
+```properties
+# default demographics is every city in the US
+generate.demographics.default_file = geography/demographics.csv
+```
+
 If you modify or replace the demographics file, you may also need to replace the [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes) file which contains postal codes and geographic locations (latitude and longitude) for each location.
 
 You may also want to change patient names to be more appropriate for another area (e.g. not so North American). If so, you'll also need to modify or replace the [Names](https://github.com/synthetichealth/synthea/wiki/Name-Data) file.
