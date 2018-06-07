@@ -35,7 +35,7 @@ Districting and addresses in the United Kingdom differ from the United States. L
 1,1,Shrewsbury,West Midlands,2620,Shropshire,486300,0.489,0.511,0.985,0,0.001,0.004,0,0,0.063,0.063,0.063,0.052,0.052,0.052,0.052,0.052,0.076,0.076,0.076,0.076,0.076,0.035,0.035,0.035,0.035,0.035,0.133333333,0.133333333,0.133333333,0.147225,0.147225,0.147225,0.147225,0.1,0.01,0.001,0.18,0.387,22.35,22.35
 ```
 
-Next we need to create postal codes suitable to Shrewsbury, so we edit the **zip codes** file:
+Next, we need to create postal codes suitable to Shrewsbury, so we edit the **zip codes** file:
 
 ```csv
 ,USPS,ST,NAME,ZCTA5,LAT,LON
