@@ -7,6 +7,7 @@ You can modify these files or have Synthea use alternative files by altering the
 # Default demographics is every city in the US
 generate.demographics.default_file = geography/demographics.csv
 generate.geography.zipcodes.default_file = geography/zipcodes.csv
+generate.geography.country_code = US
 
 # Default provider files (1 of 10 files)
 generate.providers.hospitals.default_file = providers/hospitals.csv
@@ -51,7 +52,13 @@ Finally, we need to provide at least one hospital for our Salopians, so we edit 
 0,010001,Royal Shrewsbury Hospital,Mytton Oak Rd,Shrewsbury,WMS,SY3 8XQ,Shropshire,01743261000,NHS Teaching Hospital,Government - Hospital District or Authority,Yes,5,52.7091,-2.7931
 ```
 
-For now, let's leave the **names** and **cost** files as-is.
+For now, let's leave the **names** and **cost** files as-is. We're ready to generate data, but there is one last cosmetic change we need to make. In this example, we're generating the United Kingdom (UK), instead of the default United States (US). Let's change the `country_code` in `synthea.properties` so generated postal addresses look correct:
+
+```properties
+generate.geography.country_code = UK
+```
+
+Now, let's generate some data.
 
 ```
 ./run_synthea -s 0 -p 1 "West Midlands" Shrewsbury
@@ -97,10 +104,12 @@ Check the FHIR output of `Jeanine128 Gleason633`:
             "city": "Shrewsbury",
             "state": "West Midlands",
             "postalCode": "SY1",
-            "country": "US"
+            "country": "UK"
           }
         ],
 ...abridged...
 ```
 
-It looks like we have generated a person in Shrewsbury... US? Looks like we need a little more work to do. :)
+We did it! We've generated `Jeanine128 Gleason633` from Shrewsbury in the United Kingdom.
+
+If you look at the FHIR data carefully, you'll notice a few oddities. First, Jeanine128 has a Social Security Number (SSN) and a phone number that looks suspiciously like it is in the United States. Also, the FHIR records do not use FHIR Profiles from NIH. So, localization in Synthea is not fully solved, and in particular profile conformance is a remaining challenge.
