@@ -20,7 +20,7 @@ The primary entry point of Synthea is the `run` gradle task, which can be run fr
 ./gradlew run
 ```
 
-Alternatively, you may run the provided `run_synthea` script which makes it easier to passing command-line arguments to the simulation:
+Alternatively, you may run the provided `run_synthea` script which makes it easier to pass command-line arguments to the simulation:
 
 ```
 ./run_synthea
