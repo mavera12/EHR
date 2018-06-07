@@ -85,3 +85,5 @@ The FHIR server should return a `transaction-response` `Bundle`:
 * Algorex Health has used Synthea data to explore [Open Clinical Analysis](https://blog.algorexhealth.com/2017/04/open-clinical-analysis-with-mitre-part-2/).
 
 * The MITRE Corporation has used Synthea data to create [SyntheticMass](https://syntheticmass.mitre.org), a 1/7th scale simulated model of the Commonwealth of Massachusetts, including a FHIR server (FHIR v1.8).
+
+* An MSDN blog post illustrates [Loading Synthea FHIR Data with Logic Apps and Functions in Azure Government](https://blogs.msdn.microsoft.com/mihansen/2018/05/10/loading-synthea-fhir-data-with-logic-apps-and-functions-in-azure-government/).
