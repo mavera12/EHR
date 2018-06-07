@@ -1,8 +1,9 @@
 By default, Synthea contains demographics, zip codes, providers, names, and costs for the entire United States, post-processed from publicly available files.
 
-You can modify these files or have Synthea use an alternative files by altering the `src/main/resources/synthea.properties` file:
+You can modify these files or have Synthea use alternative files by altering the `src/main/resources/synthea.properties` file:
 
 ```properties
+# Abridged synthea.properties file
 # Default demographics is every city in the US
 generate.demographics.default_file = geography/demographics.csv
 generate.geography.zipcodes.default_file = geography/zipcodes.csv
