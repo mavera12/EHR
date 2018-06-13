@@ -22,3 +22,4 @@
 - [[Records]]
   - [[HL7 FHIR]]
   - [[CSV File Data Dictionary]]
+- [[Custom Reports]]
