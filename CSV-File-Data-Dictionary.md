@@ -14,6 +14,7 @@ After running Synthea, the CSV exporter will create nine files:
 | [`careplans.csv`](#careplans) | Patient care plan data, including goals. |
 | [`conditions.csv`](#conditions) | Patient conditions or diagnoses. |
 | [`encounters.csv`](#encounters) | Patient encounter data. |
+| [`imaging_studies.csv`](#imagingstudies) | Patient imaging metadata. |
 | [`immunizations.csv`](#immunizations) | Patient immunization data. |
 | [`medications.csv`](#medications) | Patient medication data. |
 | [`observations.csv`](#observations) | Patient observations including vital signs and lab reports. |
@@ -67,6 +68,21 @@ Data Dictionary information for each CSV table follows below.
 | | Cost | Numeric | `true` | The base cost of the encounter, **not** including any line item costs related to medications, immunizations, procedures, or other services. |
 | | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT, **only if** this encounter targeted a specific condition. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
+
+# Imaging Studies
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the imaging study. |
+| | Date | Date (`YYYY-MM-DD`) | `true` | The date the imaging study was conducted. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the imaging study was conducted. 
+| | Body Site Code | String | `true` | A SNOMED Body Structures code describing what part of the body the images in the series were taken of. |
+| | Body Site Description | String | `true` | Description of the body site. |
+| | Modality Code | String | `true` | A [DICOM-DCM](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-dcm-codes) code describing the method used to take the images. |
+| | Modality Description | String | `true` | Description of the modality. |
+| | SOP Code | String | `true` | A [DICOM-SOP](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-sop-codes) code describing the Subject-Object Pair (SOP) that constitutes the image. |
+| | SOP Description | String | `true` | Description of the SOP code. |
+
 
 # Immunizations
 | | Column Name | Data Type | Required? | Description |
