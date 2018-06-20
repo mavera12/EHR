@@ -14,7 +14,7 @@ After running Synthea, the CSV exporter will create these files:
 | [`careplans.csv`](#careplans) | Patient care plan data, including goals. |
 | [`conditions.csv`](#conditions) | Patient conditions or diagnoses. |
 | [`encounters.csv`](#encounters) | Patient encounter data. |
-| [`imaging_studies.csv`](#imagingstudies) | Patient imaging metadata. |
+| [`imaging_studies.csv`](#imaging-studies) | Patient imaging metadata. |
 | [`immunizations.csv`](#immunizations) | Patient immunization data. |
 | [`medications.csv`](#medications) | Patient medication data. |
 | [`observations.csv`](#observations) | Patient observations including vital signs and lab reports. |
