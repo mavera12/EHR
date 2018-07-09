@@ -998,7 +998,7 @@ The following is an example of an Observation that should be taken at the `"Chec
 
 
 ## MultiObservation
-The `MultiObservation` state indicates that some number of prior Observation states should be grouped together as a single observation. This can be necessary when one observation records multiple values, for example in the case of Blood Pressure, which is really 2 values, Systolic and Diastolic Blood Pressure. This state must occur directly after the relevant Observation states, otherwise unexpected behavior can occur.  `MultiObservation` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
+The `MultiObservation` state indicates that some number of Observation values should be embedded directly within a single observation. For example consider Blood Pressure, which is really 2 values, Systolic and Diastolic Blood Pressure. `MultiObservation` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 ### Supported Properties
 
@@ -1006,53 +1006,130 @@ The `MultiObservation` state indicates that some number of prior Observation sta
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"MultiObservation"`. |
 | `category` | `string` | The type of Observation being made, for example . Must be a valid [HL7 Observation Category](http://hl7.org/fhir/2017Jan/valueset-observation-category.html). |
-| `number_of_observations` | `integer` | The number of observations to group within this `MultiObservation`
 | `codes` | `[]` | One or more codes that describe the Observation. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
+| `observations` | `Observation[]` | The list of observations that should be included as sub-observations within this observation. Each observation should be a valid [Observation](#observation) state, excluding the type and transition.
 
 ### Example
-The following example shows a `MultiObservation` which groups the 2 previous observations into 1 observation for Blood Pressure:
+The following example shows a `MultiObservation` for Blood Pressure:
 
 ```
-"Record_BP": {
-   "type": "MultiObservation",
-   "category" : "vital-signs",
-   "number_of_observations": 2,
-   "codes": [
-     {
-       "system": "LOINC",
-       "code": "55284-4",
-       "display": "Blood Pressure"
-   	  }
-   ]
- }
+    "Record_BP": {
+      "type": "MultiObservation",
+      "category": "vital-signs",
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "55284-4",
+          "display": "Blood Pressure"
+        }
+      ],
+      "observations": [
+        {
+          "category": "vital-signs",
+          "vital_sign": "Systolic Blood Pressure",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "8480-6",
+              "display": "Systolic Blood Pressure"
+            }
+          ],
+          "unit": "mmHg"
+        },
+        {
+          "category": "vital-signs",
+          "vital_sign": "Diastolic Blood Pressure",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "8462-4",
+              "display": "Diastolic Blood Pressure"
+            }
+          ],
+          "unit": "mmHg"
+        }
+      ]
+    }
 ```
 
 ## DiagnosticReport
-The `DiagnosticReport` state indicates that some number of prior Observation states should be grouped together within a single Diagnostic Report. This can be used when multiple observations are part of a single panel.  `DiagnosticReport` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
+The `DiagnosticReport` state indicates that some number of Observations should be grouped together within a single Diagnostic Report. This can be used when multiple observations are part of a single panel.  `DiagnosticReport` states may only be processed during an Encounter, and so must occur after the target Encounter state and before the EncounterEnd. See the [Encounter](#encounter) section above for more details.
 
 ### Supported Properties
 
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"DiagnosticReport"`. |
-| `number_of_observations` | `integer` | The number of observations to group within this `DiagnosticReport`
 | `codes` | `[]` | One or more codes that describe the DiagnosticReport. Must be valid [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). |
+| `observations` | `Observation[]` | The list of observations that should be included as sub-observations within this observation. Each observation should be a valid [Observation](#observation) state, excluding the type and transition.
 
 ### Example
-The following example shows a `DiagnosticReport` which groups the 8 previous observations into a Metabolic Panel Diagnostic Report:
+The following example shows a `DiagnosticReport` which groups the 4 observations into a Lipid Panel Diagnostic Report:
 
 ```
-"Record_MetabolicPanel": {
-   "type": "DiagnosticReport",
-   "number_of_observations": 8,
-   "codes": [
-     {
-       "system": "LOINC",
-       "code": "51990-0",
-       "display": "Basic Metabolic Panel"
-     }
-   ]
- }
+    "Record_LipidPanel": {
+      "type": "DiagnosticReport",
+      "number_of_observations": 4,
+      "codes": [
+        {
+          "system": "LOINC",
+          "code": "57698-3",
+          "display": "Lipid Panel"
+        }
+      ],
+      "observations": [
+        {
+          "category": "laboratory",
+          "vital_sign": "Total Cholesterol",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "2093-3",
+              "display": "Total Cholesterol"
+            }
+          ],
+          "unit": "mg/dL"
+        },
+        {
+          "category": "laboratory",
+          "vital_sign": "Triglycerides",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "2571-8",
+              "display": "Triglycerides"
+            }
+          ],
+          "unit": "mg/dL"
+        },
+        {
+          "category": "laboratory",
+          "vital_sign": "LDL",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "18262-6",
+              "display": "Low Density Lipoprotein Cholesterol"
+            }
+          ],
+          "unit": "mg/dL"
+        },
+        {
+          "category": "laboratory",
+          "vital_sign": "HDL",
+          "codes": [
+            {
+              "system": "LOINC",
+              "code": "2085-9",
+              "display": "High Density Lipoprotein Cholesterol"
+            }
+          ],
+          "unit": "mg/dL"
+        }
+      ],
+      "target_encounter": "Wellness_Encounter",
+      "direct_transition": "Lab_ACR"
+    }
 ```
 
 
