@@ -64,7 +64,7 @@ The following `Age` condition will return `true` if the patient is 40 years old 
 
 ## Date
 
-The `Date` condition type tests the current year being simulated.  For example, this may be used to drive different logic depending on the suggested medications or procedures of different time periods, or model different frequency of conditions.
+The `Date` condition type tests the current year, month, or date being simulated.  For example, this may be used to drive different logic depending on the suggested medications or procedures of different time periods, or model different frequency of conditions.
 
 ### Supported Properties
 
@@ -73,6 +73,8 @@ The `Date` condition type tests the current year being simulated.  For example, 
 | `condition_type` | `string` | Must be `"Date"`. |
 | `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`]. |
 | `year` | `numeric` | The year to test the current year of the simulation against. |
+| `month` | `numeric` | The month to test the current month of the simulation against. |
+| `date` | `string` | The date to test the current date of the simulation against. Must be formatted `"yyyy-MM-dd HH:mm:ss.SSS"` |
 
 ### Example
 
@@ -83,6 +85,26 @@ The following Date condition will return `true` if the year is `1990` or later:
   "condition_type": "Date",
   "operator": ">=",
   "year": 1990
+}
+```
+
+The following Date condition will return `true` if the month is `4` (April):
+
+```json
+{
+  "condition_type": "Date",
+  "operator": "==",
+  "month": 4
+}
+```
+
+The following Date condition will return `true` if the date is `"2018-07-04 01:00:00.000"` (July 4th, 2018 at 1 hour, 0 minutes, 0 seconds and 0 milliseconds) or earlier:
+
+```json
+{
+  "condition_type": "Date",
+  "operator": "<=",
+  "date": "2018-07-04 01:00:00.000"
 }
 ```
 
