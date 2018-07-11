@@ -957,7 +957,8 @@ And one of:
 | `exact` | `{}` | The exact value to be recorded for this Observation |
 | `range` | `{}` | A range of values from which one value will be recorded |
 | `attribute` | `string` | The name of an attribute that contains the value of some Observation |
-| `vital_sign`| `string` | The name of a Vital Sign that contains a value |
+| `vital_sign` | `string` | The name of a Vital Sign that contains a value |
+| `value_code` | `{}` | The code that describes the value of the observation. Must be a valid [LOINC code] (https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#loinc-codes). | 
 
 ##### `exact`:
 
