@@ -98,7 +98,7 @@ The following Date condition will return `true` if the month is `4` (April):
 }
 ```
 
-The following Date condition will return `true` if the date is `"2018-07-04 01:00:00.000"` (July 4th, 2018 at 1 hour, 0 minutes, 0 seconds and 0 milliseconds) or earlier:
+The following Date condition will return `true` if the date is July 4th, 2018 at 1 hour, 0 minutes, 0 seconds and 0 milliseconds or earlier:
 
 ```json
 {
