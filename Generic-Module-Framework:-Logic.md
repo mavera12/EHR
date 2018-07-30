@@ -74,7 +74,7 @@ The `Date` condition type tests the current year, month, or date being simulated
 | `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`]. |
 | `year` | `numeric` | The year to test the current year of the simulation against. |
 | `month` | `numeric` | The month to test the current month of the simulation against. |
-| `date` | `string` | The date to test the current date of the simulation against. Must be formatted `"yyyy-MM-dd HH:mm:ss.SSS"` |
+| `date` | `{}` | The date to test the current date of the simulation against. Must contain values for `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`, and `"millisecond"`. |
 
 ### Example
 
@@ -104,7 +104,14 @@ The following Date condition will return `true` if the date is `"2018-07-04 01:0
 {
   "condition_type": "Date",
   "operator": "<=",
-  "date": "2018-07-04 01:00:00.000"
+  "date": {
+    "year": 2018,
+    "month": 7,
+    "day": 4,
+    "hour": 1,
+    "minute": 0,
+    "second": 0,
+    "millisecond": 0
 }
 ```
 
