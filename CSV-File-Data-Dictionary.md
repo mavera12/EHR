@@ -63,6 +63,7 @@ Data Dictionary information for each CSV table follows below.
 | | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the encounter started. |
 | | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the encounter concluded. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| | EncounterClass | String | `true` | The class of the encounter, such as `ambulatory`, `emergency`, `inpatient`, `wellness`, or `urgentcare` |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
 | | Cost | Numeric | `true` | The base cost of the encounter, **not** including any line item costs related to medications, immunizations, procedures, or other services. |
