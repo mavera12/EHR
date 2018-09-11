@@ -8,6 +8,7 @@
   - [[Name Data]]
   - [[Provider Data]]
   - [[Cost Data]]
+  - [[Other Areas - Canada]]
 - [[Contributing]]
   - [[Adding a Module]]
 - [[Module Gallery]]
