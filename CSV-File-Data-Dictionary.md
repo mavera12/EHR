@@ -142,7 +142,7 @@ Data Dictionary information for each CSV table follows below.
 | | Address | String | `true` | Patient's street address without commas or newlines. |
 | | City | String | `true` | Patient's address city. |
 | | State | String | `true` | Patient's address state. |
-| | Zip | String | `true` | Patient's zip code. |
+| | Zip | String | `false` | Patient's zip code. |
 
 # Procedures
 | | Column Name | Data Type | Required? | Description |
