@@ -13,6 +13,9 @@ Currently supported FHIR Resources:
 - `Immunization`
 - `CarePlan`
 - `MedicationRequest`
+- `Claim`
+- `ExplanationOfBenefit` (STU3 only, Blue Button 2.0 Implementation Guide)
+- `Coverage` (STU3 only)
 
 ### Configuring FHIR
 
@@ -28,6 +31,8 @@ exporter.fhir.transaction_bundle = true
 exporter.fhir.use_shr_extensions = true
 # Exporting FHIR DSTU2
 exporter.fhir_dstu2.export = false
+# Exporting FHIR R4
+exporter.fhir_r4.export = false
 # Exporting Hospital Provider Data in STU3 or DSTU2
 exporter.hospital.fhir.export = true
 exporter.hospital.fhir_dstu2.export = false
