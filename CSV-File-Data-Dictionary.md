@@ -6,6 +6,11 @@ To export CSV, edit `./src/main/resources/synthea.properties` and change this se
 exporter.csv.export = true
 ```
 
+Note that you should build again.
+```
+./gradlew build check test
+```
+
 After running Synthea, the CSV exporter will create these files:
 
 | File | Description |
