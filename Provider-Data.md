@@ -1,6 +1,6 @@
 By default, the project contains provider facilities for the entire United States in the `src/main/resources/providers/*.csv` files which have been post-processed from publicly available data from CMS.
 
-**Currently the only provider file in use is `hospitals.csv`**
+**Currently the provider files in use are `hospitals`, `veterans`, `primarycare`, and `urgentcare` **
 
 You can modify provider files or have Synthea use alternative provider files by altering the `src/main/resources/synthea.properties` file:
 
@@ -14,6 +14,8 @@ generate.providers.hospice.default_file = providers/hospice.csv
 generate.providers.dialysis.default_file = providers/dialysis.csv
 generate.providers.homehealth.default_file = providers/home_health_agencies.csv
 generate.providers.veterans.default_file = providers/va_facilities.csv
+generate.providers.urgentcare.default_file = providers/urgent_care_facilities.csv
+generate.providers.primarycare.default_file = providers/primary_care_facilities.csv
 ```
 
 If you modify or replace the [Demographics](https://github.com/synthetichealth/synthea/wiki/Demographics-for-Other-Areas) file or [Zip or Postal Codes](https://github.com/synthetichealth/synthea/wiki/Zip-or-Postal-Codes) file then it is very likely you'll need to modify or replace the `hospitals.csv` provider file with hospitals relevant to the geographic locations (e.g. latitude and longitude).
