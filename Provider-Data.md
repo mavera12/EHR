@@ -1,6 +1,6 @@
 By default, the project contains provider facilities for the entire United States in the `src/main/resources/providers/*.csv` files which have been post-processed from publicly available data from CMS.
 
-**Currently the provider files in use are `hospitals`, `veterans`, `primarycare`, and `urgentcare` **
+**Currently the provider files in use are `hospitals`, `veterans`, `primarycare`, and `urgentcare`**
 
 You can modify provider files or have Synthea use alternative provider files by altering the `src/main/resources/synthea.properties` file:
 
