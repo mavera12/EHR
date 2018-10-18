@@ -74,8 +74,3 @@ Building and leveraging **CONDITIONAL** Transition Types (see “Maintaining CHF
 - Building and leveraging **DISTRIBUTED** Transition Types (see “Possible CHF Flare” State)
 - Understanding an Inpatient clinical workflow (See start of inpatient section, with “acute Inpatient CHF flare” and subsequent sections.
 
-If you have any questions, please find a MITRE tutorial guide who will be able to answer your questions.   Please reach out to briananderson@mitre.org should you have any additional questions!
-
-
-
-
