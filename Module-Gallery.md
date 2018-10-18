@@ -1,6 +1,8 @@
 # Module Builder
 Static images of the current modules are below, but you can also view, interact, and edit the modules with our online [Module Builder](https://synthetichealth.github.io/module-builder/).
 
+There is also a [Module Builder Tutorial](https://github.com/synthetichealth/synthea/wiki/Module-Builder-Tutorial) on this wiki.
+
 # Allergic Rhinitis
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/allergic_rhinitis.png)
 ![allergic_rhinitis.png visualization](https://synthetichealth.github.io/synthea/graphviz/allergic_rhinitis.png)
@@ -152,4 +154,3 @@ Static images of the current modules are below, but you can also view, interact,
 # Wellness Encounters
 ###### [view full-sized image](https://synthetichealth.github.io/synthea/graphviz/wellness_encounters.png)
 ![wellness_encounters.png visualization](https://synthetichealth.github.io/synthea/graphviz/wellness_encounters.png)
-
