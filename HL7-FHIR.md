@@ -27,6 +27,9 @@ exporter.fhir.export = true
 # transaction bundle 'true' produces transaction Bundles
 # else if 'false' produces collection Bundles.
 exporter.fhir.transaction_bundle = true
+# if bulk_data 'true' ndjson bulk format is exported
+# else if 'false' (default) normal FHIR bundles are exported
+exporter.fhir.bulk_data = false
 # Use Standard Health Record (SHR) extensions for STU3?
 exporter.fhir.use_shr_extensions = false
 # Exporting FHIR DSTU2
