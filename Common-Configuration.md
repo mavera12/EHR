@@ -13,6 +13,8 @@ Many features of Synthea are configurable using the settings file at `./src/main
 | `exporter.hospital.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting hospital information in FHIR DSTU2 format. |
 | `exporter.text.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in a simple text-based format. |
 | `exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary). |
+| `exporter.csv.append_mode` | `true`/`false` | `false` | Change this setting to `true` to enable append mode for the CSV exporter, where all new runs will be appended onto the existing CSV records, rather than overwriting the files.  For instance, this could be used to help produce a single set of CSVs spanning patients across multiple states, since only one state can be run at a time.|
+| `exporter.csv.folder_per_run` | `true`/`false` | `false` | Change this setting to `true` to enable exporting CSVs in a separate subfolder per run of Synthea. Currently the CSVs get reset each time, so if you want to keep a run you have to specifically copy it off somewhere else. This option makes CSVs more like other export formats in that files will persist until manually deleted. Note that this setting will supersede `exporter.csv.append_mode` if both are true|
 
 
 ### Other Export Settings
