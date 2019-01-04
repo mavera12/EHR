@@ -23,8 +23,10 @@ After running Synthea, the CSV exporter will create these files:
 | [`immunizations.csv`](#immunizations) | Patient immunization data. |
 | [`medications.csv`](#medications) | Patient medication data. |
 | [`observations.csv`](#observations) | Patient observations including vital signs and lab reports. |
+| [`organizations.csv`](#organizations) | Provider organizations including hospitals. |
 | [`patients.csv`](#patients) | Patient demographic data. |
 | [`procedures.csv`](#procedures) | Patient procedure data including surgeries. |
+| [`providers`](#procedures) | Clinicians that provide patient care. |
 
 Data Dictionary information for each CSV table follows below.
 
@@ -68,6 +70,7 @@ Data Dictionary information for each CSV table follows below.
 | | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the encounter started. |
 | | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the encounter concluded. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Provider | UUID | `true` | Foreign key to the Organization. |
 | | EncounterClass | String | `true` | The class of the encounter, such as `ambulatory`, `emergency`, `inpatient`, `wellness`, or `urgentcare` |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
@@ -125,6 +128,18 @@ Data Dictionary information for each CSV table follows below.
 | | Units | String | `false` | The units of measure for the value. |
 | | Type | String | `true` | The datatype of `Value`: `text` or `numeric` |
 
+# Organizations
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :key: | ID | UUID | `true` | Primary key of the Organization. |
+| | Name | String | `true` | Name of the Organization. |
+| | Address | String | `true` | Organization's street address without commas or newlines. |
+| | City | String | `true` | Street address city. |
+| | State | String | `false` | Street address state abbreviation. |
+| | Zip | String | `false` | Street address zip or postal code. |
+| | Phone | String | `false` | Organization's phone number. |
+| | Utilization | Numeric | `true` | The number of Encounter's performed by this Organization. |
+
 # Patients
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
@@ -160,3 +175,17 @@ Data Dictionary information for each CSV table follows below.
 | | Cost | Numeric | `true` | The line item cost of the procedure. |
 | | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT specifying why this procedure was performed. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
+
+# Providers
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :key: | ID | UUID | `true` | Primary key of the Provider/Clinician. |
+| :old_key: | Organization | UUID | `true` | Foreign key to the Organization that employees this provider. |
+| | Name | String | `true` | First and last name of the Provider. |
+| | Gender | String | `true` | Gender. `M` is male, `F` is female. |
+| | Speciality | String | `true` | Provider speciality. |
+| | Address | String | `true` | Provider's street address without commas or newlines. |
+| | City | String | `true` | Street address city. |
+| | State | String | `false` | Street address state abbreviation. |
+| | Zip | String | `false` | Street address zip or postal code. |
+| | Utilization | Numeric | `true` | The number of Encounter's performed by this provider. |
