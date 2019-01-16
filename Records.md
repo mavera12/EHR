@@ -42,6 +42,8 @@ Supported FHIR Resources:
 - `Immunization`
 - `CarePlan`
 - `MedicationRequest`
+- `Organization`
+- `Practitioner`
 - `Claim`
 - `ExplanationOfBenefit` (STU3 only, Blue Button 2.0 Implementation Guide)
 - `Coverage` (STU3 only)
