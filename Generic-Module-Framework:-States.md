@@ -1,3 +1,11 @@
+The Generic Module Framework currently supports a variety of state types (see below). During generation, Synthea processes each module state-by-state. Synthea will always continue processing the module and [[transition|Generic Module Framework: Transitions]] to the next state, unless the current state is:
+
+1. [Terminal](#terminal), in which case the module ends.
+2. [Delay](#delay), in which case the module will only continue after the specified amount of time has passed.
+3. [Guard](#guard), in which case the module will only continue if the specified `allow` [[logic|Generic Module Framework: Logic]] resolves to `true`.
+4. `wellness` [Encounter](#encounter) **and** the patient is not actively in a `wellness` encounter (in other words, it will wait until the next scheduled wellness visit).
+5. [CallSubmodule](#callsubmodule), in which case whether or not processing continues is a result of the submodule.
+
 The Generic Module Framework currently supports the following states:
 
 **Control States**
