@@ -145,6 +145,8 @@ For a searchable directory of valid SNOMED codes see the [IHTSDO SNOMED CT Brows
 
 For a searchable directory of RxNorm codes see the U.S. National Library of Medicine [RxNorm Browser](https://mor.nlm.nih.gov/RxNav/).
 
+Note: When picking an RxNorm code, you must use something that has an NDC on the market, now or in the past. Otherwise, the code represents something that is not prescribe-able. See [this issue](https://github.com/synthetichealth/synthea/issues/469).
+
 #### Example
 
 ```json
