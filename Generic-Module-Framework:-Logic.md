@@ -203,7 +203,7 @@ The `Observation` condition type tests the most recent observation of a given ty
 | `condition_type` | `string` | Must be `"Observation"`. |
 | `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`, `"is nil"`, `"is not nil"`]. |
 | `value` | `numeric` | The value to test the observation against (if numeric). |
-| `value_code`| `{}` | The value to test the observation against (if code). Must be a valid LOINC code (https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#loinc-codes). |
+| `value_code`| `{}` | The value to test the observation against (if code). Must be a valid [LOINC code](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#loinc-codes). |
 | `codes` or `referenced_by_attribute` | `[]` or `string` | **(choice)** Must be either a list of [LOINC codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Primitive-Types#loinc-codes) or an `attribute` referencing an observation. |
 
 ### Examples
