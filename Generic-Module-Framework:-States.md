@@ -899,7 +899,7 @@ In general, the Vital Sign should be used if the value directly affects the pati
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"VitalSign"`. |
-| `vital_sign`| `string` | The name of the Vital Sign, which may be referenced later. Currently supported vital signs can be found in the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java)
+| `vital_sign`| `string` | The name of the Vital Sign, which may be referenced later. Currently supported vital signs can be found in the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java).
 | `unit` | `string` | The unit of measure in which the vital sign is measured (e.g. `"cm"`). |
 
 And one of: 
