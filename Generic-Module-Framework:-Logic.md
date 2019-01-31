@@ -236,7 +236,7 @@ The following `Observation` condition will return `true` if the most recent `Obs
 ```
 
 ## Vital Sign
-The `Vital Sign` condition type tests a patient's current vital signs. Synthea tracks vital signs in order to drive a patient's physical condition, and are recorded in observations. See also the [[Symptom|Generic Module Framework: States#VitalSign]] state.
+The `Vital Sign` condition type tests a patient's current vital signs. Synthea tracks vital signs in order to drive a patient's physical condition, and are recorded in observations. See also the [[Vital Sign|Generic Module Framework: States#VitalSign]] state.
 
 ### Supported Properties
 
