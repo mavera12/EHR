@@ -243,7 +243,7 @@ The `Vital Sign` condition type tests a patient's current vital signs. Synthea t
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `condition_type` | `string` | Must be `"Vital Sign"`. |
-| `vital_sign` | `string` | The name of the vital sign to test against. |
+| `vital_sign` | `string` | The name of the vital sign to test against. Currently supported vital signs can be found in the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java).|
 | `operator` | `string` | One of [`"=="`, `"!="`, `"<"`, `">"`, `"<="`, `">="`]. |
 | `value` | `numeric` | The value to test the vital sign against. |
 
