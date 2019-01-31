@@ -3,7 +3,7 @@ The `Guard` state, `conditional_transition`, and `complex_transition` use condit
 
 * [Gender](#gender), [Socioeconomic Status](#socioeconomic-status), [Race](#race)
 * [Age](#age), [Date](#date)
-* [Symptom](#symptom), [Observation](#observation), [Vital Sign](#vitalsign)
+* [Symptom](#symptom), [Observation](#observation), [Vital Sign](#vital-sign)
 * [Active Condition](#active-condition), [Active Medication](#active-medication), [Active CarePlan](#active-careplan)
 * [Attribute](#attribute), [PriorState](#priorstate)
 * [And](#and), [Or](#or), [Not](#not)
