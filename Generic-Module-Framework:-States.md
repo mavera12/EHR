@@ -212,9 +212,12 @@ During a single time step, if an Encounter state is processed it becomes the `cu
 
 Common encounter classes are:
 
-* `"emergency"`: A visit to an emergency department
-* `"inpatient"`: A non-emergency visit to a hospital, e.g. for routine surgery
+* `"wellness"`: A regularly scheduled appointment with a PCP.
 * `"ambulatory"`: A visit in a variety of outpatient settings, e.g. a visit to a PCP or a specialist
+* `"emergency"`: A visit to an emergency department
+* `"urgentcare"`: A visit to an urgent care facility
+* `"inpatient"`: A non-emergency visit to a hospital, e.g. for routine surgery
+* `"outpatient"`: A visit in a variety of outpatient settings, e.g. a visit to a PCP or a specialist. See `ambulatory`.
 
 ### Supported Properties
 
@@ -222,7 +225,7 @@ Common encounter classes are:
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"Encounter"`. |
 | `wellness` | `boolean` | If `true`, Synthea blocks 1-3 years until the next wellness encounter.<br/>**(optional)** if `false`. |
-| `encounter_class` | `string` | One of [`"emergency"`, `"inpatient"`, `"ambulatory"`] |
+| `encounter_class` | `string` | One of [`"wellness"`, `"ambulatory"`, `"emergency"`, `"urgentcare"`, `"inpatient"`, `"outpatient"`] |
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"` referencing a<br/>_previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Encounter. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
 
