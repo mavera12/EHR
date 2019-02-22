@@ -1,14 +1,15 @@
 # Default US Census Data
 
-This publicly available data was obtained from the US Census Bureau.
-The data is post-processed to create population input data for every place
+By default, Synthea<sup>TM</sup> contains publicly available demographic data 
+obtained from the US Census Bureau.
+The data was post-processed to create population input data for every place
 (town and city) in the United States.
 This post-processed data can be used with Synthea to generate representative
 populations.
 
 ## Data Sets
 
-The census data files in this folder can be grouped into four categories.
+The census data files used to assemble the default demographics file (`src/main/resources/geography/demographics.csv`) are as follows:
 
 File Set | Description
 ---------|------------
