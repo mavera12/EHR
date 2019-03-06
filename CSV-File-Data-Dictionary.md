@@ -43,7 +43,7 @@ Data Dictionary information for each CSV table follows below.
 # CarePlans
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the care plan. |
+| :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the care plan. |
 | | Start | Date (`YYYY-MM-DD`) | `true` | The date the care plan was initiated. |
 | | Stop | Date (`YYYY-MM-DD`) | `false` | The date the care plan ended, if applicable. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
@@ -66,7 +66,7 @@ Data Dictionary information for each CSV table follows below.
 # Encounters
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the encounter. |
+| :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the encounter. |
 | | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the encounter started. |
 | | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the encounter concluded. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
@@ -81,7 +81,7 @@ Data Dictionary information for each CSV table follows below.
 # Imaging Studies
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the imaging study. |
+| :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the imaging study. |
 | | Date | Date (`YYYY-MM-DD`) | `true` | The date the imaging study was conducted. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the imaging study was conducted. 
@@ -131,7 +131,7 @@ Data Dictionary information for each CSV table follows below.
 # Organizations
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary key of the Organization. |
+| :key: | Id | UUID | `true` | Primary key of the Organization. |
 | | Name | String | `true` | Name of the Organization. |
 | | Address | String | `true` | Organization's street address without commas or newlines. |
 | | City | String | `true` | Street address city. |
@@ -143,7 +143,7 @@ Data Dictionary information for each CSV table follows below.
 # Patients
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary Key. Unique Identifier of the patient. |
+| :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the patient. |
 | | BirthDate | Date (`YYYY-MM-DD`) | `true` | The date the patient was born. |
 | | DeathDate | Date (`YYYY-MM-DD`) | `false` | The date the patient died. |
 | | SSN | String | `true` | Patient Social Security identifier. |
@@ -179,7 +179,7 @@ Data Dictionary information for each CSV table follows below.
 # Providers
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | ID | UUID | `true` | Primary key of the Provider/Clinician. |
+| :key: | Id | UUID | `true` | Primary key of the Provider/Clinician. |
 | :old_key: | Organization | UUID | `true` | Foreign key to the Organization that employees this provider. |
 | | Name | String | `true` | First and last name of the Provider. |
 | | Gender | String | `true` | Gender. `M` is male, `F` is female. |
