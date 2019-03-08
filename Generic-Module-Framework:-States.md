@@ -26,7 +26,7 @@ The Generic Module Framework currently supports the following states:
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend) 
 * [Procedure](#procedure)
 * [ImagingStudy](#imagingstudy)
-* [VitalSign](#vitalsign) 
+* :warning: [VitalSign](#vitalsign) 
 * [Observation](#observation), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
 * [Symptom](#symptom) 
 * [Death](#death) 
@@ -895,6 +895,8 @@ The following is an example of an ImagingStudy state capturing a single X-Ray im
 ## VitalSign
 The `VitalSign` state type indicates a point in the module where a patient's vital sign is set. Vital Signs represent the physical state of the patient, in contrast to Observations which are the recording of that physical state.
 
+> :warning: **_WARNING:_**  This state only sets a value. It is NOT recorded in the patient record. The `vital_sign` attribute MUST be a legal value from the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java).
+
 ### Usage Notes
 In general, the Vital Sign should be used if the value directly affects the patient's physical condition. For example, high blood pressure directly increases the risk of heart attack so any conditional logic that would trigger a heart attack should reference a Vital Sign instead of an Observation. On the other hand, if the value only affects the patient's care, using just an Observation would be more appropriate. For example, it is the observation of MMSE that can lead to a diagnosis of Alzheimer's; MMSE is an observed value and not a physical metric, so it should not be stored in a VitalSign.
 
@@ -902,7 +904,8 @@ In general, the Vital Sign should be used if the value directly affects the pati
 | Attribute | Type | Description |
 |:----------|:-----|:------------|
 | `type` | `string` | Must be `"VitalSign"`. |
-| `vital_sign`| `string` | The name of the Vital Sign, which may be referenced later. Currently supported vital signs can be found in the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java).
+| `vital_sign`| `string` | The name of the Vital Sign, which may be referenced later. 
+:warning: Currently supported vital signs can be found in the [Vital Sign Enumeration](https://github.com/synthetichealth/synthea/blob/master/src/main/java/org/mitre/synthea/world/concepts/VitalSign.java).
 | `unit` | `string` | The unit of measure in which the vital sign is measured (e.g. `"cm"`). |
 
 And one of: 
