@@ -1,0 +1,7 @@
+### When designing a module, and you want something to happen at a specific age, when should you use `Guard` and when should you use `Delay`?
+
+[`Delay`](Generic-Module-Framework%3A-States#delay) should be used when you want a specific amount of time to pass between to events. You do not care how old the patient is before or after, you only care that a second event is _delayed_ some amount of time. The time can be exact (e.g. 3 days) or a range (e.g. 1-2 weeks).
+
+[`Guard`](Generic-Module-Framework%3A-States#guard) should be used when you want to put in a "Stop Sign" in the module, and the patient cannot proceed until some logical condition is met. For example, this condition might be based on [age](Generic-Module-Framework%3A-Logic#age) (e.g. wait until the patient is 18 years old), or [date](Generic-Module-Framework%3A-Logic#date) (e.g. wait until the year is [1918](https://en.wikipedia.org/wiki/Spanish_flu)), or something else like [medication](Generic-Module-Framework%3A-Logic#active-medication) (e.g. wait until the patient is prescribed an opioid).
+
+So, use `Delay` when you want to specify an amount of time to wait, and use `Guard` when you want to wait for something to occur (which might possibly be never).
