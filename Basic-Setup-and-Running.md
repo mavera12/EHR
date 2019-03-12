@@ -49,15 +49,18 @@ Location: Massachusetts
 This command takes additional parameters to specify different regions or common run options. Any options not specified are left at the default value.
 
 ```
-run_synthea [-s seed] 
+run_synthea [-h]
+            [-s seed] 
             [-p populationSize]
             [-g gender]
             [-a minAge-maxAge]
+            [-m moduleFilter]
             [state [city]]
 ```
 
 Some examples:
 
+ -   `run_synthea -h` -- output help messages and command line options and quit without further processing
  -   `run_synthea Massachusetts` -- to generate a population in all cities and towns in Massachusetts
  -   `run_synthea Alaska Juneau` -- to generate a population in only Juneau, Alaska
  -   `run_synthea -s 12345` -- to generate a population using seed 12345. Populations generated with the same seed and the same version of Synthea should be identical
@@ -66,5 +69,6 @@ Some examples:
  -   `run_synthea -g F` -- to generate only female patients
  -   `run_synthea -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
  -   `run_synthea -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
+ -   `run_synthea -m metabolic*` -- generate a population using only modules matching the `metabolic*` name filter. All core modules (e.g. lifecycle) and shared submodules are automatically included.
 
 **[Next: Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration)**
