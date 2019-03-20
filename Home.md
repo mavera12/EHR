@@ -24,6 +24,8 @@ If you are new to open source, please check out [github's guide to contributing]
 
 ## Currently Supported Diseases
 
+Synthea currently has over 90 different modules which have expanded beyond the original "_Two Top Tens_" that the project started with (see the table below). Please see the [Module Builder](https://synthetichealth.github.io/module-builder/) to browse the currently supported disease modules.
+
 Top 10 Reasons Patients Visit PCP | Top 10 Years of Life Lost
 ----------------------------------|--------------------------
 Routine infant/child health check | Ischemic Heart Disease
