@@ -23,7 +23,7 @@
   - [[Submodules|Generic Module Framework: Submodules]]
   - [[Complete Example|Generic Module Framework: Complete Example]]
 - [[Records]]
-  - [[Splitting-Records-and-Duplicate-Data]]
+  - [[Splitting Records and Duplicate Data]]
   - [[HL7 FHIR]]
   - [[CSV File Data Dictionary]]
   - [OMOP](https://github.com/OHDSI/ETL-Synthea)
