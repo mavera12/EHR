@@ -1159,7 +1159,11 @@ The `Symptom` state type adds or updates a patient's symptom. Synthea tracks sym
 | `type` | `string` | Must be `"Symptom"`. |
 | `symptom` | `string` | The name of the symptom being tracked. |
 | `cause` | `string` | The underlying cause of the symptom. Defaults to the name of the module if not set. |
+| `probability` | `numeric` | **(optional)** Probability (0-100%) the patient will have the symptom. |
 | `exact` or `range` | `{}` | **(choice)**  Must be either an `exact` value or a `range` of values for the symptom. |
+
+##### `probability`:
+Probability is expressed from `0.0` to `1.0` (0 to 100%) representing the probability the patient will have the given symptom. If the probability is not met, then the Symptom is never created, as if the Symptom state did not exist. This value does not affect the value generated for the `range` attribute. If no value is given, the default is `1.0` representing a 100% chance the patient will have the Symptom.
 
 ##### `exact`:
 
@@ -1202,6 +1206,18 @@ The following is an example of a Symptom state that sets the symptom value for C
     "low": 90,
     "high": 100
   }
+}
+```
+
+The following is an example of a Symptom state that will occur in a patient 20% of the time:
+
+```json
+"Headache": {
+  "type": "Symptom",
+  "symptom": "Headache",
+  "cause": "Tension",
+  "probability": 0.2,
+  "exact" : 10
 }
 ```
 
