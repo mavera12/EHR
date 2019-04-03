@@ -45,8 +45,8 @@ Supported FHIR Resources:
 - `Organization`
 - `Practitioner`
 - `Claim`
-- `ExplanationOfBenefit` (STU3 only, Blue Button 2.0 Implementation Guide)
-- `Coverage` (STU3 only)
+- `ExplanationOfBenefit` (R4 and STU3 only, Blue Button 2.0 Implementation Guide in STU3)
+- `Coverage` (R4 and STU3 only)
 
 Encounters are processed to the FHIR record one at a time. When an encounter is processed, all the other unprocessed events/resource in procedures, conditions, observations, and immunizations that occur before the encounter are written to the FHIR record. This simulates the diagnoses and recording that takes place during medical encounters. 
 
