@@ -16,8 +16,8 @@ Currently supported FHIR Resources:
 - `Organization`
 - `Practitioner`
 - `Claim`
-- `ExplanationOfBenefit` (STU3 only, Blue Button 2.0 Implementation Guide)
-- `Coverage` (STU3 only)
+- `ExplanationOfBenefit` (R4 and STU3 only, Blue Button 2.0 Implementation Guide in STU3)
+- `Coverage` (R4 and STU3 only)
 
 ### Configuring FHIR
 
