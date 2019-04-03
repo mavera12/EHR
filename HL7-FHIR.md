@@ -36,15 +36,15 @@ exporter.fhir.bulk_data = false
 exporter.fhir.use_shr_extensions = false
 # Exporting FHIR DSTU2
 exporter.fhir_dstu2.export = false
-# Exporting FHIR R4
-exporter.fhir_r4.export = false
+# Exporting FHIR STU3
+exporter.fhir_stu3.export = false
 # Exporting Hospital Provider data in separate file.
 exporter.hospital.fhir.export = true
 exporter.hospital.fhir_dstu2.export = false
-exporter.hospital.fhir_r4.export = false
+exporter.hospital.fhir_stu3.export = false
 # Exporting Practitioner data in separate file.
 exporter.practitioner.fhir.export = true
-exporter.practitioner.fhir_r4.export = false
+exporter.practitioner.fhir_stu3.export = false
 exporter.practitioner.fhir_dstu2.export = false
 ```
 
