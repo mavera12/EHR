@@ -6,10 +6,13 @@ Many features of Synthea are configurable using the settings file at `./src/main
 
 | Setting Name | Valid Values | Default | Description |
 |:-------------|:-------------|:--------|:------------|
-| `exporter.ccda.export` | `true`/`false` | `false` | Change this setting to `true` to enableexporting patients in CCDA format. |
-| `exporter.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting patients in FHIR STU3 format. |
+| `exporter.ccda.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in CCDA format. |
+| `exporter.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting patients in FHIR R4 format. |
+| `exporter.fhir.use_us_core_ig` | `true`/`false` | `false` | US Core Implementation Guide for FHIR R4 |
+| `exporter.fhir_stu3.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in FHIR STU3 format. |
 | `exporter.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in FHIR DSTU2 format. |
-| `exporter.hospital.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting hospital information in FHIR STU3 format. |
+| `exporter.hospital.fhir.export` | `true`/`false` | `true` | Change this setting to `false` to disable exporting hospital information in FHIR R4 format. |
+| `exporter.hospital.fhir_stu3.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting hospital information in FHIR STU3 format. |
 | `exporter.hospital.fhir_dstu2.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting hospital information in FHIR DSTU2 format. |
 | `exporter.text.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patients in a simple text-based format. |
 | `exporter.csv.export` | `true`/`false` | `false` | Change this setting to `true` to enable exporting patient data in a comma-separated value format. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary). |
