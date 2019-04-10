@@ -62,7 +62,7 @@ Next, produce some synthetic data:
 By default, FHIR JSON data should now exist in the `./output/fhir` sub-directory. If you have a FHIR server and client, you can `POST` those bundles to the FHIR server. For example:
 
 ```
-curl http://hapi.fhir.org/baseDstu3 
+curl http://hapi.fhir.org/baseR4 
   --data-binary "@/Users/example/synthea/output/fhir/Maryetta775_Rowe323_2cb7e4dd-9d8b-49cf-b1e4-9839be8bc754.json" 
   -H "Content-Type: application/fhir+json"
 ```
@@ -76,7 +76,7 @@ The FHIR server should return a `transaction-response` `Bundle`:
   "link": [
     {
       "relation": "self",
-      "url": "http://hapi.fhir.org/baseDstu3"
+      "url": "http://hapi.fhir.org/baseR4"
     }
   ],
   "entry": [
