@@ -24,7 +24,7 @@ Currently supported FHIR Resources:
 The exporting of FHIR can be configured using the `src/main/resources/synthea.properties`:
 
 ```properties
-# default FHIR configuration.
+# default FHIR R4 configuration.
 exporter.fhir.export = true
 # transaction bundle 'true' produces transaction Bundles
 # else if 'false' produces collection Bundles.
@@ -32,6 +32,8 @@ exporter.fhir.transaction_bundle = true
 # if bulk_data 'true' ndjson bulk format is exported
 # else if 'false' (default) normal FHIR bundles are exported
 exporter.fhir.bulk_data = false
+# Use the US Core R4 Implementation Guide
+exporter.fhir.use_us_core_ig = false
 # Use Standard Health Record (SHR) extensions for STU3?
 exporter.fhir.use_shr_extensions = false
 # Exporting FHIR DSTU2
@@ -40,8 +42,8 @@ exporter.fhir_dstu2.export = false
 exporter.fhir_stu3.export = false
 # Exporting Hospital Provider data in separate file.
 exporter.hospital.fhir.export = true
-exporter.hospital.fhir_dstu2.export = false
 exporter.hospital.fhir_stu3.export = false
+exporter.hospital.fhir_dstu2.export = false
 # Exporting Practitioner data in separate file.
 exporter.practitioner.fhir.export = true
 exporter.practitioner.fhir_stu3.export = false
