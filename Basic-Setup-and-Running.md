@@ -70,5 +70,5 @@ Some examples:
  -   `run_synthea -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
  -   `run_synthea -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
  -   `run_synthea -m metabolic*` -- generate a population using only modules matching the `metabolic*` name filter. All core modules (e.g. lifecycle) and shared submodules are automatically included.
-
+ -   `run_synthea --exporter.fhir.use_us_core_ig true` -- generate a population that exports FHIR according to the US Core R4 Implementation Guide profiles.
 **[Next: Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration)**
