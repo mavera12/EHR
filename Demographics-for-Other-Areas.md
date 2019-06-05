@@ -35,7 +35,7 @@ The demographics file is a CSV file, with a single row for each city.
 
 Column Header | Description
 --------------|------------
-` ` | The first column has no header. It is the number of the city. The program ignores this column.
+`ID` | ID. It is the number of the city. The number must be unique.
 `COUNTY` | County number. Ignored.
 `NAME` | City Name
 `STNAME` | State Name
