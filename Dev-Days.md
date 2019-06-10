@@ -81,3 +81,8 @@ Get the `azcopy` utility to upload your data to Microsoft Azure:
 ```
 azcopy cp "output/fhir_{p}_{state}_{town}.zip" "https://syntheadevdays2019.blob.core.windows.net/synthea/?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-06-22T04:32:42Z&st=2019-06-10T20:32:42Z&spr=https&sig=7mG96EHAJ1jIVlShwxxui5g74%2F%2F6enrCXjCx%2BteM0k0%3D" --recursive=true
 ```
+
+List all the data:
+```
+azcopy list https://syntheadevdays2019.blob.core.windows.net/synthea
+```
