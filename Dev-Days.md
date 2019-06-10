@@ -1,6 +1,6 @@
 # Let's Build a Synthetic Dataset
 
-In a classroom setting, the instructor will walk you through the process of using, configuring, and customizing SyntheaTM – an open-source synthetic patient generator – to create a patient and provider cohort and all the FHIR DSTU2, STU3, or R4 resources you need for your next software development, testing or integration event…
+In a classroom setting, the instructor will walk you through the process of using, configuring, and customizing Synthea<sup>TM</sup> – an open-source synthetic patient generator – to create a patient and provider cohort and all the FHIR DSTU2, STU3, or R4 resources you need for your next software development, testing or integration event…
 
 ## Prerequisites
 
