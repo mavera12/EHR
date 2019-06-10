@@ -8,6 +8,11 @@ In a classroom setting, the instructor will walk you through the process of usin
   * https://git-scm.com/downloads 
 * Java JDK 8, 11, 12
   * https://adoptopenjdk.net
+* Microsoft Azure `azcopy` Utility (_Optional for this Tutorial_)
+  * [Windows (zip)](https://aka.ms/downloadazcopy-v10-windows)
+  * [Linux (tar)](https://aka.ms/downloadazcopy-v10-linux)
+  * [MacOS (zip)](https://aka.ms/downloadazcopy-v10-mac)
+
 
 ## Clone and Build the Repository
 
@@ -17,7 +22,7 @@ cd synthea
 ./gradlew test
 ```
 
-Estimate 5-10 minutes
+_Estimate 5-10 minutes_
 
 ## Browse the Diseases
 
@@ -61,14 +66,14 @@ curl http://hapi.fhir.org/baseR4 --data-binary "@/Users/Path/synthea/output/fhir
 ./run_synthea -p 10000 Washington
 ```
 
-Estimate 5-10 minutes and 5-10 GB storage
+_Estimate 5-10 minutes and 5-10 GB storage_
 
 ## POST all the data to a server
 ```
 cd output/fhir/
 for file in *; do curl --write-out '.' http://hapi.fhir.org/baseR4 --data-binary "@$file" -H "Content-Type: application/fhir+json" > /dev/null; done;
 ```
-Estimate: long time... too long.
+_Estimate: a long time... too long._
 
 ## Upload all the data to Microsoft Azure
 
@@ -97,3 +102,7 @@ Download a particular data `{file}`:
 ```
 azcopy cp https://syntheadevdays2019.blob.core.windows.net/synthea/{file} .
 ```
+
+## Thank you!
+
+Have a great #FHIRDevDays
