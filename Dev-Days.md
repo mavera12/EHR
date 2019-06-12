@@ -57,11 +57,16 @@ Examine the configurable properties in the [synthea.properties](https://github.c
 
 ## POST our patient record to a server
 
+Make sure you adjust the path in the command below to match your path and FHIR file name.
+
 ```
 curl http://hapi.fhir.org/baseR4 --data-binary "@/Users/Path/synthea/output/fhir/Brigitte394_Jaskolski867_f45fe01f-de94-4587-97f0-4cbd39f775c5.json" -H "Content-Type: application/fhir+json" 
 ```
 
 ## Generate a lot of data
+
+Choose the State you want. Feel free to also specify a city. States or cities with spaces in the name need to be quoted.
+
 ```
 ./run_synthea -p 10000 Washington
 ```
@@ -69,6 +74,9 @@ curl http://hapi.fhir.org/baseR4 --data-binary "@/Users/Path/synthea/output/fhir
 _Estimate 5-10 minutes and 5-10 GB storage_
 
 ## POST all the data to a server
+
+Do not do this step for the tutorial today. Skip due to time constraints...
+
 ```
 cd output/fhir/
 for file in *; do curl --write-out '.' http://hapi.fhir.org/baseR4 --data-binary "@$file" -H "Content-Type: application/fhir+json" > /dev/null; done;
@@ -77,7 +85,7 @@ _Estimate: a long time... too long._
 
 ## Upload all the data to Microsoft Azure
 
-Zip your `./output/fhir` folder into `fhir_{p}_{state}_{town}.zip`.
+Zip your `./output/fhir` folder into `fhir_{p}_{state}_{city}.zip`.
 
 Get the `azcopy` utility to upload your data to Microsoft Azure:
 
