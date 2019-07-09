@@ -167,7 +167,7 @@ A `lookup_table_transition` is defined as a JSON array that contains one or more
 
 The `transition` is the name of the next State to transition into, and the `default_probability` is a number (`0.0 - 1.0`) that represents the default probability of using this transition in the case that the lookup table contains no match.
 
-The lookup table itself should have at least `N+M` columns, where `M` is the number of transitions. The last `M` columns must have headers that match the transition names (i.e. declared in the JSON) and the values in those columns must be numeric probabilities between `0.0 - 1.0`. The first `N` columns can be any subset of patient attributes.
+The lookup table itself should have at least `N + M` columns, where `M` is the number of transitions. The last `M` columns must have headers that match the transition names (i.e. declared in the JSON) and the values in those columns must be numeric probabilities between `0.0 - 1.0`. The first `N` columns can be any subset of patient attributes.
 
 ### Example
 
