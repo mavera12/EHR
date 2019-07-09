@@ -161,9 +161,17 @@ The following example demonstrates a state that for male patients should transit
 
 ## Table
 
-Table-based transitions are used for probabilities that vary widely between different segments or cohorts of the population. When the probability of an event occurring is based on any combination of patient attributes (e.g. `race`, `ethnicity`, `gender`, `age`, `smoker` status, or any other attribute in the system) you can use a `lookup_table_transition`.
+Table-based transitions are used for probabilities that vary widely between different segments or cohorts of the population. When the probability of an event occurring is based on any combination of patient [attributes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#attributes) (e.g. `race`, `ethnicity`, `gender`, `age`, `smoker` status, or any other attribute in the system) you can use a `lookup_table_transition`.
+
+A `lookup_table_transition` is defined as a JSON array that contains one or more transitions, each with a `transition`, a `default_probability`, and the `lookup_table_name` to use to lookup transition probabilities.
+
+The `transition` is the name of the next State to transition into, and the `default_probability` is a number (`0.0 - 1.0`) that represents the default probability of using this transition in the case that the lookup table contains no match.
+
+The lookup table itself should have at least `N+M` columns, where `M` is the number of transitions. The last `M` columns must have headers that match the transition names (i.e. declared in the JSON) and the values in those columns must be numeric probabilities between `0.0 - 1.0`. The first `N` columns can be any subset of patient attributes.
 
 ### Example
+
+This example consists of both JSON which defines the table-based transition in the module, and a comma-separated value (CSV) file that defines the lookup table.
 
 ```json
 "Determine_Condition": {
