@@ -5,6 +5,7 @@ The generic module framework currently supports the following transitions:
 * [Distributed](#distributed)
 * [Conditional](#conditional)
 * [Complex](#complex)
+* [Table](#table)
 
 ## Direct
 
@@ -156,4 +157,44 @@ The following example demonstrates a state that for male patients should transit
     }
   ]
 }
+```
+
+## Table
+
+Table-based transitions are used for probabilities that vary widely between different segments or cohorts of the population. When the probability of an event occurring is based on any combination of patient attributes (e.g. `race`, `ethnicity`, `gender`, `age`, `smoker` status, or any other attribute in the system) you can use a `lookup_table_transition`.
+
+### Example
+
+```json
+"Determine_Condition": {
+  "type": "Simple",
+  "name": "Determine_Condition",
+  "lookup_table_transition": [
+    {
+      "transition": "Lookuptablitis",
+      "default_probability": "0",
+      "lookup_table_name": "lookuptablitis.csv"
+    },
+    {
+      "transition": "No_Lookuptablitis",
+      "default_probability": "1",
+      "lookup_table_name": "lookuptablitis.csv"
+    }
+  ]
+}
+```
+
+The contents of `lookuptablitis.csv` are below:
+
+```csv
+age,gender,state,Lookuptablitis,No_Lookuptablitis
+0-17,M,Massachusetts,0,1
+18-44,M,Massachusetts,0.25,0.75
+45-64,M,Massachusetts,0.5,0.5
+64-140,M,Massachusetts,0.75,0.25
+0-17,F,Massachusetts,0,1
+18-44,F,Massachusetts,0.3,0.7
+45-64,F,Massachusetts,0.8,0.2
+64-140,F,Massachusetts,0,1
+...
 ```
