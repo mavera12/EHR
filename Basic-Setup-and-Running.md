@@ -51,6 +51,7 @@ This command takes additional parameters to specify different regions or common 
 ```
 run_synthea [-h]
             [-s seed] 
+            [-cs clinician seed]
             [-p populationSize]
             [-g gender]
             [-a minAge-maxAge]
