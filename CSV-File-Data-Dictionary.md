@@ -137,6 +137,8 @@ Data Dictionary information for each CSV table follows below.
 | | City | String | `true` | Street address city. |
 | | State | String | `false` | Street address state abbreviation. |
 | | Zip | String | `false` | Street address zip or postal code. |
+| | Lat | Numeric | `false` | Latitude of Organization's address. |
+| | Lon | Numeric | `false` | Longitude of Organization's address. |
 | | Phone | String | `false` | Organization's phone number. |
 | | Utilization | Numeric | `true` | The number of Encounter's performed by this Organization. |
 
@@ -161,8 +163,11 @@ Data Dictionary information for each CSV table follows below.
 | | BirthPlace | String | `true` | Name of the town where the patient was born. |
 | | Address | String | `true` | Patient's street address without commas or newlines. |
 | | City | String | `true` | Patient's address city. |
+| | County | String | `false` | Patient's address county. |
 | | State | String | `true` | Patient's address state. |
 | | Zip | String | `false` | Patient's zip code. |
+| | Lat | Numeric | `false` | Latitude of Patient's address. |
+| | Lon | Numeric | `false` | Longitude of Patient's address. |
 
 # Procedures
 | | Column Name | Data Type | Required? | Description |
@@ -188,4 +193,6 @@ Data Dictionary information for each CSV table follows below.
 | | City | String | `true` | Street address city. |
 | | State | String | `false` | Street address state abbreviation. |
 | | Zip | String | `false` | Street address zip or postal code. |
+| | Lat | Numeric | `false` | Latitude of Provider's address. |
+| | Lon | Numeric | `false` | Longitude of Provider's address. |
 | | Utilization | Numeric | `true` | The number of Encounter's performed by this provider. |
