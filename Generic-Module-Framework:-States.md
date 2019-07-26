@@ -1141,7 +1141,6 @@ The following example shows a `DiagnosticReport` which groups the 4 observations
           "unit": "mg/dL"
         }
       ],
-      "target_encounter": "Wellness_Encounter",
       "direct_transition": "Lab_ACR"
     }
 ```
