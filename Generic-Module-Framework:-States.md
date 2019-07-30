@@ -494,6 +494,7 @@ The `MedicationOrder` state supports identifying a previous `ConditionOnset` or 
 | `reason` | `string` | **(optional)** Either an `"attribute"` or a `"State_Name"`<br/>referencing a _previous_ `ConditionOnset` state. |
 | `codes` | `[]` | One or more codes that describe the Medication.<br/>Must be valid [RxNorm codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#rxnorm-codes). |
 |`prescription` | `{}` | **(optional)** Detailed information about the prescription, including dosage information (see below). |
+| `administration` | `boolean` | **(optional)** If `true` this represents the administration of a medication rather than a prescription.
 
 ##### `prescription`:
 
