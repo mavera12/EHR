@@ -25,6 +25,8 @@ After running Synthea, the CSV exporter will create these files:
 | [`observations.csv`](#observations) | Patient observations including vital signs and lab reports. |
 | [`organizations.csv`](#organizations) | Provider organizations including hospitals. |
 | [`patients.csv`](#patients) | Patient demographic data. |
+| [`payer_transitions.csv`](#payer-transitions) | Payer Transition data (i.e. changes in health insurance). |
+| [`payers.csv`](#payers) | Payer organization data. |
 | [`procedures.csv`](#procedures) | Patient procedure data including surgeries. |
 | [`providers`](#procedures) | Clinicians that provide patient care. |
 
@@ -71,10 +73,13 @@ Data Dictionary information for each CSV table follows below.
 | | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the encounter concluded. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Provider | UUID | `true` | Foreign key to the Organization. |
+| :old_key: | Payer | UUID | `true` | Foreign key to the Payer. |
 | | EncounterClass | String | `true` | The class of the encounter, such as `ambulatory`, `emergency`, `inpatient`, `wellness`, or `urgentcare` |
 | | Code | String | `true` | Encounter code from SNOMED-CT |
 | | Description | String | `true` | Description of the type of encounter. |
-| | Cost | Numeric | `true` | The base cost of the encounter, **not** including any line item costs related to medications, immunizations, procedures, or other services. |
+| | Base_Encounter_Cost | Numeric | `true` | The base cost of the encounter, **not** including any line item costs related to medications, immunizations, procedures, or other services. |
+| | Total_Claim_Cost | Numeric | `true` | The total cost of the encounter, including all line items. |
+| | Payer_Coverage | Numeric | `true` | The amount of cost covered by the Payer. |
 | | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT, **only if** this encounter targeted a specific condition. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
 
@@ -92,7 +97,6 @@ Data Dictionary information for each CSV table follows below.
 | | SOP Code | String | `true` | A [DICOM-SOP](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-sop-codes) code describing the Subject-Object Pair (SOP) that constitutes the image. |
 | | SOP Description | String | `true` | Description of the SOP code. |
 
-
 # Immunizations
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
@@ -109,10 +113,14 @@ Data Dictionary information for each CSV table follows below.
 | | Start | Date (`YYYY-MM-DD`) | `true` | The date the medication was prescribed. |
 | | Stop | Date (`YYYY-MM-DD`) | `false` | The date the prescription ended, if applicable. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Payer | UUID | `true` | Foreign key to the Payer. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the medication was prescribed. 
 | | Code | String | `true` | Medication code from RxNorm. |
 | | Description | String | `true` | Description of the medication. |
-| | Cost | Numeric | `true` | The line item cost of the medication. |
+| | Base_Cost | Numeric | `true` | The line item cost of the medication. |
+| | Payer_Coverage | Numeric | `true` | The amount covered or reimbursed by the Payer. |
+| | Dispenses | Numeric | `true` | The number of times the prescription was filled. |
+| | TotalCost | Numeric | `true` | The total cost of the prescription, including all dispenses. |
 | | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT specifying why this medication was prescribed. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
 
@@ -140,7 +148,8 @@ Data Dictionary information for each CSV table follows below.
 | | Lat | Numeric | `false` | Latitude of Organization's address. |
 | | Lon | Numeric | `false` | Longitude of Organization's address. |
 | | Phone | String | `false` | Organization's phone number. |
-| | Utilization | Numeric | `true` | The number of Encounter's performed by this Organization. |
+| | Revenue | Numeric | `true` | The monetary revenue of the organization during the entire simulation. |
+| | Utilization | Numeric | `true` | The number of Encounters performed by this Organization. |
 
 # Patients
 | | Column Name | Data Type | Required? | Description |
@@ -168,6 +177,42 @@ Data Dictionary information for each CSV table follows below.
 | | Zip | String | `false` | Patient's zip code. |
 | | Lat | Numeric | `false` | Latitude of Patient's address. |
 | | Lon | Numeric | `false` | Longitude of Patient's address. |
+| | Healthcare_Expenses | `true` | The total lifetime cost of healthcare to the patient (i.e. what the patient paid). |
+| | Healthcare_Coverage | `true` | The total lifetime cost of healthcare services that were covered by Payers (i.e. what the insurance company paid). |
+
+# Payer Transitions
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| | Start_Year | Date (`YYYY`) | `true` | The year the coverage started (inclusive). |
+| | End_Year | Date (`YYYY`) | `true` | The year the coverage ended (inclusive). |
+| :old_key: | Payer | UUID | `true` | Foreign key to the Payer. |
+| | Ownership | String | `false` | The owner of the insurance policy. Legal values: `Guardian`, `Self`, `Spouse`. |
+
+# Payers
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| :key: | Id | UUID | `true` | Primary key of the Payer (e.g. Insurance). |
+| | Name | String | `true` | Name of the Payer. |
+| | Address | String | `false` | Payer's street address without commas or newlines. |
+| | City | String | `false` | Street address city. |
+| | State_Headquartered | String | `false` | Street address state abbreviation. |
+| | Zip | String | `false` | Street address zip or postal code. |
+| | Phone | String | `false` | Payer's phone number. |
+| | Amount_Covered | Numeric | `true` | The monetary amount paid to Organizations during the entire simulation. |
+| | Amount_Uncovered | Numeric | `true` | The monetary amount not paid to Organizations during the entire simulation, and covered out of pocket by patients. |
+| | Revenue | Numeric | `true` | The monetary revenue of the Payer during the entire simulation. |
+| | Covered_Encounters | Numeric | `true` | The number of Encounters paid for by this Payer. |
+| | Uncovered_Encounters | Numeric | `true` | The number of Encounters not paid for by this Payer, and paid out of pocket by patients. |
+| | Covered_Medications | Numeric | `true` | The number of Medications paid for by this Payer. |
+| | Uncovered_Medications | Numeric | `true` | The number of Medications not paid for by this Payer, and paid out of pocket by patients. |
+| | Covered_Procedures | Numeric | `true` | The number of Procedures paid for by this Payer. |
+| | Uncovered_Procedures | Numeric | `true` | The number of Procedures not paid for by this Payer, and paid out of pocket by patients. |
+| | Covered_Immunizations | Numeric | `true` | The number of Immunizations paid for by this Payer. |
+| | Uncovered_Immunizations | Numeric | `true` | The number of Immunizations not paid for by this Payer, and paid out of pocket by patients. |
+| | Unique_Customers | Numeric | `true` | The number of unique patients enrolled with this Payer during the entire simulation. |
+| | QOLS_Avg | Numeric | `true` | The average Quality of Life Scores (QOLS) for all patients enrolled with this Payer during the entire simulation. |
+| | Member_Months | Numeric | `true` | The total number of months that patients were enrolled with this Payer during the simulation and paid monthly premiums (if any). |
 
 # Procedures
 | | Column Name | Data Type | Required? | Description |
@@ -177,7 +222,7 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the procedure was performed. 
 | | Code | String | `true` | Procedure code from SNOMED-CT |
 | | Description | String | `true` | Description of the procedure. |
-| | Cost | Numeric | `true` | The line item cost of the procedure. |
+| | Base_Cost | Numeric | `true` | The line item cost of the procedure. |
 | | ReasonCode | String | `false` | Diagnosis code from SNOMED-CT specifying why this procedure was performed. |
 | | ReasonDescription | String | `false` | Description of the reason code. |
 
