@@ -8,6 +8,7 @@
   - [[Zip or Postal Codes]]
   - [[Name Data]]
   - [[Provider Data]]
+  - [[Payer Data]]
   - [[Cost Data]]
   - [[Other Areas - Canada]]
 - [[Contributing]]
