@@ -1,4 +1,4 @@
-By default, the project contains Payers (i.e. public and private health insurance companies) in the `src/main/resources/payers/insurance_companies.csv` file, which is a list of some public and private insurances who provide services nationally (US). 
+By default, the project contains Payers (i.e. public and private health insurance companies) in the `src/main/resources/payers/insurance_companies.csv` file, which is a list of some public and private insurers who provide services nationally (US). 
 
 **The default financial numbers (e.g. premiums and copays) are not accurate.**
 
