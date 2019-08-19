@@ -28,7 +28,7 @@ After running Synthea, the CSV exporter will create these files:
 | [`payer_transitions.csv`](#payer-transitions) | Payer Transition data (i.e. changes in health insurance). |
 | [`payers.csv`](#payers) | Payer organization data. |
 | [`procedures.csv`](#procedures) | Patient procedure data including surgeries. |
-| [`providers`](#procedures) | Clinicians that provide patient care. |
+| [`providers.csv`](#providers) | Clinicians that provide patient care. |
 
 Data Dictionary information for each CSV table follows below.
 
