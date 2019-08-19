@@ -30,7 +30,7 @@ Column Header | Description
 `zip` | The zip or postal code.
 `phone` | The hospital or facility phone number.
 `states_covered` | The states that this payer offers plans (e.g. patients in these states can purchase coverage). Use `*` to signify all states. Otherwise, used a quoted comma-separated string. e.g. `"MA,CT,NY"`
-`services_covered` | The services covered (i.e. paid for) by this payer. Use `*` to signify all services. Otherwise, used a quoted comma-separated string. e.g. `"wellness, medications,emergency"`
+`services_covered` | The services covered (i.e. paid for) by this payer. Use `*` to signify all services. Otherwise, used a quoted comma-separated string. e.g. `"wellness,medications,emergency"`
 `deductible` | The amount required out of pocket from patients before the payer will reimburse.
 `default_coinsurance` | Coinsurance as a percentage. `0.0 - 1.0`. Currently unused. Maybe used in future versions.
 `default_copay` | The amount required out of pocket from patients at each encounter.
