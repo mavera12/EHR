@@ -7,17 +7,25 @@ Currently supported FHIR Resources:
 - `Condition`
 - `AllergyIntolerance`
 - `Observation`
-- `DiagnosticReport`
+- `DiagnosticReport` (for labs)
 - `Procedure`
 - `ImagingStudy`
 - `Immunization`
 - `CarePlan`
 - `MedicationRequest`
 - `Organization`
+- `Location` 
 - `Practitioner`
 - `Claim`
 - `ExplanationOfBenefit` (R4 and STU3 only, Blue Button 2.0 Implementation Guide in STU3)
 - `Coverage` (R4 and STU3 only)
+
+Resources only supported with R4 and US Core:
+- `Provenance`
+- `Device`
+- `DocumentReference` (for clinical notes)
+- `DiagnosticReport` (for clinical notes)
+- `Location`
 
 ### Configuring FHIR
 
@@ -101,6 +109,6 @@ The FHIR server should return a `transaction-response` `Bundle`:
 
 * Algorex Health has used Synthea data to explore [Open Clinical Analysis](https://blog.algorexhealth.com/2017/04/open-clinical-analysis-with-mitre-part-2/).
 
-* The MITRE Corporation has used Synthea data to create [SyntheticMass](https://syntheticmass.mitre.org), a 1/7th scale simulated model of the Commonwealth of Massachusetts, including a FHIR server (FHIR v1.8).
+* The MITRE Corporation has used Synthea data to create [SyntheticMass](https://syntheticmass.mitre.org), a 1/7th scale simulated model of the Commonwealth of Massachusetts, including a FHIR server (FHIR STU3).
 
 * An MSDN blog post illustrates [Loading Synthea FHIR Data with Logic Apps and Functions in Azure Government](https://blogs.msdn.microsoft.com/mihansen/2018/05/10/loading-synthea-fhir-data-with-logic-apps-and-functions-in-azure-government/).
