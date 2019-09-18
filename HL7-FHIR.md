@@ -1,25 +1,25 @@
 Synthea generates HL7 FHIR records using the [HAPI FHIR](http://hapifhir.io/) library to generate a FHIR `Bundle` for each `Patient`. Currently, only JSON is supported.
 
 Currently supported FHIR Resources:
-- `Bundle`
-- `Patient`
-- `Encounter`
-- `Condition`
 - `AllergyIntolerance`
-- `Observation`
+- `Bundle`
+- `CarePlan`
+- `Claim`
+- `Condition`
+- `Coverage` (R4 and STU3 only)
 - `DiagnosticReport` (for labs)
-- `Procedure`
+- `Encounter`
+- `ExplanationOfBenefit` (R4 and STU3 only, Blue Button 2.0 Implementation Guide in STU3)
+- `Goal`
 - `ImagingStudy`
 - `Immunization`
-- `CarePlan`
-- `Goal`
-- `MedicationRequest`
-- `Organization`
 - `Location` 
+- `MedicationRequest`
+- `Observation`
+- `Organization`
+- `Patient`
 - `Practitioner`
-- `Claim`
-- `ExplanationOfBenefit` (R4 and STU3 only, Blue Button 2.0 Implementation Guide in STU3)
-- `Coverage` (R4 and STU3 only)
+- `Procedure`
 
 Resources only supported with R4 and US Core:
 - `CareTeam`
