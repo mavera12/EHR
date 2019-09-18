@@ -12,6 +12,7 @@ Currently supported FHIR Resources:
 - `ImagingStudy`
 - `Immunization`
 - `CarePlan`
+- `Goal`
 - `MedicationRequest`
 - `Organization`
 - `Location` 
@@ -26,6 +27,9 @@ Resources only supported with R4 and US Core:
 - `DiagnosticReport` (for clinical notes)
 - `DocumentReference` (for clinical notes)
 - `Location`
+- `Medication`
+- `MedicationStatement`
+- `PractitionerRole`
 - `Provenance`
 
 ### Configuring FHIR
