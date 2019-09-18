@@ -21,11 +21,12 @@ Currently supported FHIR Resources:
 - `Coverage` (R4 and STU3 only)
 
 Resources only supported with R4 and US Core:
-- `Provenance`
+- `CareTeam`
 - `Device`
-- `DocumentReference` (for clinical notes)
 - `DiagnosticReport` (for clinical notes)
+- `DocumentReference` (for clinical notes)
 - `Location`
+- `Provenance`
 
 ### Configuring FHIR
 
