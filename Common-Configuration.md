@@ -1,4 +1,24 @@
-Many features of Synthea are configurable using the settings file at `./src/main/resources/synthea.properties`.
+Many features of Synthea<sup>TM</sup> are configurable using a settings file. The settings file uses a simple format with one setting per line as shown below:
+
+```
+# this is a comment
+exporter.ccda.export = false
+exporter.fhir.export = true
+exporter.fhir_stu3.export = false
+exporter.fhir_dstu2.export = false
+```
+
+Synthea includes a default configuration file (which developers can find at `./src/main/resources/synthea.properties`). Each default setting can be individually overridden using a local settings file that is passed to Synthea when it is run. For users of the [basic setup](https://github.com/synthetichealth/synthea/wiki/Basic-Setup-and-Running):
+
+```
+java -jar synthea-with-dependencies.jar -c path/to/settings/file
+```
+
+For those using the [developer setup](https://github.com/synthetichealth/synthea/wiki/Developer-Setup-and-Running):
+
+```
+./run_synthea -c path/to/settings/file
+```
 
 ## Summary of Commonly-Used Configuration Options
 
