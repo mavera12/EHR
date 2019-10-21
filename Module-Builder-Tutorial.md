@@ -13,7 +13,7 @@ Have fun and remember to ask for help if you get stuck!
 
 # 1. Starting a New Module
 
-We will start the tutorial with a step by step guide on building a new module. We will need to start by navigating to [https://synthetichealth.github.io/module-builder/].  Choose **Examplitis** as the initial module.  From there, 
+We will start the tutorial with a step by step guide on building a new module. We will need to start by navigating to https://synthetichealth.github.io/module-builder/.  Choose **Examplitis** as the initial module.  From there, 
 
 - Open a new module by clicking on **New Module**
 - Navigate to **Module Remarks** and title your module **My CHF module**
