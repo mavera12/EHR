@@ -2,7 +2,7 @@ In addition to standalone execution, Synthea<sup>TM</sup> can also be embedded i
 
 ## Dependency Configuration
 
-Synthea releases (starting at version 2.5.0) are published on Maven Central. Snapshots (starting at version 2.5.0-SNAPSHOT) are published on the Sonatype snapshots repository.
+Synthea releases (starting at version 2.5.0 - TBD) will be published on Maven Central. Snapshots (starting at version 2.5.0-SNAPSHOT) are published on the Sonatype snapshots repository.
 
 Below is an example of declaring a dependency on a Synthea snapshot release using a Maven pom.xml file:
 
