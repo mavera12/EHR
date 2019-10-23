@@ -93,4 +93,4 @@ while(recordCount < options.population) {
 generatorService.shutdownNow();
 ```
 
-Note the use of the [`Config`](https://synthetichealth.github.io/synthea/build/javadoc/org/mitre/synthea/helpers/Config.html) class to disable file generation. IF this is omitted, files will also be written to the "output" subdirectory.
+Note the use of the [`Config`](https://synthetichealth.github.io/synthea/build/javadoc/org/mitre/synthea/helpers/Config.html) class to disable file generation. If this is omitted, files will also be written to the "output" subdirectory.
