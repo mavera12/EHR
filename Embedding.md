@@ -28,6 +28,10 @@ Below is an example of declaring a dependency on a Synthea snapshot release usin
 </dependencies>
 ```
 
+## Documentation
+
+Javadocs for the master branch are available at [https://synthetichealth.github.io/synthea/build/javadoc/index.html](https://synthetichealth.github.io/synthea/build/javadoc/index.html)
+
 ## File Output
 
 In standalone use, Synthea generates files in an "output" subdirectory of the application working directory. The example below illustrates how to programmatically generate 10 patient records from a simple command line application.
@@ -52,7 +56,7 @@ public class Main {
 }
 ```
 
-In the above, the `Config` class is used to set [Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration) options and the `GeneratorOptions` object is used to control the demographics of the population.
+In the above, the [`Config`](https://synthetichealth.github.io/synthea/build/javadoc/org/mitre/synthea/helpers/Config.html) class is used to set [Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration) options and the [`GeneratorOptions`](https://synthetichealth.github.io/synthea/build/javadoc/org/mitre/synthea/engine/Generator.GeneratorOptions.html) object is used to control the demographics of the population.
 
 ## JSON Integration
 
@@ -89,4 +93,4 @@ while(recordCount < options.population) {
 generatorService.shutdownNow();
 ```
 
-Note the use of the `Config` class to disable file generation. IF this is omitted, files will also be written to the "output" subdirectory.
+Note the use of the [`Config`](https://synthetichealth.github.io/synthea/build/javadoc/org/mitre/synthea/helpers/Config.html) class to disable file generation. IF this is omitted, files will also be written to the "output" subdirectory.
