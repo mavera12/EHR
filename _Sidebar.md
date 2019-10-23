@@ -3,6 +3,7 @@
   - [[Basic Setup and Running]]
   - [[Developer Setup and Running]]
   - [[Common Configuration]]
+  - [[Embedding]]
 - [[Default Demographic Data]]
 - [[Other Areas]]
   - [[Demographics for Other Areas]]
