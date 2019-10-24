@@ -63,7 +63,7 @@ Supported CCDA Entries:
  - Medications
 
 ### Text Record
-You can enable text records in `src/main/resources/synthea.properties` by setting `exporter.csv.export = true`. The Text Exporter will output a UTF-8 text file that lists a human-readable text file containing the patient record.
+You can enable text records in `src/main/resources/synthea.properties` by setting `exporter.text.export = true`. The Text Exporter will output a UTF-8 text file that lists a human-readable text file containing the patient record.
 
 ### CSV Record
 You can enable Comma-Separated Value (CSV) records in `src/main/resources/synthea.properties` by setting `exporter.csv.export = true`. The CSV Exporter will output a collection of UTF-8 CSV files that lists patients, encounters, medications, and so forth in separate files -- where patients and encounters have unique identifiers and other resources (such as conditions and medications) are appropriately linked to the patients and encounters. The exported files are suitable for an Extract-Transform-Load (ETL) process to import them into a relational database. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary) for definitions of the CSV files.
