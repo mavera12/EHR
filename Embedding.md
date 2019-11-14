@@ -2,9 +2,21 @@ In addition to standalone execution, Synthea<sup>TM</sup> can also be embedded i
 
 ## Dependency Configuration
 
-Synthea releases (starting at version 2.5.0 - TBD) will be published on Maven Central. Snapshots (starting at version 2.5.0-SNAPSHOT) are published on the Sonatype snapshots repository.
+Synthea releases (starting at version 2.5.0) will be published on [Maven Central](https://search.maven.org/search?q=synthea). Snapshots (starting at version 2.5.0-SNAPSHOT) are published on the Sonatype snapshots repository.
 
-Below is an example of declaring a dependency on a Synthea snapshot release using a Maven pom.xml file:
+Below is an example of declaring a dependency on a Synthea release using a Maven pom.xml file:
+
+```xml
+<dependencies>
+  <dependency>
+    <groupId>org.mitre.synthea</groupId>
+    <artifactId>Synthea</artifactId>
+    <version>2.5.0</version>
+  </dependency>
+</dependencies>
+```
+
+Below is an example of declaring a dependency on a Synthea snapshot release using a Maven pom.xml file, note the addition of the [Sonatype snapshot](https://oss.sonatype.org/#nexus-search;quick~synthea) repository:
 
 ```xml
 <repositories>
@@ -23,7 +35,7 @@ Below is an example of declaring a dependency on a Synthea snapshot release usin
   <dependency>
     <groupId>org.mitre.synthea</groupId>
     <artifactId>Synthea</artifactId>
-    <version>2.5.0-SNAPSHOT</version>
+    <version>2.6.0-SNAPSHOT</version>
   </dependency>
 </dependencies>
 ```
