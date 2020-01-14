@@ -67,3 +67,6 @@ You can enable text records in `src/main/resources/synthea.properties` by settin
 
 ### CSV Record
 You can enable Comma-Separated Value (CSV) records in `src/main/resources/synthea.properties` by setting `exporter.csv.export = true`. The CSV Exporter will output a collection of UTF-8 CSV files that lists patients, encounters, medications, and so forth in separate files -- where patients and encounters have unique identifiers and other resources (such as conditions and medications) are appropriately linked to the patients and encounters. The exported files are suitable for an Extract-Transform-Load (ETL) process to import them into a relational database. See the [CSV File Data Dictionary](https://github.com/synthetichealth/synthea/wiki/CSV-File-Data-Dictionary) for definitions of the CSV files.
+
+### CPCDS
+CPCDS is a data standard for exporting Common Payer Clinical Data Sets in a flat CSV file with repeating line numbers for multiple entries. Its primary role is to assist in transferring insurance data into FHIR Explanation of Benefits. See [[CPCDS Export]].
