@@ -110,7 +110,7 @@ generate.geography.country_code = UK
 Now, let's generate some data.
 
 ```
-./run_synthea -s 0 -p 1 "West Midlands" Shrewsbury
+./run_synthea -p 1 "West Midlands" Shrewsbury
 
 ...abridged...
 
@@ -126,7 +126,7 @@ Max Age: 140
 {alive=1, dead=1}
 ```
 
-Check the FHIR output of `Jeanine128 Gleason633`:
+Check the FHIR output of `Jeanine128 Gleason633` (you might have a different patient):
 
 ```json
 ...abridged...
