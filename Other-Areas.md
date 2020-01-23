@@ -93,7 +93,7 @@ generate.payers.insurance_companies.medicaid = National Health Service
 generate.payers.insurance_companies.dual_eligible = National Health Service
 ```
 
-And the *insurance companies* file:
+And the **insurance companies** file:
 ```csv
 ,id,name,address,city,state_headquartered,zip,phone,states_covered,services_covered,deductible,default_coinsurance,default_copay,monthly_premium,ownership
 0,10001,National Health Service,Richmond House 79 Whitehall,Westminster,Greater London,SW1A 2NS,111,*,*,0,0.0,0,0,Government
