@@ -14,6 +14,12 @@ generate.geography.timezones.default_file = geography/timezones.csv
 generate.providers.hospitals.default_file = providers/hospitals.csv
 generate.providers.primarycare.default_file = providers/primary_care_facilities_uk.csv
 
+# Payers
+generate.payers.insurance_companies.default_file = payers/insurance_companies.csv
+generate.payers.insurance_companies.medicare = Medicare
+generate.payers.insurance_companies.medicaid = Medicaid
+generate.payers.insurance_companies.dual_eligible = Dual Eligible
+
 # Default costs, to be used for pricing something that we don't have a specific price for
 generate.costs.default_procedure_cost = 500.00
 generate.costs.default_medication_cost = 255.00
