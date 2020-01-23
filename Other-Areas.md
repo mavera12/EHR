@@ -12,7 +12,7 @@ generate.geography.timezones.default_file = geography/timezones.csv
 
 # Default provider files (1 of 10 files)
 generate.providers.hospitals.default_file = providers/hospitals.csv
-generate.providers.primarycare.default_file = providers/primary_care_facilities_uk.csv
+generate.providers.primarycare.default_file = providers/primary_care_facilities.csv
 
 # Payers
 generate.payers.insurance_companies.default_file = payers/insurance_companies.csv
