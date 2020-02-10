@@ -1,3 +1,5 @@
+> Configuration files for non-US locations can be found in the [Synthea-International](https://github.com/synthetichealth/synthea-international) repository. If you create configuration files for other locations, please consider submitting those to the Synthea-International repository.
+
 By default, Synthea contains demographics, zip codes, providers, names, and costs for the entire United States, post-processed from publicly available files.
 
 You can modify these files or have Synthea use alternative files by altering the `src/main/resources/synthea.properties` file:
@@ -37,6 +39,8 @@ You can find detailed instructions on each of these file formats on the Synthea 
 * **Cost** files contain costs for different types of Encounters, Procedures, Medications, and Immunizations. https://github.com/synthetichealth/synthea/wiki/Cost-Data
 
 # Abridged Example for Shrewsbury, Shropshire, United Kingdom
+
+Configuration files for this example can be found in the [Synthea-International](https://github.com/synthetichealth/synthea-international) repository, in the `example` folder. If you create configuration files for other locations, please consider submitting those to the Synthea-International repository.
 
 ## Demographic Data
 Districting and addresses in the United Kingdom differ from the United States. Let's start with the **demographics** file:
