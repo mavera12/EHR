@@ -1,4 +1,4 @@
-This feature is to allow data from Synthea to be exported as CPCDS files.  CPCDS is a data standard for exporting Common Payer Clinical Data Sets in a flat CSV file with repeating line numbers for multiple entries.  Its primary role is to assist in transferring insurance data into FHIR Explanation of Benefits. 
+This feature is to allow data from Synthea to be exported as CPCDS files.  CPCDS is a data standard for exporting Common Payer Consumer Data Sets in a flat CSV file with repeating line numbers for multiple entries.  Its primary role is to assist in transferring insurance data into FHIR Explanation of Benefits. 
 
 Use with Synthea is very simple.  Adding the tag `--exporter.cpcds.export true` to your command-line arguments will export the data in the CPCDS standard.  The output of the data will be in three files in the `output/cpcds` folder.  The CPCDS Patients.csv file will show patient data, coverage shows data related to health plans, and claims shows collective encounters with providers and any procedures, medications, and diagnoses that were given. 
 
