@@ -1257,7 +1257,7 @@ The following is an example of a `SetAttribute` state that clears the `"number_o
 
 ## Counter
 
-The `Counter` state type increments or decrements a specified numeric `attribute` on the patient entity. In essence, this state counts the number of times it is processed. Note: The `attribute` is initialized with a default value of `0` if not previously set.
+The `Counter` state type increments or decrements a specified numeric `attribute` on the patient entity, by a given `amount`. In essence, this state can be used to count the number of times it is processed. Note: The `attribute` is initialized with a default value of `0` if not previously set.
 
 ### Supported Properties
 
@@ -1266,18 +1266,9 @@ The `Counter` state type increments or decrements a specified numeric `attribute
 | `type` | `string` | Must be `"Counter"`. |
 | `attribute` | `string` | The name of the [attribute](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#attributes) being counted. |
 | `action` | `string` | **(choice)** One of [`"increment"`, `"decrement"`]. |
+| `amount` | `numeric` | The amount to increment or decrement the counter by when the state is hit. _(optional, defaults to `1` if not provided)_
 
 ### Examples
-
-The following is an example of a `Counter` that decrements the `"loop_index"` by `1` every time it is processed:
-
-```json
-"Decrement_Loop_Index": {
-  "type": "Counter",
-  "attribute": "loop_index",
-  "action": "decrement"
-}
-```
 
 The following is an example of a `Counter` that increments the number of `"bronchitis_occurrences"` by `1` every time it is processed:
 
@@ -1286,6 +1277,17 @@ The following is an example of a `Counter` that increments the number of `"bronc
   "type": "Counter",
   "attribute": "bronchitis_occurrences",
   "action": "increment"
+}
+```
+
+The following is an example of a `Counter` that decrements the `"loop_index"` by `2` every time it is processed:
+
+```json
+"Decrement_Loop_Index": {
+  "type": "Counter",
+  "attribute": "loop_index",
+  "action": "decrement",
+  "amount": 2
 }
 ```
 
