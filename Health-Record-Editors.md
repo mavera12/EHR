@@ -11,3 +11,9 @@ All `HealthRecordEditor`s should register with the [HealthRecordEditors](https:/
 At the end of each time step in a simulation `HealthRecordEditors` will iterate through its list of registered modules, calling the `shouldRun` method. This provides each `HealthRecordEditor` a chance to decide whether or not it should take action during the time step. As an example, the `GrowthDataErrorsEditor` only operates on individuals under 20 years of age. It will respond with `false` any time `shouldRun` is invoked and the individual is over 20 in the simulation.
 
 If the `shouldRun` method returns `true`, `HealthRecordEditors` will invoke the `process` method to allow editing of the `HealthRecord`
+
+## Creating a Health Record Editor
+
+Developers who want to create a new editor must implement the `org.mitre.synthea.engine.HealthRecordEditor` interface. All editors must be placed in the `org.mitre.synthea.editors` package.
+
+As mentioned previously, new editors must register with the `HealthRecordEditors` class. It is good practice to allow new editors to be enabled via configuration. This means making the registration call in a code block that is controlled by a configuration property.
