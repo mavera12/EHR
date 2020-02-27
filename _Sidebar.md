@@ -16,6 +16,7 @@
 - [[Contributing]]
   - [[Adding a Module]]
 - [[Module Gallery]]
+- [[Health Record Editors]]
 - [[Architecture]]
 - [[Generic Module Framework]]
   - [[Basics|Generic Module Framework: Basics]]
