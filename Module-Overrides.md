@@ -21,7 +21,7 @@ Command to run:
 ```
 gradlew overrides [-PincludeFields=...] [-PexcludeFields=...] [-PincludeModules=...] [-PexcludeModules=...]
 ```
-With parameters:
+With parameters: (all optional)
 - `includeFields`
   - numeric fields in the modules that match one of the given names will be written to the properties file (defaults to "distribution" if not provided ) 
 - `excludeFields`
@@ -53,3 +53,28 @@ atopy.json\:\:$['states']['Initial']['complex_transition'][1]['distributions'][0
 
 
 ## Full Example
+Let's say we want to update the Appendicitis module such that a reduced percent of the population gets appendicitis. For instance, South Africa and other African countries have a much lower rate than the US. As currently defined, 8.6% of males and 6.7% of females get appendicitis. Let's cut these numbers in half and set it so that 4.3% of males and 3.4% of females get appendicitis. Rather than update the module directly, let's create and use a module override file.
+
+### Step 1. Create an override file for the module
+To create the baseline override file for this module, we run the following command
+```
+gradlew overrides -PincludeModules=appendicitis*
+```
+
+This produces a file at `./output/overrides.properties` with the following content:
+```
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][0]['distribution'] = 0.086
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][1]['distribution'] = 0.914
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][0]['distribution'] = 0.067
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][1]['distribution'] = 0.933
+appendicitis.json\:\:$['states']['Pre_appendicitis']['distributed_transition'][0]['distribution'] = 0.263
+appendicitis.json\:\:$['states']['Pre_appendicitis']['distributed_transition'][1]['distribution'] = 0.423
+appendicitis.json\:\:$['states']['Pre_appendicitis']['distributed_transition'][2]['distribution'] = 0.221
+appendicitis.json\:\:$['states']['Pre_appendicitis']['distributed_transition'][3]['distribution'] = 0.093
+appendicitis.json\:\:$['states']['Appendicitis']['distributed_transition'][0]['distribution'] = 0.7
+appendicitis.json\:\:$['states']['Appendicitis']['distributed_transition'][1]['distribution'] = 0.3
+```
+
+There's a lot here, and not all of it is necessarily relevant to what we care about. Let's take a look at the module:
+
+The outcome of interest that we want here is the prevalence of 
