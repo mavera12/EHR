@@ -15,6 +15,8 @@ run_synthea --module_override=(path_to_properties_file)
 ```
 
 ### Generating Overrides
+The way the override generation process is essentially a depth-first search of the modules as trees, where the leaf nodes are JSON primitive fields (strings, numbers, booleans, nulls). Fields that contain a numeric value and whose name matches one from a list of names are written out to the properties file. By default the only field included is "distribution", which is the probability of taking a specific transition within a distributed or complex transition, but other fields can be chosen as well.
+
 Command to run:
 ```
 gradlew overrides [-PincludeFields=...] [-PexcludeFields=...] [-PincludeModules=...] [-PexcludeModules=...]
@@ -23,15 +25,16 @@ With parameters:
 - `includeFields`
   - numeric fields in the modules that match one of the given names will be written to the properties file (defaults to "distribution" if not provided ) 
 - `excludeFields`
-    - if provided, all numeric fields except those that match the given names
+    - if provided, all numeric fields **except** those that match the given names
        will be written to the properties file
     - note: if both includeFields and excludeFields are given, includeFields will be ignored
 - `includeModules`   
     - if provided, only modules that match the given file names will be processed
-    - wildcards are allowed, ex "metabolic*"
+    - wildcards are allowed, eg: `"metabolic*"`
 - `excludeModules`  
     - if provided, all modules except those that match the given file names will be processed
-    - wildcards are allowed, ex "metabolic*"
+    - wildcards are allowed, eg: `"metabolic*"`
+
 
 
 ### Format
