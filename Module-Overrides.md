@@ -76,5 +76,42 @@ appendicitis.json\:\:$['states']['Appendicitis']['distributed_transition'][1]['d
 ```
 
 There's a lot here, and not all of it is necessarily relevant to what we care about. Let's take a look at the module:
+# SCREENSHOT OF APPENDICITIS MODULE HERE
 
-The outcome of interest that we want here is the prevalence of 
+The outcome of interest that we want here is the prevalence of the Appendicitis condition, so let's see which factors can affect that.
+# SCREENSHOT
+Working backwards from the Appendicitis state, there's a 1-3 day Delay, and a number of Symptom states. None of these directly impact prevalence. Next there are four possible Delays that impact when the person gets appendicitis. Technically this does impact prevalence (consider how the lifetime prevalence of a condition might change depending on whether it's more common among children or among the elderly) however we're not going to worry about that detail for now. Let's step a little further back and see the states labeled Male and Female. These states each contain a transition distribution where the patient goes down the appendicitis path, and a transition distribution where the patient goes to Terminal and does not get appendicitis. This is what we were looking for. This corresponds to the following 4 lines in the override file, and we can ignore the rest:
+```
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][0]['distribution'] = 0.086
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][1]['distribution'] = 0.914
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][0]['distribution'] = 0.067
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][1]['distribution'] = 0.933
+```
+Now, let's take advantage of the fact that Synthea will automatically re-distribute transition percentages to add up to 100%, so we can also ignore the last distribution in each case, resulting in just 2 lines of interest:
+```
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][0]['distribution'] = 0.086
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][0]['distribution'] = 0.067
+```
+It should be readily apparent how these two values align with the previously mentioned statistics that 8.6% of males and 6.7% of females get appendicitis. And so to update these to cut the numbers in half, we can do that directly, as follows:
+
+```
+appendicitis.json\:\:$['states']['Male']['distributed_transition'][0]['distribution'] = 0.043
+appendicitis.json\:\:$['states']['Female']['distributed_transition'][0]['distribution'] = 0.034
+```
+
+Now we can save this as a new properties file, for instance `./appendicitis_overrides.properties`, and then run Synthea with these settings with:
+```
+run_synthea --module_override=./appendicitis_overrides.properties
+```
+
+Now when Synthea runs, it should produce a population where roughly 4.3% of males and 3.4% of females get Appendicitis. Confirmation of this can be done using the Prevalence Report.
+# Link to the prevalence report
+
+Obviously this was a very reduced example, but the basic premise holds for anything that you might want to override:
+ - Identify the specific metric of interest
+ - Locate where in the module(s) that metric is written to the record
+ - Work backwards from there to the Initial state to find which parameters can affect that metric of interest
+   - Note that this may involve cross-module interactions if the module of interest uses conditional logic based on attributes, active conditions, active medications, etc
+
+# Examples
+Some examples of pre-defined populations are available at https://github.com/synthetichealth/populations
