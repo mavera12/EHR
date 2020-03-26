@@ -26,6 +26,8 @@ The Generic Module Framework currently supports the following states:
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend) 
 * [Procedure](#procedure)
 * [ImagingStudy](#imagingstudy)
+* [Device](#device)
+* [SupplyList](#supplylist)
 * :warning: [VitalSign](#vitalsign) 
 * [Observation](#observation), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
 * [Symptom](#symptom) 
@@ -889,6 +891,92 @@ The following is an example of an ImagingStudy state capturing a single X-Ray im
           }
         }
       ]
+    }
+  ]
+}
+```
+
+## Device
+
+The `Device` state type indicates a point in the module where a permanent or semi-permanent device or piece of medical equipment is associated to a patient. Examples of devices include a prosthetic leg, or a pacemaker.
+
+Note that this represents the association of the device to the patient, not the actual attachment or implantation, if necessary. If the device is to be implanted in the patient, or otherwise physically attached, that should be represented with a separate [Procedure](#procedure) state.
+
+A Device state **must** occur during an Encounter.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `type` | `string` | Must be `"Device"`. |
+| `code` | `code` | A single SNOMED code that describes the device. Preferred to be a code from the [Device type value set](https://www.hl7.org/fhir/valueset-device-type.html) |
+| `manufacturer` | `string` | **(optional)** The manufacturer of the device. Should be used in situations where there is one primary manufacturer for the type of device being referenced |
+| `model` | `string` | **(optional)** The device model name. Should be used along with `manufacturer` in situations where there is one primary manufacturer and model for the type of device being used |
+
+
+### Example
+
+The following is an example of an Device state for an implantable artificial heart:
+
+```
+"Artificial_Heart": {
+  "type": "Device",
+  "code": {
+    "system": "SNOMED-CT",
+    "code": "13459008",
+    "display": "Temporary artificial heart prosthesis, device (physical object)"
+  },
+  "manufacturer": "SynCardia",
+  "model": "Total Artificial Heart"
+}
+```
+
+## SupplyList
+
+The `SupplyList` state type indicates that certain supplies are required for the current encounter. This may be as simple as examination gloves or audiovisual equipment for a telehealth encounter. 
+
+A SupplyList state **must** occur during an Encounter. Multiple SupplyList states may occur during a single encounter.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `type` | `string` | Must be `"Device"`. |
+| `supplies` | `[]` | One or more supply items required during this encounter. |
+
+
+##### `supplies`:
+
+| Attribute | Type | Description |
+|:----------|:----:|:------------|
+| `code` | `{}` | A [SNOMED](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes) code describing the required item |
+| `quantity` | `number` | How many of this item are required |
+
+
+
+### Example
+
+The following is an example of a SupplyList state indicating a need for 2 gloves and 1 gown:
+
+```
+"Necessary_Supplies": {
+  "type": "SupplyList",
+  "supplies": [
+    {
+      "quantity": 2,
+      "code": {
+        "system": "SNOMED-CT",
+        "code": "52291003",
+        "display": "Glove, device (physical object)"
+      }
+    },
+    {
+      "quantity": 1,
+      "code": {
+        "system": "SNOMED-CT",
+        "code": "788177008",
+        "display": "Examination gown, single-use (physical object)"
+      }
     }
   ]
 }
