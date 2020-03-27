@@ -1,5 +1,3 @@
-# Evolving a Population
-
 Synthea has the ability to save a snapshot of a set of records, reload a snapshot, and evolve a snapshot for a specified period of time.
 
 Three additional command line arguments control this functionality:
