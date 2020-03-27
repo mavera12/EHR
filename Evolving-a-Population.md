@@ -25,7 +25,7 @@ The above sequence of commands:
 3. Loads the snapshot from `output/1/snap` continues the simulation for 100 days and saves an updated snapshot to `output/2/snap`
 4. Loads the snapshot from `output/2/snap` continues the simulation for another 100 days and saves an updated snapshot to `output/3/snap`
 
-Steps 2, 3 and 4 use the `--export.baseDirectory` to specify a different output directory for each step. If this is not done then the export will fail since the records will already exist.
+Steps 2, 3 and 4 use the `--export.baseDirectory` to specify a different output directory for each step. If this is not done then the export will fail since the records will already exist. If the `-t` flag is not specified then the records are evolved up to the current time - runs need to be separated in time for this to be useful but it could be used, e.g., to create an updated population every day or week.
 
 The above sequence of commands results in the following set of output files:
 
@@ -56,3 +56,5 @@ output/3/fhir/
 ## Limitations
 
 Currently the entire set of records has to be stored in memory prior to snapshotting. This means that the size of the population is limited by hardware resources.
+
+The ids of resources are not preserved over multiple exports, this complicates the task of determining differences over time for a given record. [Issue 682](https://github.com/synthetichealth/synthea/issues/682) has been created to track this.
