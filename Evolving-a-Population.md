@@ -12,7 +12,7 @@ Options: [-u updatedPopulationSnapshotPath]
 Example usage is shown below:
 
 ```sh
-$ mkdir output/1 output/2 output/3
+$ mkdir -p output/1 output/2 output/3
 $ ./run_synthea -p 5 -u output/1/snap --exporter.baseDirectory output/1
 $ ./run_synthea -i output/1/snap -u output/2/snap -t 100 --exporter.baseDirectory output/2
 $ ./run_synthea -i output/2/snap -u output/3/snap -t 100 --exporter.baseDirectory output/3
