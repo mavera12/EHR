@@ -18,6 +18,7 @@ After running Synthea, the CSV exporter will create these files:
 | [`allergies.csv`](#allergies) | Patient allergy data. |
 | [`careplans.csv`](#careplans) | Patient care plan data, including goals. |
 | [`conditions.csv`](#conditions) | Patient conditions or diagnoses. |
+| [`devices.csv`](#devices) | Patient-affixed permanent and semi-permanent devices. |
 | [`encounters.csv`](#encounters) | Patient encounter data. |
 | [`imaging_studies.csv`](#imaging-studies) | Patient imaging metadata. |
 | [`immunizations.csv`](#immunizations) | Patient immunization data. |
@@ -29,6 +30,8 @@ After running Synthea, the CSV exporter will create these files:
 | [`payers.csv`](#payers) | Payer organization data. |
 | [`procedures.csv`](#procedures) | Patient procedure data including surgeries. |
 | [`providers.csv`](#providers) | Clinicians that provide patient care. |
+| [`supplies.csv`](#supplies) | Supplies used in the provision of care. |
+
 
 Data Dictionary information for each CSV table follows below.
 
@@ -64,6 +67,17 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the condition was diagnosed. |
 | | Code | String | `true` | Diagnosis code from SNOMED-CT |
 | | Description | String | `true` | Description of the condition. |
+
+# Devices
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Start | Date (`YYYY-MM-DD`) | `true` | The date the device was associated to the patient. |
+| | Stop | Date (`YYYY-MM-DD`) | `false` | The date the device was removed, if applicable. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the device was associated. |
+| | Code | String | `true` | Type of device, from SNOMED-CT |
+| | Description | String | `true` | Description of the device. |
+| | UDI | String | `true` | [Unique Device Identifier](https://www.fda.gov/medical-devices/unique-device-identification-system-udi-system/udi-basics) for the device. |
 
 # Encounters
 | | Column Name | Data Type | Required? | Description |
@@ -242,3 +256,12 @@ Data Dictionary information for each CSV table follows below.
 | | Lat | Numeric | `false` | Latitude of Provider's address. |
 | | Lon | Numeric | `false` | Longitude of Provider's address. |
 | | Utilization | Numeric | `true` | The number of Encounter's performed by this provider. |
+
+# Supplies
+| | Column Name | Data Type | Required? | Description |
+|-|-------------|-----------|-----------|-------------|
+| | Date | Date (`YYYY-MM-DD`) | `true` | The date the supplies were used. |
+| :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
+| :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the supplies were used. |
+| | Code | String | `true` | Code for the type of supply used, from SNOMED-CT |
+| | Description | String | `true` | Description of supply used. |
