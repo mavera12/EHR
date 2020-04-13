@@ -26,7 +26,7 @@ The Generic Module Framework currently supports the following states:
 * [CarePlanStart](#careplanstart), [CarePlanEnd](#careplanend) 
 * [Procedure](#procedure)
 * [ImagingStudy](#imagingstudy)
-* [Device](#device)
+* [Device](#device), [DeviceEnd](#device)
 * [SupplyList](#supplylist)
 * :warning: [VitalSign](#vitalsign) 
 * [Observation](#observation), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
@@ -318,10 +318,10 @@ The following is an example of a `ConditionOnset` that should be diagnosed at th
   "target_encounter": "ED_Visit",
   "assign_to_attribute": "appendicitis",
   "codes": [
-  	{
-	  "system": "SNOMED-CT",
-	  "code": "47693006",
-	  "display": "Rupture of appendix"
+    {
+    "system": "SNOMED-CT",
+    "code": "47693006",
+    "display": "Rupture of appendix"
     }
   ]
 }
@@ -413,10 +413,10 @@ The following is an example of an `AllergyOnset` that should be diagnosed at the
   "type": "AllergyOnset",
   "target_encounter": "ED_Visit",
   "codes": [
-  	{
-	  "system": "SNOMED-CT",
-	  "code": "91935009",
-	  "display": "Allergy to peanuts"
+    {
+    "system": "SNOMED-CT",
+    "code": "91935009",
+    "display": "Allergy to peanuts"
     }
   ]
 }
@@ -912,6 +912,7 @@ A Device state **must** occur during an Encounter.
 | `code` | `code` | A single SNOMED code that describes the device. Preferred to be a code from the [Device type value set](https://www.hl7.org/fhir/valueset-device-type.html) |
 | `manufacturer` | `string` | **(optional)** The manufacturer of the device. Should be used in situations where there is one primary manufacturer for the type of device being referenced |
 | `model` | `string` | **(optional)** The device model name. Should be used along with `manufacturer` in situations where there is one primary manufacturer and model for the type of device being used |
+| `assign_to_attribute` | `string` | **(optional)** The name of the `"attribute"` to assign this state to. |
 
 
 ### Example
@@ -928,6 +929,46 @@ The following is an example of an Device state for an implantable artificial hea
   },
   "manufacturer": "SynCardia",
   "model": "Total Artificial Heart"
+}
+```
+
+## DeviceEnd
+The `DeviceEnd` state type indicates the point that a permanent or semi-permanent device (for example, a prosthetic, or pacemaker) is removed from a person. The actual procedure in which the device is removed is not automatically generated
+and should be added separately. 
+The `DeviceEnd` state supports three ways of specifying the condition to end:
+
+1. By `codes[]`, specifying the system, code, and display name of the device to end
+2. By `device`, specifying the name of the `Device` state in which the device was added
+3. By `referenced_by_attribute`, specifying the name of the `attribute` to which a previous `Device` state assigned a device
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"DeviceEnd"`. |
+
+And one of: 
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `device` | `string` | The `"State_Name"` of a _previous_ `Device` state.
+| `referenced_by_attribute` | `string` | The name of the `"attribute"` the device was assigned to. |
+| `codes` | `[]` | One or more codes that described the Device. Must be valid [SNOMED codes](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#snomed-codes). |
+
+### Examples
+
+The following is an example of a `DeviceEnd` state that removes a ventilator device by code:
+
+```json
+"Remove_Ventilator": {
+  "type": "DeviceEnd",
+  "codes": [
+    {
+      "system": "SNOMED-CT",
+      "code": "706172005",
+      "display": "Ventilator (physical object)"
+    }
+  ]
 }
 ```
 
