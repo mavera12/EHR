@@ -71,8 +71,8 @@ Data Dictionary information for each CSV table follows below.
 # Devices
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Start | Date (`YYYY-MM-DD`) | `true` | The date the device was associated to the patient. |
-| | Stop | Date (`YYYY-MM-DD`) | `false` | The date the device was removed, if applicable. |
+| | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the device was associated to the patient. |
+| | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the device was removed, if applicable. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the device was associated. |
 | | Code | String | `true` | Type of device, from SNOMED-CT |
@@ -102,7 +102,7 @@ Data Dictionary information for each CSV table follows below.
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
 | :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the imaging study. |
-| | Date | Date (`YYYY-MM-DD`) | `true` | The date the imaging study was conducted. |
+| | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the imaging study was conducted. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the imaging study was conducted. 
 | | Body Site Code | String | `true` | A SNOMED Body Structures code describing what part of the body the images in the series were taken of. |
@@ -115,7 +115,7 @@ Data Dictionary information for each CSV table follows below.
 # Immunizations
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Date | Date (`YYYY-MM-DD`) | `true` | The date the immunization was administered. |
+| | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date the immunization was administered. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the immunization was administered. 
 | | Code | String | `true` | Immunization code from CVX. |
@@ -125,8 +125,8 @@ Data Dictionary information for each CSV table follows below.
 # Medications
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Start | Date (`YYYY-MM-DD`) | `true` | The date the medication was prescribed. |
-| | Stop | Date (`YYYY-MM-DD`) | `false` | The date the prescription ended, if applicable. |
+| | Start | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the medication was prescribed. |
+| | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the prescription ended, if applicable. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Payer | UUID | `true` | Foreign key to the Payer. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the medication was prescribed. 
@@ -142,7 +142,7 @@ Data Dictionary information for each CSV table follows below.
 # Observations
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Date | Date (`YYYY-MM-DD`) | `true` | The date the observation was performed. |
+| | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the observation was performed. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the observation was performed. 
 | | Code | String | `true` | Observation or Lab code from LOINC |
@@ -232,7 +232,7 @@ Data Dictionary information for each CSV table follows below.
 # Procedures
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Date | Date (`YYYY-MM-DD`) | `true` | The date the procedure was performed. |
+| | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the procedure was performed. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the procedure was performed. 
 | | Code | String | `true` | Procedure code from SNOMED-CT |
