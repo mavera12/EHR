@@ -32,6 +32,7 @@
   - [[HL7 FHIR]]
   - [[CSV File Data Dictionary]]
   - [[CPCDS Export]]
+  - [[Symptoms Export]]
   - [OMOP](https://github.com/OHDSI/ETL-Synthea)
 - Experimental Features
   - [[Evolving a Population]]
