@@ -123,6 +123,23 @@ Any string is a valid unit of measurement. Metric units are typically used.
 ```
 
 ## Codes
+
+Where codes are used, a `system`, `code`, and `display` are required fields.
+
+ValueSets can be used optionally. In order for ValueSets to be used, you need to specify a FHIR terminology server using the `generate.terminology_service_url` property and have a module with a ValueSet specified.
+
+ValueSets can be specified in any [State](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-States) that contains a `code`. Just add a `value_set` attribute in addition to the system, code, and display.
+
+For example:
+```json
+{
+  "system": "SNOMED-CT",
+  "code": "2501000087107",
+  "display": "MRI of right knee with contrast",
+  "value_set": "http://snomed.info/sct?fhir_vs=ecl/<<2491000087104"
+}
+```
+
 ### SNOMED Codes
 
 [SNOMED Clinical Terms](https://en.wikipedia.org/wiki/Systematized_Nomenclature_of_Medicine) (SNOMED-CT) describe clinical findings, symptoms, diagnoses, procedures, body structures, organisms and other etiologies, substances, pharmaceuticals, devices and specimens. In the Generic Module Framework these codes are used to describe `Encounter`, `Procedure`, `ConditionOnset`, and `CarePlanStart` states.
