@@ -31,7 +31,10 @@ The Generic Module Framework currently supports the following states:
 * :warning: [VitalSign](#vitalsign) 
 * [Observation](#observation), [MultiObservation](#multiobservation), [DiagnosticReport](#diagnosticreport) 
 * [Symptom](#symptom) 
-* [Death](#death) 
+* [Death](#death)
+
+**Other States**
+* [Physiology](#physiology)
 
 ## Initial
 
@@ -1502,4 +1505,100 @@ In this example, the `medications/otc_pain_reliever` submodule is called to pres
   "type": "CallSubmodule",
   "submodule": "medications/otc_pain_reliever"
 }
+```
+
+## Physiology
+
+The `Physiology` state type indicates a point in the module where the patient's physiology should be simulated, typically to support a particular `Observation` during a medical procedure.
+
+### Supported Properties
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Must be `"Physiology"`. |
+| `model` | `string` | Path to the model file relative to `src/main/resources/physiology/models` |
+| `solver` | `string` | Which differential equation solver to use for the simulation. One of ["adams_bashforth", "adams_moulton", "dormand_prince_54", "dormand_prince_853", "euler", "gragg_bulirsch_stoer", "higham_hall_54", "rosenbrock", "runge_kutta" |
+| `step_size` | `numeric` | Simulation step size in seconds. |
+| `sim_duration` | `numeric` | Simulation duration in seconds. |
+| `lead_time` | `numeric` | **(optional)** Simulation lead time in seconds before output data is captured. Defaults to 0.0. |
+| `alt_direct_transition` | `string` | Next state to transition to in the event Physiology States are turned off in synthea.properties. |
+| `inputs` | `[]` | List of input definitions for the model. See Inputs below. |
+| `outputs` | `[]` | List of output definitions for the model. See Outputs below. |
+
+### Model files
+
+Synthea currently supports physiology models in the Systems Biology Markup Language (SBML) format. Thousands of existing models are available in the [BioModels database](https://www.ebi.ac.uk/biomodels/). Model files must be placed in `src/main/resources/physiology/models`, and may be placed in a subfolder for organizational purposes.
+
+### Inputs
+Physiology model inputs are derived from Patient VitalSigns and/or attributes. Each entry in the inputs array supports the following fields:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Type of the Patient parameter. Required if using the “from” field. One of ["ATTRIBUTE", "VITAL_SIGN"]. |
+| `from` | `string` | Name of the Patient attribute or VitalSign where the source value is stored. |
+| `from_exp` | `string` | A mathematical expression which will evaluate to provide the input value. |
+| `to` | `string` | Name of the model parameter to place the input value in. |
+
+Either `from` or `fromExp` must be defined for each input definition. The `type` field is only required when using `from`. The “fromExp” allows for both VitalSigns and Attributes to be used in the equation. See Expression Processing.
+
+### Outputs
+Model outputs are derived from model parameters. They support many of the same fields as inputs, with a few key differences:
+
+| Attribute | Type | Description |
+|:----------|:-----|:------------|
+| `type` | `string` | Type of the target Patient parameter. One of ["ATTRIBUTE", "VITAL_SIGN"]. |
+| `from` | `string` | Name of the model parameter to pull the latest value from as the output. |
+| `from_list` | `string` | Name of the model parameter to pull the list of values from. `to` field *must* target an Attribute. |
+| `from_exp` | `string` | A mathematical expression of model parameters which will evaluate to provide the output value. |
+| `to` | `string` | Name of the Patient attribute / VitalSign to place the output value in. |
+| `variance` | `numeric` | Amount of random variance to add to the resulting value. This uses a uniform random distribution across +/- variance range. |
+
+Unlike all other instances where expressions may be used, the fromExp field in this case requires model parameters instead of Patient attributes and VitalSigns. This means the developer *must* be familiar with the variables defined by the model used and what their value indicates.
+
+### Example
+
+The following is an example of a `Physiology` state to simulate cardiac hemodynamics during an `Encounter`.
+
+```json
+"Simulate_CVS": {
+      "type": "Physiology",
+      "model": "circulation/Smith2004_CVS_human.xml",
+      "solver": "runge_kutta",
+      "step_size": 0.01,
+      "sim_duration": 4.0,
+      "lead_time": 2.0,
+      "inputs": [
+        {"from": "Pulmonary Resistance", "to": "R_pul"},
+        {"from_exp": "#{BMI} * #{BMI Multiplier}", "to": "R_sys"}
+      ],
+      "outputs": [
+        {
+          "from": "V_ao",
+          "to": "Final Aortal Volume",
+          "type": "Attribute"
+        },
+        {
+          "from_list": "P_ao",
+          "to": "Arterial Pressure Values",
+          "type": "Attribute"
+        },
+        {
+          "from_exp": "((Max(#{V_lv}) - Min(#{V_lv})) / Max(#{V_lv}))*100",
+          "to": "LVEF",
+          "type": "Attribute"
+        },
+        {
+          "from_exp": "Max(#{P_ao})",
+          "to": "SBP",
+          "type": "Attribute"
+        },
+        {
+          "from_exp": "Min(#{P_ao})",
+          "to": "DBP",
+          "type": "Attribute"
+        }
+      ],
+      "direct_transition": "ChartObservation",
+      "alt_direct_transition": "ContrivedLVEF"
+    }
 ```
