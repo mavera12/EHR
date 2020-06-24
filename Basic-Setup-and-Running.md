@@ -9,7 +9,7 @@ These instructions are intended for those just wishing to run Synthea. Those wis
 
 Download the binary distribution to a local directory:
 
-- [https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar](https://synthetichealth.github.io/synthea/build/libs/synthea-with-dependencies.jar)
+- [https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar](https://github.com/synthetichealth/synthea/releases/download/master-branch-latest/synthea-with-dependencies.jar)
 
 
 # Running Synthea<sup>TM</sup>
