@@ -67,7 +67,22 @@ Some examples:
  -   `java -jar synthea-with-dependencies.jar -g F` -- to generate only female patients
  -   `java -jar synthea-with-dependencies.jar -s 987 Washington Seattle` -- to generate a population in only Seattle, Washington, using seed 987
  -   `java -jar synthea-with-dependencies.jar -s 21 -p 100 Utah "Salt Lake City"` -- to generate a population of 100 patients in Salt Lake City, Utah, using seed 21
- -   `java -jar synthea-with-dependencies.jar -m metabolic*` -- generate a population using only modules matching the `metabolic*` name filter. All core modules (e.g. lifecycle) and shared submodules are automatically included.
+ -   `java -jar synthea-with-dependencies.jar -m metabolic*` -- generate a population using only modules matching the `metabolic*` name filter. All core modules (e.g. lifecycle) and shared submodules are automatically included. To include multiple filters, you need to use the File separator character: on UNIX systems this character is `:` and on Microsoft Windows systems it is `;`. So, for example on Mac OS, using two filters -- one matching "metabolic" and the other "cancer"
+```
+./run_synthea -m metabolic*:*cancer*
+```
+Results in:
+
+```
+Modules: Breast_cancer Module
+       & Colorectal Cancer Module
+       & Lung Cancer Module
+       & Metabolic Syndrome Disease Progression Module
+       & Metabolic Syndrome Standards of Care Module
+       & Veteran Lung Cancer Module
+       & Veteran Prostate Cancer Module
+       > [7 loaded]
+```
  -   `java -jar synthea-with-dependencies.jar --exporter.fhir.use_us_core_ig true` -- generate a population that exports FHIR according to the US Core R4 Implementation Guide profiles.
 
 **[Next: Common Configuration](https://github.com/synthetichealth/synthea/wiki/Common-Configuration)**
