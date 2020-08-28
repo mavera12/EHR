@@ -23,4 +23,35 @@ A few things to keep in mind when evaluating approaches for supporting different
 | Symptom | range | no | also allows for exact values |
 | VitalSign | range | no | also allows for exact values |
 
+## Potential Solutions
+
+### Move units out of ranges/durations
+On the java side of things, if the random variable has units on the same level, it gets placed into a `RangeWithUnits` class. Otherwise, it gets loaded into a `Range` class. When we support different distribution types, since they will have different parameters, they are likely to have their own java classes. If the units are kept with the properties for the distributions, this will likely create the need for two classes per distribution. So, something like Gaussian and GaussianWithUnits. The downside to the move is that it breaks existing GMF JSON, but it would be straightforward to create a script to translate existing modules.
+
+* Pros
+  * Cleaner implementation of new distribution types
+  * More uniform state definitions
+* Cons
+  * Breaks existing GMF JSON format
+  * Would require translation of existing modules
+
+### How to detect distribution type
+#### Add a type property
+Have an extra property in the description of the distribution called `type`. All existing values would have to be updated to include a `"type": "normal"`.
+
+* Pros
+  * Easy for the Gson related code to figure out what is going on
+  * Different distribution types could have the same parameter names
+* Cons
+  * Breaks existing GMF JSON format
+  * Would require translation of existing modules
+
+#### Auto-detect distribution type based on property names
+Look at the properties specified for the distribution and select one based on property names. So if a distribution description in JSON has a `low` and `high` property, use a normal distribution.
+
+* Pros
+  * Backwards compatible
+* Cons
+  * Requires distributions to specify their properties in a way that does not conflict
+  * Potential for user confusion if a distribution is picked that they didn't expect
 
