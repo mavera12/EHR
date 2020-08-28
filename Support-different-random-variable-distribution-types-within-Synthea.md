@@ -55,3 +55,30 @@ Look at the properties specified for the distribution and select one based on pr
   * Requires distributions to specify their properties in a way that does not conflict
   * Potential for user confusion if a distribution is picked that they didn't expect
 
+### Dealing with `range` and `duration`
+Existing states have their random variable properties in either `range` or `duration`. The name range works well for a normal distribution, but it's awkward to be the parent property for a Gaussian distribution being described by a mean and standard deviation.
+
+#### Live with the awkwardness
+Keep the existing property names.
+
+* Pros
+  * Backwards compatible
+* Cons
+  * Feels gross
+
+#### Rename the properties
+Change `range` and `duration` properties to something like `distribution`.
+
+* Pros
+  * GMF representation would make more sense
+* Cons
+  * Breaks existing GMF JSON format
+  * Would require translation of existing modules
+
+#### Deprecate `range` and `duration`, provide new `distribution` property
+Leave the old stuff alone. Note that it is deprecated and will be removed in a future release. Create a new property that supports all of the desired distributions.
+
+* Pros
+  * Backwards compatible
+* Cons
+  * Implementation becomes more of a mess
