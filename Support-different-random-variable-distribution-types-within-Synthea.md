@@ -7,3 +7,6 @@ Synthea [Generic Module Framework](https://github.com/synthetichealth/synthea/wi
 A few things to keep in mind when evaluating approaches for supporting different distribution types:
 
 * Existing GMF JSON - Synthea already has a substantial amount of modules written. Any breaking changes introduced will require fixing the existing modules. Depending on the types of changes introduced, it may be possible to automate this process.
+* Naming conventions - Most, but not all, random variables in Synthea have their characteristics defined in a property called `range`. This makes sense for a uniform distribution, but does not really make sense for other distribution types
+* Existing simulation code -  Each subclass of `State` that generates a random observation, handles it differently
+* Existing module builder code - Any changes made in GMF will need to be reflected in the module builder web application
