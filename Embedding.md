@@ -23,7 +23,7 @@ Below is an example of declaring a dependency on a Synthea release using a Maven
   <dependency>
     <groupId>org.mitre.synthea</groupId>
     <artifactId>Synthea</artifactId>
-    <version>2.5.0</version>
+    <version>2.6.1</version>
   </dependency>
 </dependencies>
 ```
