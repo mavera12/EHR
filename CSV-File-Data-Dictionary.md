@@ -187,8 +187,8 @@ Data Dictionary information for each CSV table follows below.
 | | BirthPlace | String | `true` | Name of the town where the patient was born. |
 | | Address | String | `true` | Patient's street address without commas or newlines. |
 | | City | String | `true` | Patient's address city. |
-| | County | String | `false` | Patient's address county. |
 | | State | String | `true` | Patient's address state. |
+| | County | String | `false` | Patient's address county. |
 | | Zip | String | `false` | Patient's zip code. |
 | | Lat | Numeric | `false` | Latitude of Patient's address. |
 | | Lon | Numeric | `false` | Longitude of Patient's address. |
@@ -265,3 +265,4 @@ Data Dictionary information for each CSV table follows below.
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter when the supplies were used. |
 | | Code | String | `true` | Code for the type of supply used, from SNOMED-CT |
 | | Description | String | `true` | Description of supply used. |
+| | Quantity | Numeric | `true` | Quantity of supply used. |
