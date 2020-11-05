@@ -65,14 +65,16 @@ exporter.practitioner.fhir_dstu2.export = false
 
 ### Producing and Using FHIR
 
-In the `synthea.properties` file, make sure that `exporter.fhir.export`, `exporter.fhir.transaction_bundle`, and `exporter.hospital.fhir.export` are all set to `true`.
+In the `synthea.properties` file, make sure that `exporter.fhir.export`, `exporter.fhir.transaction_bundle`, `exporter.practitioner.fhir.export` and `exporter.hospital.fhir.export` are all set to `true`.
 
 Next, produce some synthetic data:
 ```
 ./run_synthea -p 100
 ```
 
-By default, FHIR JSON data should now exist in the `./output/fhir` sub-directory. If you have a FHIR server and client, you can `POST` those bundles to the FHIR server. For example:
+By default, FHIR JSON data should now exist in the `./output/fhir` sub-directory. If you have a FHIR server and client, you can `POST` those bundles to the FHIR server. See [[FHIR Transaction Bundles]] for additional details and the recommended order that bundles are POSTed.
+
+For example:
 
 ```
 curl http://hapi.fhir.org/baseR4 
