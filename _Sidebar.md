@@ -30,6 +30,7 @@
 - [[Records]]
   - [[Splitting Records and Duplicate Data]]
   - [[HL7 FHIR]]
+    - [[FHIR Transaction Bundles]]
   - [[CSV File Data Dictionary]]
   - [[CPCDS Export]]
   - [[Symptoms Export]]
