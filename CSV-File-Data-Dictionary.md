@@ -101,14 +101,16 @@ Data Dictionary information for each CSV table follows below.
 # Imaging Studies
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| :key: | Id | UUID | `true` | Primary Key. Unique Identifier of the imaging study. |
+| | Id | UUID | `true` | Non-unique identifier of the imaging study. An imaging study may have multiple rows. |
 | | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the imaging study was conducted. |
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the imaging study was conducted. 
+| | Series UID | UUID | `true` | Imaging Study series DICOM UID. |
 | | Body Site Code | String | `true` | A SNOMED Body Structures code describing what part of the body the images in the series were taken of. |
 | | Body Site Description | String | `true` | Description of the body site. |
 | | Modality Code | String | `true` | A [DICOM-DCM](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-dcm-codes) code describing the method used to take the images. |
 | | Modality Description | String | `true` | Description of the modality. |
+| | Instance UID | UUID | `true` | Imaging Study instance DICOM UID. |
 | | SOP Code | String | `true` | A [DICOM-SOP](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-sop-codes) code describing the Subject-Object Pair (SOP) that constitutes the image. |
 | | SOP Description | String | `true` | Description of the SOP code. |
 
