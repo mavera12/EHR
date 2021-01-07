@@ -113,6 +113,7 @@ Data Dictionary information for each CSV table follows below.
 | | Instance UID | UUID | `true` | Imaging Study instance DICOM UID. |
 | | SOP Code | String | `true` | A [DICOM-SOP](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#dicom-sop-codes) code describing the Subject-Object Pair (SOP) that constitutes the image. |
 | | SOP Description | String | `true` | Description of the SOP code. |
+| | Procedure Code | String | `true` | Procedure code from SNOMED-CT. |
 
 # Immunizations
 | | Column Name | Data Type | Required? | Description |
