@@ -164,7 +164,7 @@ Synthea generation occurs in time steps; the default time step is 7 days.  This 
 | `high` | `numeric` | The greatest (inclusive) number of `unit`. |
 | `unit` | `string` | The unit of time, e.g. `"days"`. Must be a valid [unit of time](https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework%3A-Basics#units).|
 
-The exact value for the delay will be chosen randomly from this range.
+The exact delay will be chosen randomly from the specified range as a real number, using a uniform distribution. For example, if the unit of time selected is `years`, Synthea will _not_ produce delays in year increments; instead, it will select a random date/time within the specified range, regardless of the units in which the range is specified.
 
 ### Examples
 
