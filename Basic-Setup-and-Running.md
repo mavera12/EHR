@@ -46,6 +46,7 @@ This command takes additional parameters to specify different regions or common 
 ```
 java -jar synthea-with-dependencies.jar [-h]
                                         [-s seed] 
+                                        [-r referenceDate as YYYYMMDD]
                                         [-cs clinician seed]
                                         [-p populationSize]
                                         [-g gender]
