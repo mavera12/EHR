@@ -235,7 +235,8 @@ Data Dictionary information for each CSV table follows below.
 # Procedures
 | | Column Name | Data Type | Required? | Description |
 |-|-------------|-----------|-----------|-------------|
-| | Date | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the procedure was performed. |
+| | Start <br/> ("Date", prior to v3.0.0 ) | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `true` | The date and time the procedure was performed. |
+| | Stop | iso8601 UTC Date (`yyyy-MM-dd'T'HH:mm'Z'`) | `false` | The date and time the procedure was completed, if applicable. 
 | :old_key: | Patient | UUID | `true` | Foreign key to the Patient. |
 | :old_key: | Encounter | UUID | `true` | Foreign key to the Encounter where the procedure was performed. 
 | | Code | String | `true` | Procedure code from SNOMED-CT |
